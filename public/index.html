@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>BillingSense</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="Luz Collado" content="codedthemes">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    id="main-font-link">
+
+  <link rel="stylesheet" href="tabler-icons.min.css">
+
+  <link rel="stylesheet" href="feather.css">
+
+  <link rel="stylesheet" href="fontawesome.css">
+
+  <link rel="stylesheet" href="material.css">
+
+  <link rel="stylesheet" href="style.css" id="main-style-link">
+  <link rel="stylesheet" href="style-preset.css">
+
+  <style>
+    .text-dark-blue {
+      color: darkblue;
+    }
+
+    .btn-dark-blue {
+      background-color: darkblue;
+      color: white;
+      border: none;
+      transition: background-color 0.3s ease;
+
+    }
+
+    .btn-dark-blue:hover {
+      background-color: navy;
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="card my-5">
+          <div class="card-body">
+            <a href="#" class="d-flex justify-content-center">
+              <img src="logo spaceship-modified.png" style="width: 230px; height: 230px; border-radius: 5px;" alt="...">
+            </a>
+            <div class="row">
+              <div class="d-flex justify-content-center">
+                <div class="auth-header">
+                  <h2 class="mt-5 text-dark-blue"><b>Hola, Bienvenido de nuevo</b></h2>
+                  <p class="f-16 mt-2">Ingresa tus credenciales a continuación</p>
+                </div>
+              </div>
+            </div>
+            <form id="MainForm">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInp" placeholder="Email address">
+                <label for="floatingInput">Correo Electrónico</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="passwordInp" placeholder="Password">
+                <label for="floatingInput1">Contraseña</label>
+              </div>
+              <div class="d-flex mt-1 justify-content-between">
+                <div class="form-check">
+                  <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked="">
+                  <label class="form-check-label text-muted" for="customCheckc1">Recuerdame</label>
+                </div>
+                <h5 class="text-dark-blue" id="forgotpasslabel">Olvidó su contraseña?</h5>
+              </div>
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-secondary btn-dark-blue">Iniciar Sesión</button>
+              </div>
+            </form>
+
+            <hr>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="alertWrongCredentials" class="alert alert-dismissible alert-warning" style="display: none;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">¡Advertencia!</h4>
+    <p class="mb-0">El correo electrónico o la contraseña son incorrectos. Por favor, inténtelo de nuevo.</p>
+  </div>
+
+  <script type="module">
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+    import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+      authDomain: "the-smoke-spaceship.firebaseapp.com",
+      projectId: "the-smoke-spaceship",
+      storageBucket: "the-smoke-spaceship.appspot.com",
+      messagingSenderId: "395109733647",
+      appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase();
+    const auth = getAuth(app);
+    const dbref = ref(db);
+
+    let EmailInp = document.getElementById('emailInp');
+    let PassInp = document.getElementById('passwordInp');
+    let MainForm = document.getElementById('MainForm');
+    let ForgotPassLabel = document.getElementById('forgotpasslabel');
+
+    function SignInUser(evt) {
+      evt.preventDefault();
+
+      const email = EmailInp.value;
+      const password = PassInp.value;
+      const rememberMe = document.getElementById('customCheckc1').checked;
+
+      if (email === '' || password === '') {
+        showAlert('Por favor, complete todos los campos', 'alert-warning');
+        return;
+      }
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async (credentials) => {
+          get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
+            if (snapshot.exists) {
+              if (auth.currentUser.emailVerified) {
+                sessionStorage.setItem("user-info", JSON.stringify({
+                  firstname: snapshot.val().firstname,
+                  lastname: snapshot.val().lastname
+                }))
+                sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                if (rememberMe) {
+                  localStorage.setItem("rememberedEmail", email);
+                } else {
+                  localStorage.removeItem("rememberedEmail");
+                }
+                window.location.href = 'home';
+              } else {
+                showAlert("Por favor, verifique su correo electrónico antes de iniciar sesión.", 'alert-warning');
+              }
+            }
+          })
+        })
+        .catch((error) => {
+          showDangerAlert('Correo o Contraseña incorrecto', 'alert-warning');
+          console.error(error.code);
+          console.error(error.message);
+        });
+    }
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const rememberedEmail = localStorage.getItem("rememberedEmail");
+      if (rememberedEmail) {
+        EmailInp.value = rememberedEmail;
+      }
+    });
+
+
+    let ForgotPassword = () => {
+      sendPasswordResetEmail(auth, EmailInp.value)
+        .then(() => {
+
+        })
+        .catch((error) => {
+
+
+        })
+
+    }
+
+    MainForm.addEventListener('submit', SignInUser);
+    ForgotPassLabel.addEventListener('click', ForgotPassword);
+
+    document.getElementById("forgotpasslabel").addEventListener("click", function () {
+
+      if (EmailInp.value == '') {
+        showAlert('Ingrese el Correo Electrónico', 'alert-warning');
+      } else {
+        showSuccessAlert('Se envió un correo para restablecer su contraseña', 'alert-success');
+      }
+    });
+
+
+    function showAlert(message, alertType) {
+      const alertDiv = document.createElement('div');
+      alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+      alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">¡Advertencia!</h4>
+    <p class="mb-0">${message}</p>
+  `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
+    }
+
+    function showDangerAlert(message) {
+      const alertDiv = document.createElement('div');
+      alertDiv.classList.add('alert', 'alert-dismissible', 'alert-danger', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+      alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Oh no!</strong> ${message}
+  `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
+    }
+
+    function showSuccessAlert(message) {
+      const alertDiv = document.createElement('div');
+      alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+      alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Bien hecho!</strong> ${message}
+  `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
+    }
+
+
+  </script>
+
+  <script src="popper.min.js"></script>
+  <script src="simplebar.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="custom-font.js"></script>
+  <script src="pcoded.js"></script>
+  <script src="feather.min.js"></script>
+
+
+
+
+  <script>layout_change('light');</script>
+
+
+
+
+  <script>font_change("Roboto");</script>
+
+
+  <script>change_box_container('false');</script>
+
+
+  <script>layout_caption_change('true');</script>
+
+
+
+
+  <script>layout_rtl_change('false');</script>
+
+
+  <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>

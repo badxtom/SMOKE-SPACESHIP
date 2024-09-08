@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Home</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="Luz Collado" content="codedthemes">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    id="main-font-link">
+
+  <link rel="stylesheet" href="tabler-icons.min.css">
+
+  <link rel="stylesheet" href="feather.css">
+
+  <link rel="stylesheet" href="fontawesome.css">
+
+  <link rel="stylesheet" href="material.css">
+
+  <link rel="stylesheet" href="style.css" id="main-style-link">
+  <link rel="stylesheet" href="style-preset.css">
+
+  <style>
+    .bg-green {
+      background-color: green;
+    }
+
+    .bg-red {
+      background-color: rgb(167, 15, 15);
+    }
+
+    .bg-mint-green {
+      background-color: #6bc8e4;
+    }
+
+    .bg-gray {
+      background-color: gray;
+    }
+
+    .disabled {
+      color: gray;
+      cursor: default;
+    }
+
+    .notification {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .notification .fas {
+      margin-right: 10px;
+    }
+
+    .notification .message-container {
+      display: inline-block;
+    }
+
+    .notification .message {
+      font-size: 14px;
+    }
+
+    .low-stock {
+      background-color: #ffeaa7;
+
+    }
+
+    .expiry-warning {
+      background-color: #ff7675;
+
+    }
+
+    .expired {
+      background-color: #d63031;
+
+    }
+
+    .success {
+      background-color: #8aeb7d;
+
+      color: #050505;
+
+    }
+  </style>
+
+</head>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const userCreds = sessionStorage.getItem("user-creds");
+    if (!userCreds && window.location.pathname.includes('home')) {
+      window.location.href = 'login';
+    }
+
+  });
+</script>
+
+<body>
+
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+  <nav class="pc-sidebar">
+    <div class="navbar-wrapper">
+      <div class="m-header">
+        <a href="home" class="b-brand text-primary">
+          <img src="logo spaceship-modified.png" style="width: 80px; height: 80px; border-radius: 5px;" alt="...">
+        </a>
+      </div>
+
+      <div class="navbar-content">
+        <ul class="pc-navbar">
+          <li class="pc-item pc-caption">
+            <label>Dashboard</label>
+            <i class="ti ti-dashboard"></i>
+          </li>
+          <li class="pc-item">
+            <a href="home" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+              <span class="pc-mtext">Sistema</span>
+            </a>
+          </li>
+          <li class="pc-item pc-caption">
+            <label>Empresa</label>
+            <i class="ti ti-dashboard"></i>
+          </li>
+          <li class="pc-item">
+            <a href="info" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+              <span class="pc-mtext">Datos</span>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="pc-header">
+    <div class="header-wrapper">
+
+      <div class="ms-auto">
+        <ul class="list-unstyled">
+          <li class="pc-h-item header-mobile-collapse">
+            <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+              <i class="ti ti-menu-2"></i>
+            </a>
+          </li>
+          <li class="pc-h-item pc-sidebar-popup">
+            <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+              <i class="ti ti-menu-2"></i>
+            </a>
+          </li>
+          <!-- <li class="dropdown pc-h-item">
+            <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
+              href="#" role="button" aria-haspopup="false" aria-expanded="false">
+              <i class="ti ti-bell"></i>
+            </a>
+            <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+              <div class="dropdown-header">
+                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all read</a>
+                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+              </div>
+              <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                style="max-height: calc(100vh - 215px)">
+                <div class="list-group list-group-flush w-100">
+                  <div class="list-group-item list-group-item-action">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0">
+                        <div class="user-avtar bg-light-success"><i class="ti ti-building-store"></i></div>
+                      </div>
+                      <div class="flex-grow-1 ms-1">
+                        <span class="float-end text-muted">3 min ago</span>
+                        <h5>Store Verification Done</h5>
+                        <p class="text-body fs-6">We have successfully received your request.</p>
+                        <div class="badge rounded-pill bg-light-danger">Unread</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-group-item list-group-item-action">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0">
+                        <img src="../assets/images/user/avatar-3.jpg" alt="user-image" class="user-avtar">
+                      </div>
+                      <div class="flex-grow-1 ms-1">
+                        <span class="float-end text-muted">10 min ago</span>
+                        <h5>Joseph William</h5>
+                        <p class="text-body fs-6">It is a long established fact that a reader will be distracted </p>
+                        <div class="badge rounded-pill bg-light-success">Confirmation of Account</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="text-center py-2">
+                <a href="#!" class="link-primary">Mark as all read</a>
+              </div>
+            </div>
+          </li> -->
+          <li class="dropdown pc-h-item header-user-profile">
+            <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown" href="#"
+              role="button" aria-haspopup="false" aria-expanded="false">
+              <img src="logo spaceship-modified.png" style="width: 50px; height: 50px; border-radius: 50%;" />
+
+              <span>
+                <i class="ti ti-settings"></i>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+              <div class="dropdown-header">
+                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                <p class="text-muted" id="role">Rol</p>
+                <hr>
+                <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 280px)">
+                  <hr>
+                  <button id="settingsButton" type="submit" class="dropdown-item">
+                    <i class="ti ti-settings"></i>
+                    <span>Configuración</span>
+                  </button>
+                  <button id="registerButton" type="submit" class="dropdown-item">
+                    <i class="ti ti-user-plus"></i>
+                    <span>Registro</span>
+                  </button>
+                  <button class="dropdown-item" id="signoutbutton">
+                    <i class="ti ti-logout"></i>
+                    <span>Cerrar Sesión</span>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="pc-container">
+    <div class="pc-content">
+
+      <div class="row">
+
+        <div class="col-xl-4 col-md-6">
+          <a href="registro" id="facturarLink" style="text-decoration: none;">
+            <div class="card bg-secondary-dark dashnum-card text-white overflow-hidden">
+              <span class="round small"></span>
+              <span class="round big"></span>
+              <div class="card-body">
+                <span class="text-white d-block f-34 f-w-500 my-2" style="white-space: nowrap;">Ventas<i
+                    class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xl-4 col-md-6">
+          <a href="productos" id="productosLink" style="text-decoration: none;">
+            <div class="card bg-green dashnum-card text-white overflow-hidden">
+              <span class="round small"></span>
+              <span class="round big"></span>
+              <div class="card-body">
+                <div class="tab-content" id="chart-tab-tabContent">
+                  <div class="tab-pane show active" id="chart-tab-home" role="tabpanel"
+                    aria-labelledby="chart-tab-home-tab" tabindex="0">
+                    <div class="row">
+                      <div class="col-6">
+                        <span class="text-white d-block f-34 f-w-500 my-2" style="white-space: nowrap;">Productos<i
+                            class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+                      </div>
+                      <div class="col-6">
+                        <div id="tab-chart-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+
+        <div class="col-xl-4 col-md-6">
+          <a href="catalogo-de-cuentas" id="pacientesLink" style="text-decoration: none;">
+            <div class="card bg-mint-green dashnum-card text-white overflow-hidden">
+              <span class="round small"></span>
+              <span class="round big"></span>
+              <div class="card-body">
+                <div class="tab-content" id="chart-tab-tabContent">
+                  <div class="tab-pane show active" id="chart-tab-home" role="tabpanel"
+                    aria-labelledby="chart-tab-home-tab" tabindex="0">
+                    <div class="row">
+                      <div class="col-6">
+                        <span class="text-white d-block f-34 f-w-500 my-2" style="white-space: nowrap;">Cuentas<i
+                            class="ti ti-arrow-up-right-circle opacity-50"></i></span>
+                      </div>
+                      <div class="col-6">
+                        <div id="tab-chart-1"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div id="Notification" class="formulario-container">
+          <h3 class="mb-3">Notificaciones</h3>
+          <div id="notificationList">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+  </div>
+
+  <footer class="pc-footer">
+    <div class="footer-wrapper container-fluid">
+      <div class="row">
+        <div class="col-sm-6 my-1">
+          <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+
+
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+    import { getDatabase, set, ref, get, child } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+      authDomain: "the-smoke-spaceship.firebaseapp.com",
+      projectId: "the-smoke-spaceship",
+      storageBucket: "the-smoke-spaceship.appspot.com",
+      messagingSenderId: "395109733647",
+      appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase();
+    const auth = getAuth();
+    const dba = getFirestore();
+
+    const usernameElement = document.getElementById('username');
+    const roleElement = document.getElementById('role');
+    const registerButton = document.getElementById('registerButton');
+    const settingsButton = document.getElementById('settingsButton');
+    const empleados = document.getElementById('empleados');
+
+    function showUserData(userId) {
+      const dbRef = ref(db);
+      get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+          roleElement.textContent = userData.roleselect;
+
+          if (userData.roleselect === 'Asistente') {
+            registerButton.disabled = true;
+            document.getElementById('empleados').classList.add('disabled');
+            document.getElementById('empleados').addEventListener('click', function (event) {
+              event.preventDefault();
+            });
+
+            const pacientesLink = document.getElementById('pacientesLink');
+            pacientesLink.removeAttribute('href');
+            pacientesLink.style.pointerEvents = 'none';
+            pacientesLink.style.opacity = '0.5';
+
+            const productosLink = document.getElementById('productosLink');
+            productosLink.removeAttribute('href');
+            productosLink.style.pointerEvents = 'none';
+            productosLink.style.opacity = '0.5';
+
+            const suplidorLink = document.getElementById('suplidorLink');
+            suplidorLink.removeAttribute('href');
+            suplidorLink.style.pointerEvents = 'none';
+            suplidorLink.style.opacity = '0.5';
+          }
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+
+    function showUserData2(userId) {
+      const dbRef = ref(db);
+      get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+          roleElement.textContent = userData.roleselect;
+
+          if (userData.roleselect === 'Administrador de Almacén') {
+            registerButton.disabled = true;
+            document.getElementById('empleados').addEventListener('click', function (event) {
+              event.preventDefault();
+            });
+            const pacientesLink = document.getElementById('pacientesLink');
+            pacientesLink.removeAttribute('href');
+            pacientesLink.style.pointerEvents = 'none';
+            pacientesLink.style.opacity = '0.5';
+
+            const facturarLink = document.getElementById('facturarLink');
+            facturarLink.removeAttribute('href');
+            facturarLink.style.pointerEvents = 'none';
+            facturarLink.style.opacity = '0.5';
+
+          }
+        } else {
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+
+    // function showUserData3(userId) {
+    //   const dbRef = ref(db);
+    //   get(child(dbRef, `UsersAuthList/${userId}`))
+    //     .then((snapshot) => {
+    //       if (snapshot.exists()) {
+    //         const userData = snapshot.val();
+    //         usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+    //         roleElement.textContent = userData.roleselect;
+
+
+    //         if (userData.roleselect === 'Administrador de Almacén') {
+
+    //           document.getElementById('almacenCard').addEventListener('click', function (event) {
+    //             event.preventDefault();
+    //             window.location.href = 'almacen'; 
+    //           });
+    //         } else {
+
+    //           document.getElementById('almacenCard').addEventListener('click', function (event) {
+    //             event.preventDefault();
+    //             window.location.href = 'solicitudes'; 
+    //           });
+    //         }
+    //       } else {
+    //         console.log("No data available");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // }
+
+
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        showUserData(user.uid);
+        showUserData2(user.uid);
+        // showUserData3(user.uid);
+      } else {
+        console.log("User is not signed in");
+      }
+    });
+
+    let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+    let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+    let UserName = JSON.parse(sessionStorage.getItem("username"));
+    let Role = JSON.parse(sessionStorage.getItem("role"));
+
+    let SignoutBtn = document.getElementById('signoutbutton');
+
+    let Signout = () => {
+      sessionStorage.removeItem("user-creds");
+      sessionStorage.removeItem("user-info");
+
+      window.location.href = 'login';
+    }
+
+    let CheckCred = () => {
+      if (!sessionStorage.getItem("user-creds"))
+        window.location.href = 'login';
+      else {
+        UserName.innerText = ` ${UserName.firstname}`
+        Role.innerText = ` ${UserName.roleselect}`
+      }
+    }
+
+    document.getElementById('registerButton').addEventListener('click', () => {
+      window.location.href = 'register';
+    });
+
+    document.getElementById('settingsButton').addEventListener('click', () => {
+      window.location.href = 'settings';
+    });
+
+    SignoutBtn.addEventListener('click', Signout);
+
+    function formatSpanishDate(date) {
+      const day = date.getDate().toString().padStart(2, '0');
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Los meses comienzan en 0
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    async function checkLowStock() {
+      const productosSnapshot = await getDocs(collection(dba, 'productos'));
+      notificationList.innerHTML = '';
+
+      let notificationsExist = false;
+
+      productosSnapshot.forEach((doc) => {
+        const producto = doc.data();
+        const descripcion = producto.descripcion;
+        const disponible = producto.disponible;
+
+        if (disponible <= 10) {
+          addNotification(descripcion, disponible, 'baja');
+          notificationsExist = true;
+        }
+      });
+
+      if (!notificationsExist) {
+        showNoNotificationsMessage();
+      }
+    }
+
+    function showNoNotificationsMessage() {
+      const noNotificationsMessage = document.createElement('div');
+      noNotificationsMessage.classList.add('notification', 'success');
+      noNotificationsMessage.textContent = 'No hay notificaciones';
+      notificationList.appendChild(noNotificationsMessage);
+    }
+
+    function addNotification(descripcion, detalle, tipo) {
+      const notificationItem = document.createElement('div');
+      notificationItem.classList.add('notification');
+
+      const icon = document.createElement('i');
+      icon.classList.add('fas', 'fa-exclamation-circle');
+
+      const messageContainer = document.createElement('div');
+      messageContainer.classList.add('message-container');
+
+      const message = document.createElement('span');
+      message.classList.add('message');
+
+      let messageText = '';
+      if (tipo === 'baja') {
+        notificationItem.classList.add('low-stock');
+        messageText = `Producto: ${descripcion} - Cantidad disponible: ${detalle}`;
+      }
+
+      message.textContent = messageText;
+
+      // Agregar elementos al contenedor de la notificación
+      messageContainer.appendChild(message);
+      notificationItem.appendChild(icon);
+      notificationItem.appendChild(messageContainer);
+
+      notificationList.appendChild(notificationItem);
+    }
+
+    window.addEventListener('load', checkLowStock);
+
+
+  </script>
+
+
+  <script src="popper.min.js"></script>
+  <script src="simplebar.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="custom-font.js"></script>
+  <script src="pcoded.js"></script>
+  <script src="feather.min.js"></script>
+
+
+
+
+
+  <script>layout_change('light');</script>
+
+
+
+
+  <script>font_change("Roboto");</script>
+
+
+  <script>change_box_container('false');</script>
+
+
+  <script>layout_caption_change('true');</script>
+
+
+
+
+  <script>layout_rtl_change('false');</script>
+
+
+  <script>preset_change("preset-1");</script>
+
+
+
+
+</html>

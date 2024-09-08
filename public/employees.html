@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Empleados</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="Luz Collado" content="codedthemes">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="Designer (7).jpeg" style="width: 90px; height: 90px; border-radius: 5px;" alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="employees" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-friends"></i></span>
+                            <span class="pc-mtext">Empleados</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="finanzas" class="pc-link disabled" id="finanzas">
+                            <span class="pc-micon"><i class="ti ti-report-money"></i></span>
+                            <span class="pc-mtext">Finanzas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="Designer (7).jpeg" style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item" aria-current="page">Empresa</li>
+                        <li class="breadcrumb-item" aria-current="page">Empleados</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Registro de Empleados</h5>
+                            <div class="card-header">
+                                <a href="#" class="pc-link" id="nuevo" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Nuevo</span>
+                                </a>
+                            </div>
+                            <div class="card-header">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar" style="flex: 1 0 auto;">
+                                    <!-- <button class="btn btn-dark-blue my-2 my-sm-0" type="submit">Buscar</button> -->
+                                    <button id="generatePDFbutton" type="button"
+                                        class="btn btn-dark-red fa-solid fa-file-pdf"></button>
+
+                                </form>
+                            </div>
+
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="overflow-x: auto;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre(s)</th>
+                                                <th scope="col">Apellido(s)</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Cédula</th>
+                                                <th scope="col">Ocupación</th>
+                                                <th scope="col">Especialidad(es)</th>
+                                                <th scope="col">Fecha de Entrada</th>
+                                                <th scope="col">Estatus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nuevoFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Registrar Empleado</h3>
+            <form id="MainForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="fnameInp" placeholder="Nombre">
+                            <label for="floatingInput">*Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lnameInp" placeholder="Apellido">
+                            <label for="floatingInput1">*Apellido(s)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="dni" placeholder="Cédula">
+                    <label for="floatingInput">*Cédula</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="number" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailInp" placeholder="Correo Electrónico">
+                    <label for="floatingInput2">Correo Electrónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="location" placeholder="Dirección">
+                    <label for="floatingInput2">*Dirección</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="roleSelect" aria-label="Floating label select example">
+                        <option selected>Elige una ocupación</option>
+                        <option value="Enfermero">Enfermero</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Recepcionista">Recepcionista</option>
+                    </select>
+                    <label for="roleSelect">*Ocupación</label>
+                </div>
+                <div class="form-floating mb-3" id="exequaturContainer" style="display: none;">
+                    <input type="text" class="form-control" id="exequaturInput" placeholder="Exequatur">
+                    <label for="exequaturInput">Exequátur</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntrada" placeholder="Fecha de entrada">
+                    <label for="fechaEntrada">*Fecha de entrada</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="roleSelectEst" aria-label="Floating label select example">
+                        <option selected>Elige un Estatus</option>
+                        <option value="Activo">Activo</option>
+                        <option value="No Activo">No Activo</option>
+                    </select>
+                    <label for="roleSelectEst">*Estatus</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <fieldset>
+                        <legend class="mb-3" id="espselect">*Especialidad(es)</legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxNA" value="N/A">
+                            <label class="form-check-label" for="checkboxNA">N/A</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOncologiaMedica"
+                                value="Oncología Médica">
+                            <label class="form-check-label" for="checkboxOncologiaMedica">Oncología Médica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOncoHematologiaPediatrica"
+                                value="Onco-Hematología Pediátrica">
+                            <label class="form-check-label" for="checkboxOncoHematologiaPediatrica">Onco-Hematología
+                                Pediátrica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxHematologia"
+                                value="Hematología">
+                            <label class="form-check-label" for="checkboxHematologia">Hematología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCardiologia"
+                                value="Cardiología">
+                            <label class="form-check-label" for="checkboxCardiologia">Cardiología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxGinecoOncologia"
+                                value="Gineco-Oncología">
+                            <label class="form-check-label" for="checkboxGinecoOncologia">Gineco-Oncología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCirugiaOncologica"
+                                value="Cirugía Oncológica">
+                            <label class="form-check-label" for="checkboxCirugiaOncologica">Cirugía Oncológica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCirugiaOncoplasticaMamaria"
+                                value="Cirugía Oncoplástica Mamaria">
+                            <label class="form-check-label" for="checkboxCirugiaOncoplasticaMamaria">Cirugía
+                                Oncoplástica
+                                Mamaria</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOtro" value="Otro">
+                            <label class="form-check-label" for="checkboxOtro">Otro</label>
+                        </div>
+                        <div class="form-floating mb-3" id="otraEspecialidadContainer" style="display: none;">
+                            <input type="text" class="form-control" id="otraEspecialidad"
+                                placeholder="Escriba la especialidad">
+                            <label for="otraEspecialidad">Especialidad</label>
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="updateButton">Registrar
+                        datos</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="EditarFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Editar Empleado</h3>
+            <form id="MainFormE">
+                <input type="hidden" id="docId">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="fnameInpE" placeholder="Nombre">
+                            <label for="floatingInput">*Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lnameInpE" placeholder="Apellido">
+                            <label for="floatingInput1">*Apellido(s)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="dniE" placeholder="Cédula">
+                    <label for="floatingInput">*Cédula</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="numberE" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailInpE" placeholder="Correo Electrónico">
+                    <label for="floatingInput2">Correo Electrónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="locationE" placeholder="Dirección">
+                    <label for="floatingInput2">*Dirección</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="roleSelectE" aria-label="Floating label select example">
+                        <option selected>Elige una ocupación</option>
+                        <option value="Enfermero">Enfermero</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Recepcionista">Recepcionista</option>
+                    </select>
+                    <label for="roleSelectE">*Ocupación</label>
+                </div>
+                <div class="form-floating mb-3" id="exequaturContainerE" style="display: none;">
+                    <input type="text" class="form-control" id="exequaturInputE" placeholder="Exequatur">
+                    <label for="exequaturInputE">Exequátur</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntradaE" placeholder="Fecha de entrada">
+                    <label for="fechaEntradaE">*Fecha de entrada</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="roleSelectEstE" aria-label="Floating label select example">
+                        <option selected>Elige un Estatus</option>
+                        <option value="Activo">Activo</option>
+                        <option value="No Activo">No Activo</option>
+                    </select>
+                    <label for="roleSelectEstE">*Estatus</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <fieldset>
+                        <legend class="mb-3" id="espselectE">*Especialidad(es)</legend>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxNAE" value="N/A">
+                            <label class="form-check-label" for="checkboxNAE">N/A</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOncologiaMedicaE"
+                                value="Oncología Médica">
+                            <label class="form-check-label" for="checkboxOncologiaMedicaE">Oncología Médica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOncoHematologiaPediatricaE"
+                                value="Onco-Hematología Pediátrica">
+                            <label class="form-check-label" for="checkboxOncoHematologiaPediatricaE">Onco-Hematología
+                                Pediátrica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxHematologiaE"
+                                value="Hematología">
+                            <label class="form-check-label" for="checkboxHematologiaE">Hematología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCardiologiaE"
+                                value="Cardiología">
+                            <label class="form-check-label" for="checkboxCardiologiaE">Cardiología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxGinecoOncologiaE"
+                                value="Gineco-Oncología">
+                            <label class="form-check-label" for="checkboxGinecoOncologiaE">Gineco-Oncología</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCirugiaOncologicaE"
+                                value="Cirugía Oncológica">
+                            <label class="form-check-label" for="checkboxCirugiaOncologicaE">Cirugía Oncológica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxCirugiaOncoplasticaMamariaE"
+                                value="Cirugía Oncoplástica Mamaria">
+                            <label class="form-check-label" for="checkboxCirugiaOncoplasticaMamariaE">Cirugía
+                                Oncoplástica
+                                Mamaria</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="checkboxOtroE" value="Otro">
+                            <label class="form-check-label" for="checkboxOtroE">Otro</label>
+                        </div>
+                        <div class="form-floating mb-3" id="otraEspecialidadContainerE" style="display: none;">
+                            <input type="text" class="form-control" id="otraEspecialidadE"
+                                placeholder="Escriba la especialidad">
+                            <label for="otraEspecialidadE">Especialidad</label>
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="actuaButton"> Actualizar</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeEButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+        <img id="logoPreview" src="" alt="Vista previa del logo"
+            style="display: none; margin-top: 10px; max-width: 100px;">
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+            if (!userCreds && window.location.pathname.includes('datos')) {
+                window.location.href = 'login';
+            }
+
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCknSaxVHB10B_v-4yD9UtNj1dmZZKVRe4",
+            authDomain: "billing-system-fbfb3.firebaseapp.com",
+            projectId: "billing-system-fbfb3",
+            storageBucket: "billing-system-fbfb3.appspot.com",
+            messagingSenderId: "906484441227",
+            appId: "1:906484441227:web:7b486131ad930a7b03b48e"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+        const storage = getStorage(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('employees')) {
+                window.location.href = 'login';
+            }
+
+            if (userCreds && window.location.pathname.includes('employees')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        if (role === 'Asistente') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                        if (role === 'Administrador de Almacén') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+        document.getElementById('roleSelect').addEventListener('change', function () {
+            const exequaturContainer = document.getElementById('exequaturContainer');
+            if (this.value === 'Doctor') {
+                exequaturContainer.style.display = 'block';
+            } else {
+                exequaturContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('roleSelectE').addEventListener('change', function () {
+            const exequaturContainerE = document.getElementById('exequaturContainerE');
+            if (this.value === 'Doctor') {
+                exequaturContainerE.style.display = 'block';
+            } else {
+                exequaturContainerE.style.display = 'none';
+            }
+        });
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+        const formSE = document.getElementById('MainFormSE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+        const checkboxOtro = document.getElementById('checkboxOtro');
+        const checkboxOtroE = document.getElementById('checkboxOtroE');
+        const otraEspecialidadContainer = document.getElementById('otraEspecialidadContainer');
+        const otraEspecialidadInput = document.getElementById('otraEspecialidad');
+        const fechaEntrada = document.getElementById('fechaEntrada');
+        const fechaEntradaE = document.getElementById('fechaEntradaE');
+
+        let EmailInp = document.getElementById('emailInp');
+        let FnameInp = document.getElementById('fnameInp');
+        let LnameInp = document.getElementById('lnameInp');
+        const dniInput = document.getElementById('dni');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+        const roleSelect = document.getElementById('roleSelect');
+        const roleSelectEst = document.getElementById('roleSelectEst');
+        const checkboxNA = document.getElementById('checkboxNA');
+        const checkboxOncologiaMedica = document.getElementById('checkboxOncologiaMedica');
+        const checkboxOncoHematologiaPediatrica = document.getElementById('checkboxOncoHematologiaPediatrica');
+        const checkboxHematologia = document.getElementById('checkboxHematologia');
+        const checkboxCardiologia = document.getElementById('checkboxCardiologia');
+        const checkboxGinecoOncologia = document.getElementById('checkboxGinecoOncologia');
+        const checkboxCirugiaOncologica = document.getElementById('checkboxCirugiaOncologica');
+        const checkboxCirugiaOncoplasticaMamaria = document.getElementById('checkboxCirugiaOncoplasticaMamaria');
+
+        const EditarFormulario = document.getElementById('EditarFormulario');
+        const actuButton = document.getElementById('actuButton');
+        let EmailInpE = document.getElementById('emailInpE');
+        let FnameInpE = document.getElementById('fnameInpE');
+        let LnameInpE = document.getElementById('lnameInpE');
+        const dniInputE = document.getElementById('dniE');
+        const numberInputE = document.getElementById('numberE');
+        const locationInputE = document.getElementById('locationE');
+        const roleSelectE = document.getElementById('roleSelectE');
+        const roleSelectEstE = document.getElementById('roleSelectEstE');
+        const checkboxNAE = document.getElementById('checkboxNAE');
+        const checkboxOncologiaMedicaE = document.getElementById('checkboxOncologiaMedicaE');
+        const checkboxOncoHematologiaPediatricaE = document.getElementById('checkboxOncoHematologiaPediatricaE');
+        const checkboxHematologiaE = document.getElementById('checkboxHematologiaE');
+        const checkboxCardiologiaE = document.getElementById('checkboxCardiologiaE');
+        const checkboxGinecoOncologiaE = document.getElementById('checkboxGinecoOncologiaE');
+        const checkboxCirugiaOncologicaE = document.getElementById('checkboxCirugiaOncologicaE');
+        const checkboxCirugiaOncoplasticaMamariaE = document.getElementById('checkboxCirugiaOncoplasticaMamariaE');
+        const otraEspecialidadContainerE = document.getElementById('otraEspecialidadContainerE');
+        const otraEspecialidadInputE = document.getElementById('otraEspecialidadE');
+
+
+        checkboxOtro.addEventListener('change', function () {
+
+            if (checkboxOtro.checked) {
+                otraEspecialidadContainer.style.display = 'block';
+                otraEspecialidadInput.disabled = false;
+                otraEspecialidadInput.focus();
+            } else {
+
+                otraEspecialidadContainer.style.display = 'none';
+                otraEspecialidadInput.disabled = true;
+                otraEspecialidadInput.value = '';
+            }
+        });
+
+        checkboxOtroE.addEventListener('change', function () {
+
+            if (checkboxOtroE.checked) {
+                otraEspecialidadContainerE.style.display = 'block';
+                otraEspecialidadInputE.disabled = false;
+                otraEspecialidadInputE.focus();
+            } else {
+
+                otraEspecialidadContainerE.style.display = 'none';
+                otraEspecialidadInputE.disabled = true;
+                otraEspecialidadInputE.value = '';
+            }
+        });
+
+        otraEspecialidadInput.addEventListener('input', function () {
+            let currentValue = otraEspecialidadInput.value;
+
+            currentValue = currentValue.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜ\s]/g, '');
+
+            otraEspecialidadInput.value = currentValue;
+        });
+
+        otraEspecialidadInputE.addEventListener('input', function () {
+            let currentValue = otraEspecialidadInputE.value;
+
+            currentValue = currentValue.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜ\s]/g, '');
+
+            otraEspecialidadInputE.value = currentValue;
+        });
+
+
+
+        LnameInp.addEventListener('input', () => {
+            let inputValue = LnameInp.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            LnameInp.value = inputValue;
+        });
+
+        FnameInp.addEventListener('input', () => {
+            let inputValue = FnameInp.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            FnameInp.value = inputValue;
+        });
+
+        FnameInpE.addEventListener('input', () => {
+            let inputValue = FnameInpE.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            FnameInpE.value = inputValue;
+        });
+
+
+        LnameInpE.addEventListener('input', () => {
+            let inputValue = LnameInpE.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            LnameInpE.value = inputValue;
+        });
+
+
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+
+
+
+        function toggleFormulario() {
+            if (nuevoFormulario.style.display === 'none') {
+                nuevoFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                nuevoFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioE() {
+            if (EditarFormulario.style.display === 'none' || EditarFormulario.style.display === '') {
+                EditarFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                EditarFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        closeButton.addEventListener('click', function () {
+
+            nuevoFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInp').value = '';
+            document.getElementById('lnameInp').value = '';
+            document.getElementById('dni').value = '';
+            document.getElementById('number').value = '';
+            document.getElementById('emailInp').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('roleSelect').selectedIndex = 0;
+            document.getElementById('roleSelectE').selectedIndex = 0;
+            document.getElementById('checkboxNA').checked = false;
+            document.getElementById('checkboxOncologiaMedica').checked = false;
+            document.getElementById('checkboxOncoHematologiaPediatrica').checked = false;
+            document.getElementById('checkboxHematologia').checked = false;
+            document.getElementById('checkboxCardiologia').checked = false;
+            document.getElementById('checkboxGinecoOncologia').checked = false;
+            document.getElementById('checkboxCirugiaOncologica').checked = false;
+            document.getElementById('checkboxCirugiaOncoplasticaMamaria').checked = false;
+            document.getElementById('checkboxOtro').checked = false;
+            document.getElementById('otraEspecialidad').value = '';
+            document.getElementById('exequaturInput').value = '';
+            document.getElementById('fechaEntrada').value = '';
+        });
+
+        closeEButton.addEventListener('click', function () {
+
+            EditarFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInpE').value = '';
+            document.getElementById('lnameInpE').value = '';
+            document.getElementById('dniE').value = '';
+            document.getElementById('numberE').value = '';
+            document.getElementById('emailInpE').value = '';
+            document.getElementById('locationE').value = '';
+            document.getElementById('roleSelectE').selectedIndex = 0;
+            document.getElementById('roleSelectEstE').selectedIndex = 0;
+            document.getElementById('checkboxNAE').checked = false;
+            document.getElementById('checkboxOncologiaMedicaE').checked = false;
+            document.getElementById('checkboxOncoHematologiaPediatricaE').checked = false;
+            document.getElementById('checkboxHematologiaE').checked = false;
+            document.getElementById('checkboxCardiologiaE').checked = false;
+            document.getElementById('checkboxGinecoOncologiaE').checked = false;
+            document.getElementById('checkboxCirugiaOncologicaE').checked = false;
+            document.getElementById('checkboxCirugiaOncoplasticaMamariaE').checked = false;
+            document.getElementById('checkboxOtroE').checked = false;
+            document.getElementById('otraEspecialidadE').value = '';
+            document.getElementById('exequaturInputE').value = '';
+            document.getElementById('fechaEntradaE').value = '';
+        });
+
+        function formatCedula(input) {
+
+            const cleaned = input.value.replace(/\D/g, '');
+
+            const match = cleaned.match(/^(\d{3})(\d{7})(\d{1})$/);
+            if (match) {
+                input.value = match[1] + '-' + match[2] + '-' + match[3];
+            } else {
+                input.value = cleaned.substring(0, 10);
+            }
+        }
+
+        // document.getElementById('exequaturInput').addEventListener('input', function (e) {
+        //     const input = e.target;
+        //     const value = input.value.replace(/\D/g, ''); 
+        //     const formattedValue = value.replace(/(\d{3})(\d{2})/, '$1-$2');
+
+        //     if (value.length > 5) {
+        //         input.value = formattedValue.substring(0, 6);
+        //     } else {
+        //         input.value = formattedValue;
+        //     }
+        // });
+
+        // document.getElementById('exequaturInputE').addEventListener('input', function (e) {
+        //     const input = e.target;
+        //     const value = input.value.replace(/\D/g, ''); 
+        //     const formattedValue = value.replace(/(\d{3})(\d{2})/, '$1-$2');
+
+        //     if (value.length > 5) {
+        //         input.value = formattedValue.substring(0, 6);
+        //     } else {
+        //         input.value = formattedValue;
+        //     }
+        // });
+
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            let inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+
+            const trimmedValue = numericValue.slice(0, 10);
+
+            const formattedValue = trimmedValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
+            input.value = formattedValue;
+        }
+
+        const phoneNumberInput = document.getElementById('number');
+        phoneNumberInput.addEventListener('input', validatePhoneNumber);
+        numberInputE.addEventListener('input', validatePhoneNumber);
+
+
+        const cedulaInput = document.getElementById('dni');
+
+        cedulaInput.addEventListener('input', function () {
+            formatCedula(this);
+        });
+
+        dniInputE.addEventListener('input', function () {
+            formatCedula(this);
+        });
+
+        Nuevo.addEventListener('click', toggleFormulario);
+
+        SignoutBtn.addEventListener('click', Signout);
+
+        function registerData() {
+
+            const fname = fnameInp.value;
+            const lname = lnameInp.value;
+            const dni = dniInput.value;
+            const number = numberInput.value;
+            const email = emailInp.value;
+            const location = locationInput.value;
+            const role = roleSelect.value;
+            const roleE = roleSelectEst.value;
+            const exequatur = (role === 'Doctor') ? exequaturInput.value.trim() : null;
+
+
+            const fechaEntradaValue = (fechaEntrada.value) ? formatDateToSpanish(fechaEntrada.value) : null;
+
+
+            if (fname === '' || lname === '' || dni === '' || number === '' || location === '' || role === 'Elige una ocupación' || roleE === 'Elige un Estatus' || (role === 'Doctor' && !exequatur) || !fechaEntradaValue) {
+                showAlert('Por favor complete todos los campos obligatorios marcados con *.', 'alert-warning');
+                return;
+            }
+
+
+            const especialidades = [];
+            if (checkboxNA.checked) especialidades.push(checkboxNA.value);
+            if (checkboxOncologiaMedica.checked) especialidades.push(checkboxOncologiaMedica.value);
+            if (checkboxOncoHematologiaPediatrica.checked) especialidades.push(checkboxOncoHematologiaPediatrica.value);
+            if (checkboxHematologia.checked) especialidades.push(checkboxHematologia.value);
+            if (checkboxCardiologia.checked) especialidades.push(checkboxCardiologia.value);
+            if (checkboxGinecoOncologia.checked) especialidades.push(checkboxGinecoOncologia.value);
+            if (checkboxCirugiaOncologica.checked) especialidades.push(checkboxCirugiaOncologica.value);
+            if (checkboxCirugiaOncoplasticaMamaria.checked) especialidades.push(checkboxCirugiaOncoplasticaMamaria.value);
+            if (checkboxOtro.checked && otraEspecialidadInput.value.trim() !== '') {
+                especialidades.push(otraEspecialidadInput.value.trim());
+            }
+
+
+            const empleadoData = {
+                fname: fname,
+                lname: lname,
+                dni: dni,
+                number: number,
+                email: email,
+                location: location,
+                role: role,
+                roleE: roleE,
+                especialidades: especialidades,
+                fechaEntrada: fechaEntradaValue
+            };
+
+
+            if (role === 'Doctor') {
+                empleadoData.exequatur = exequatur;
+            }
+
+
+            addDoc(collection(getFirestore(), 'empleados'), empleadoData)
+                .then((docRef) => {
+                    showSuccessAlert('Empleado registrado!', 'alert-success');
+
+                    form.reset();
+
+                    checkboxNA.checked = false;
+                    checkboxOncologiaMedica.checked = false;
+                    checkboxOncoHematologiaPediatrica.checked = false;
+                    checkboxHematologia.checked = false;
+                    checkboxCardiologia.checked = false;
+                    checkboxGinecoOncologia.checked = false;
+                    checkboxCirugiaOncologica.checked = false;
+                    checkboxCirugiaOncoplasticaMamaria.checked = false;
+                    checkboxOtro.checked = false;
+                    otraEspecialidadInput.value = '';
+
+                    if (role !== 'Doctor') {
+                        document.getElementById('exequaturContainer').style.display = 'none';
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error al agregar el documento: ', error);
+                });
+        }
+
+
+        function formatDateToSpanish(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getUTCDate()).padStart(2, '0');
+            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+            const year = date.getUTCFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            registerData();
+        });
+
+
+
+
+
+        function showAlert(message, alertType) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">¡Advertencia!</h4>
+        <p class="mb-0">${message}</p>
+    `;
+
+            const formContainer = document.getElementById('nuevoFormulario');
+            formContainer.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>¡Bien hecho!</strong> ${message}
+    `;
+
+            const formContainer = document.getElementById('nuevoFormulario');
+            formContainer.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        const tableBody = document.querySelector('tbody');
+        const searchInput = document.getElementById('searchInput');
+
+
+        async function loadEmployees() {
+
+            function formatDateToSpanish(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getUTCDate()).padStart(2, '0');
+                const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                const year = date.getUTCFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            tableBody.innerHTML = '';
+
+            const employeesSnapshot = await getDocs(collection(getFirestore(), 'empleados'));
+
+            if (employeesSnapshot.empty) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 8; // Asegúrate de que coincida con el número de columnas en tu tabla
+                cell.textContent = 'No hay empleados registrados';
+                cell.classList.add('text-center'); // Centrar el texto
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+            } else {
+                employeesSnapshot.forEach((doc) => {
+                    const employeeData = doc.data();
+                    const { fname, lname, dni, number, role, roleE, especialidades, location, email, fechaEntrada, exequatur } = employeeData;
+
+                    const datePartsE = fechaEntrada.split('/');
+                    const formattedfechaEntradaE = `${datePartsE[2]}-${datePartsE[1]}-${datePartsE[0]}`;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+            <td>${fname}</td>
+            <td>${lname}</td>
+            <td>${number}</td>
+            <td>${dni}</td>
+            <td>${role}</td>
+            <td>${especialidades.join(', ')}</td>
+            <td>${fechaEntrada}</td>
+            <td>${roleE}</td>
+        `;
+
+                    row.addEventListener('dblclick', () => {
+                        FnameInpE.value = fname;
+                        LnameInpE.value = lname;
+                        dniInputE.value = dni;
+                        numberInputE.value = number;
+                        locationInputE.value = location;
+                        EmailInpE.value = email;
+                        roleSelectE.value = role;
+                        roleSelectEstE.value = roleE;
+                        fechaEntradaE.value = formattedfechaEntradaE || '';
+
+                        if (role === 'Doctor') {
+                            document.getElementById('exequaturContainerE').style.display = 'block';
+                            document.getElementById('exequaturInputE').value = exequatur || '';
+                        } else {
+                            document.getElementById('exequaturContainerE').style.display = 'none';
+                        }
+
+                        document.querySelectorAll('#EditarFormulario input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+
+                        especialidades.forEach(especialidad => {
+                            const checkbox = document.querySelector(`#EditarFormulario input[type="checkbox"][value="${especialidad}"]`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            } else if (especialidad !== 'N/A') {
+                                otraEspecialidadContainerE.style.display = 'block';
+                                otraEspecialidadInputE.value = especialidad;
+                            }
+                        });
+
+                        EditarFormulario.dataset.docId = doc.id;
+                        toggleFormularioE();
+                    });
+
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+
+
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().includes(searchTerm)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        searchInput.addEventListener('input', filterTable);
+
+        async function saveChanges() {
+            const docId = EditarFormulario.dataset.docId;
+            if (!docId) return;
+
+            const fechaEntradaValue = (fechaEntradaE.value) ? formatDateToSpanish(fechaEntradaE.value) : null;
+
+            const updatedData = {
+                fname: FnameInpE.value,
+                lname: LnameInpE.value,
+                dni: dniInputE.value,
+                number: numberInputE.value,
+                location: locationInputE.value,
+                email: EmailInpE.value,
+                role: roleSelectE.value,
+                roleE: roleSelectEstE.value,
+                especialidades: Array.from(document.querySelectorAll('#EditarFormulario input[type="checkbox"]:checked')).map(checkbox => checkbox.value),
+                fechaEntrada: fechaEntradaValue
+            };
+
+            if (otraEspecialidadInputE.value) {
+                updatedData.especialidades.push(otraEspecialidadInputE.value);
+            }
+
+
+            if (roleSelectE.value === 'Doctor') {
+                updatedData.exequatur = document.getElementById('exequaturInputE').value;
+            }
+
+            try {
+                await setDoc(doc(getFirestore(), 'empleados', docId), updatedData);
+                showSuccessAlert('Empleado actualizado correctamente"', 'alert-success');
+                EditarFormulario.style.display = 'none';
+                loadEmployees();
+            } catch (error) {
+                console.error('Error actualizando documento: ', error);
+            }
+        }
+
+
+        formE.addEventListener('submit', function (event) {
+            event.preventDefault();
+            toggleFormularioE();
+            saveChanges();
+        });
+
+        loadEmployees();
+
+
+
+        function loadCompanyData() {
+            const dbRef = ref(db);
+            get(child(dbRef, 'datos/')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const companyData = snapshot.val();
+
+                    const logoURL = companyData.logoURL || '';
+                    if (logoURL) {
+                        const logoPreview = document.getElementById('logoPreview');
+                        logoPreview.src = logoURL;
+                    }
+
+
+                } else {
+                    console.log('No se encontraron datos de la empresa.');
+                }
+            }).catch((error) => {
+                console.error('Error al cargar los datos de la empresa:', error);
+            });
+        }
+
+        loadCompanyData();
+
+
+
+        document.getElementById('generatePDFbutton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+
+                const logoImage = new Image();
+                logoImage.src = 'unoin.png';
+
+                logoImage.onload = async () => {
+
+                    const logoWidth = 20;
+                    const logoHeight = (logoWidth / logoImage.width) * logoImage.height;
+                    const marginRight = 15;
+                    const marginTop = 5;
+                    doc.addImage(logoImage, 'PNG', doc.internal.pageSize.width - logoWidth - marginRight, marginTop, logoWidth, logoHeight);
+
+                    doc.setFontSize(20);
+                    doc.text('Registro de Empleados', 15, 10);
+
+                    const empresaSnapshot = await get(ref(db, 'datos/'));
+                    const empresaData = empresaSnapshot.val();
+
+                    if (empresaData) {
+                        doc.setFontSize(12);
+                        doc.text(`${empresaData.name}`, 15, 20);
+                        doc.text(`RNC: ${empresaData.rnc}`, 15, 25);
+                        doc.text(`Teléfono: ${empresaData.number}`, 15, 30);
+
+
+                        const location = empresaData.location;
+                        if (location.length > 15) {
+                            const firstLine = location.substring(0, 23);
+                            let secondLine = location.substring(23);
+                            if (secondLine.length > 35) {
+                                const secondLineFirstPart = secondLine.substring(0, 35);
+                                const secondLineSecondPart = secondLine.substring(35);
+                                secondLine = secondLineFirstPart + '\n' + secondLineSecondPart;
+                            }
+                            doc.text(`Dirección: ${firstLine}`, 15, 35);
+                            doc.text(`${secondLine}`, 15, 40);
+                        } else {
+                            doc.text(`Dirección: ${empresaData.location}`, 15, 35);
+                        }
+                    }
+                    doc.autoTable({
+                        head: [['Nombre', 'Apellido', 'Teléfono', 'Cédula', 'Ocupación', 'Especialidad(es)', 'Fecha de Entrada', 'Estatus']],
+                        body: Array.from(tableBody.querySelectorAll('tr')).map(row =>
+                            Array.from(row.querySelectorAll('td')).map(cell => cell.innerText)
+                        ),
+                        startY: 50
+                    });
+
+                    const pdfBlob = await doc.output('blob');
+                    saveAs(pdfBlob, 'empleados.pdf');
+
+                    // doc.save('empleados.pdf');
+                };
+            } catch (error) {
+                console.error('Error al generar el PDF:', error);
+                showAlert('Error al generar el PDF', 'alert-danger');
+            }
+        });
+
+
+
+
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>

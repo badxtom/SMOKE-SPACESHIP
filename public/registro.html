@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Registro de Ventas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Luz Collado" content="codedthemes">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        #progress-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            width: 50%;
+            /* Ajusta este valor según tus necesidades */
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="logo spaceship-modified.png" style="width: 90px; height: 90px; border-radius: 5px;"
+                        alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="logo spaceship-modified.png"
+                                style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Ventas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Registro de Ventas</h5>
+                            <div class="card-header" style="margin-top: 10px;">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px; margin-bottom: 10px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar producto" style="flex: 1 0 auto;">
+
+                                    <button id="generatePDFbutton" type="button"
+                                        class="btn btn-dark-red fa-solid fa-file-pdf"
+                                        style="margin-right: 10px;"></button>
+                                </form>
+                                <div id="searchResults" class="dropdown-menu" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="desp" placeholder="Descripción">
+                                        <label for="desp">*Descripción</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="disp" placeholder="Disponible">
+                                        <label for="disp">*Disponible</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="precio" placeholder="Precio">
+                                        <label for="precio">*Precio</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cantidadFacturar"
+                                            placeholder="Cantidad a vender">
+                                        <label for="cantidadFacturar">*Cantidad a vender</label>
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-control" id="cuentaContable" placeholder="Cuenta Contable">
+                                        <option value="">Seleccione una cuenta contable</option>
+                                    </select>
+                                    <label for="cuentaContable">*Cuenta Contable</label>
+                                </div>
+                            </div>
+                            <button id="addToListButton" type="button" class="btn btn-success">Agregar a la
+                                lista</button>
+                            <hr>
+                            <div class="table-responsive">
+                                <table id="facturaTable" class="table" style="overflow-x: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Precio Unitario</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facturaTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="totalsContainer" class="mt-3">
+                                <label id="totalLabel">Total a pagar:$0.00</label>
+                                <br>
+                            </div>
+                            <button id="guardarButton" type="button" class="btn btn-primary mr-3">Registrar
+                                venta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="progress-container" style="display:none;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('facturar')) {
+                window.location.href = 'login';
+                return; // Agrega return para detener la ejecución
+            }
+
+            if (userCreds && window.location.pathname.includes('facturar')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        if (role === 'Administrador de Almacén') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+            authDomain: "the-smoke-spaceship.firebaseapp.com",
+            projectId: "the-smoke-spaceship",
+            storageBucket: "the-smoke-spaceship.appspot.com",
+            messagingSenderId: "395109733647",
+            appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+        const storage = getStorage(app);
+        const dba = getFirestore(app);
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+
+        let FnameInp = document.getElementById('fnameInp');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+
+        const searchPatientInput = document.getElementById('searchPatientInput');
+        const searchPatientResults = document.getElementById('searchPatientResults');
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+        const searchInput = document.getElementById('searchInput');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        const totalLabel = document.getElementById('totalLabel');
+        const totalWithITBISLabel = document.getElementById('totalWithITBISLabel');
+        const generatePDFButton = document.getElementById('generatePDFButton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+        SignoutBtn.addEventListener('click', Signout);
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            const inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+            const trimmedValue = numericValue.slice(0, 10);
+            input.value = trimmedValue;
+        }
+
+        cantidadFacturar.addEventListener('input', validatePhoneNumber);
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const db = getFirestore(app);
+
+            const searchInput = document.getElementById('searchInput');
+            const descripcionInput = document.getElementById('desp');
+            const disponibleInput = document.getElementById('disp');
+            const precioInput = document.getElementById('precio');
+            const cantidadFacturarInput = document.getElementById('cantidadFacturar');
+            const addToListButton = document.getElementById('addToListButton');
+            const facturaTableBody = document.getElementById('facturaTableBody');
+            const searchResults = document.getElementById('searchResults');
+            const totalLabel = document.getElementById('totalLabel');
+
+            descripcionInput.disabled = true;
+            disponibleInput.disabled = true;
+            precioInput.disabled = true;
+
+            let productos = [];
+
+            function updateDropdown(query, resultsElement, items, callback) {
+                resultsElement.innerHTML = '';
+                resultsElement.style.display = 'none';
+
+                items.forEach(item => {
+                    const searchField = item.descripcion;
+                    if (searchField.toLowerCase().includes(query.toLowerCase())) {
+                        const dropdownItem = document.createElement('button');
+                        dropdownItem.classList.add('dropdown-item');
+                        dropdownItem.type = 'button';
+                        dropdownItem.textContent = searchField;
+                        dropdownItem.addEventListener('click', function () {
+                            callback(item);
+                            resultsElement.style.display = 'none';
+                        });
+                        resultsElement.appendChild(dropdownItem);
+                        resultsElement.style.display = 'block';
+                    }
+                });
+            }
+
+            async function getAllProductos() {
+                const querySnapshot = await getDocs(collection(db, 'productos'));
+                productos = querySnapshot.docs.map(doc => doc.data());
+            }
+
+            function updateTotals() {
+                let total = 0;
+
+                const rows = document.querySelectorAll('#facturaTable tbody tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 4) {
+                        const cantidad = parseFloat(cells[1].textContent.trim());
+                        const precioUnitario = parseFloat(cells[2].textContent.trim());
+                        const subtotal = cantidad * precioUnitario;
+                        cells[3].textContent = subtotal.toFixed(2);  // Actualizar la celda de total con el subtotal calculado
+                        total += subtotal;
+                    } else {
+                        console.error('Unexpected number of cells in row:', cells.length);
+                    }
+                });
+
+                const totalLabel = document.getElementById('totalLabel');
+                if (totalLabel) {
+                    totalLabel.textContent = `Total a pagar: ${total.toFixed(2)}`;  // Mostrar el total sin la moneda
+                } else {
+                    console.error('totalLabel not found in the DOM');
+                }
+            }
+
+
+            function addToFactura() {
+                const descripcion = descripcionInput.value;
+                const cantidad = parseInt(cantidadFacturarInput.value);
+                const precioMoneda = precioInput.value.split(' ');
+                const precio = parseFloat(precioMoneda[0]);
+                const disponible = parseInt(disponibleInput.value);
+
+                if (!descripcion || isNaN(cantidad) || cantidad <= 0 || isNaN(precio) || precio <= 0) {
+                    showAlert('Por favor, complete todos los campos.', 'alert-warning');
+                    return;
+                }
+
+                if (cantidad > disponible) {
+                    showAlert('No hay suficiente stock disponible.', 'alert-danger');
+                    return;
+                }
+
+                if (!isNaN(cantidad) && cantidad > 0) {
+                    const total = cantidad * precio;
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                <td>${descripcion}</td>
+                <td>${cantidad}</td>
+                <td>${precio.toFixed(2)}</td>
+                <td>${total.toFixed(2)}}</td>
+                <td><button class="btn btn-danger btn-sm delete-button">Eliminar</button></td>
+            `;
+
+                    facturaTableBody.appendChild(row);
+
+                    row.querySelector('.delete-button').addEventListener('click', function () {
+                        row.remove();
+                        updateTotals();
+                    });
+                    updateTotals();
+                } else {
+                    showAlert('Ingrese una cantidad válida.', 'alert-warning');
+                }
+            }
+
+            searchInput.addEventListener('input', function () {
+                const query = searchInput.value.trim();
+                updateDropdown(query, searchResults, productos, function (producto) {
+                    searchInput.value = producto.descripcion;
+                    descripcionInput.value = producto.descripcion;
+                    disponibleInput.value = producto.disponible;
+                    precioInput.value = `${producto.precioVenta}`;
+                    cantidadFacturarInput.value = '';
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!searchResults.contains(event.target) && !searchInput.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            addToListButton.addEventListener('click', addToFactura);
+
+            cantidadFacturarInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    addToFactura();
+                }
+            });
+
+            getAllProductos();
+        });
+
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Bien hecho!</strong> ${message}
+  `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        function obtenerFechaActual() {
+            const fecha = new Date();
+            const dia = String(fecha.getDate()).padStart(2, '0'); // Obtener el día, y asegurarse de que tenga 2 dígitos
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Obtener el mes (los meses van de 0 a 11 en JavaScript)
+            const año = fecha.getFullYear(); // Obtener el año
+
+            return `${dia}/${mes}/${año}`;
+        }
+
+
+        function obtenerFechaActualF() {
+            const fecha = new Date();
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const año = fecha.getFullYear();
+            return `${dia}-${mes}-${año}`;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            cargarCuentasContables();
+        });
+
+        async function cargarCuentasContables() {
+            const cuentasSelect = document.getElementById('cuentaContable');
+            const querySnapshot = await getDocs(collection(dba, 'CatalogoCuentas'));
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id;
+                option.textContent = `${data.codigo} - ${data.nombre}`;
+                cuentasSelect.appendChild(option);
+
+                // Añadir subcuentas
+                data.subcuentas.forEach((subcuenta) => {
+                    const subOption = document.createElement('option');
+                    subOption.value = `${doc.id}_${subcuenta.codigo}`;
+                    subOption.textContent = `  ${subcuenta.codigo} - ${subcuenta.nombre}`;
+                    cuentasSelect.appendChild(subOption);
+                });
+            });
+        }
+
+        async function asociarVentaConCuenta(ventaId, cuentaId) {
+            const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId.split('_')[0]);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (cuentaDoc.exists()) {
+                const cuentaData = cuentaDoc.data();
+                const subcuentas = cuentaData.subcuentas;
+
+                if (cuentaId.includes('_')) {
+                    // Es una subcuenta
+                    const subcuentaCodigo = cuentaId.split('_')[1];
+                    const subcuenta = subcuentas.find(sub => sub.codigo === subcuentaCodigo);
+                    if (subcuenta) {
+                        if (!subcuenta.ventas) {
+                            subcuenta.ventas = [];
+                        }
+                        subcuenta.ventas.push(ventaId); // Guardar el uid de la venta en la subcuenta
+                    }
+                } else {
+                    // Es una cuenta principal
+                    if (!cuentaData.ventas) {
+                        cuentaData.ventas = [];
+                    }
+                    cuentaData.ventas.push(ventaId); // Guardar el uid de la venta en la cuenta principal
+                }
+
+                await updateDoc(cuentaRef, cuentaData);
+            } else {
+                showAlert('No se encontró la cuenta contable seleccionada.', 'alert-danger');
+            }
+        }
+
+        document.getElementById('guardarButton').addEventListener('click', async () => {
+            // Obtener los datos del formulario
+            const descripcion = document.getElementById('desp').value.trim();
+            const disponible = parseFloat(document.getElementById('disp').value.trim());
+            const precio = parseFloat(document.getElementById('precio').value.trim());
+            const cantidadFacturar = parseFloat(document.getElementById('cantidadFacturar').value.trim());
+            const cuentaContable = document.getElementById('cuentaContable').value;
+
+            // Validar los datos del formulario
+            if (!descripcion || isNaN(disponible) || isNaN(precio) || isNaN(cantidadFacturar) || !cuentaContable) {
+                showAlert('Por favor complete todos los campos correctamente.', 'alert-danger');
+                return;
+            }
+            const fechaActual = obtenerFechaActual();
+
+            // Obtener los ítems de la tabla
+            const items = [];
+            const rows = document.querySelectorAll('#facturaTable tbody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 4) {
+                    const descripcionItem = cells[0].textContent.trim();
+                    const cantidadItem = parseFloat(cells[1].textContent.trim());
+                    const precioUnitarioItem = parseFloat(cells[2].textContent.trim());
+                    const totalItem = parseFloat(cells[3].textContent.trim());
+
+                    items.push({
+                        descripcion: descripcionItem,
+                        cantidad: cantidadItem,
+                        precioUnitario: precioUnitarioItem,
+                        total: totalItem
+                    });
+                }
+            });
+
+            // Obtener la fecha actual
+            const fecha = new Date().toISOString();
+
+            // Guardar la venta en Firestore
+            const ventaData = {
+                descripcion,
+                disponible,
+                precio,
+                cantidadFacturar,
+                cuentaContable,
+                items,
+                total: parseFloat(document.getElementById('totalLabel').textContent.replace('Total a pagar: ', '').trim()),
+                fecha: fechaActual
+            };
+
+            try {
+                // Agregar la venta a la colección 'ventas'
+                const ventasRef = collection(dba, 'ventas');
+                const ventaDocRef = await addDoc(ventasRef, ventaData);
+                const ventaId = ventaDocRef.id; // Aquí obtienes el uid de la venta
+
+                // Buscar el producto en la colección 'productos' usando el campo descripcion
+                const productosRef = collection(dba, 'productos');
+                const q = query(productosRef, where('descripcion', '==', descripcion));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    showAlert('Producto no encontrado.', 'alert-danger');
+                    return;
+                }
+
+                // Suponemos que solo hay un documento que coincide con la descripción
+                const productoDoc = querySnapshot.docs[0];
+                const productoData = productoDoc.data();
+                const nuevaCantidad = productoData.disponible - cantidadFacturar;
+
+                // Asegurarse de que la nueva cantidad no sea negativa
+                if (nuevaCantidad < 0) {
+                    alert('La cantidad a vender excede la cantidad disponible.');
+                    return;
+                }
+
+                // Actualizar la cantidad disponible del producto
+                await updateDoc(productoDoc.ref, { disponible: nuevaCantidad });
+
+                await asociarVentaConCuenta(ventaId, cuentaContable);
+
+                // Limpiar el formulario y la tabla
+                document.getElementById('MainFormSE').reset();
+                document.getElementById('facturaTableBody').innerHTML = '';
+                document.getElementById('totalLabel').textContent = 'Total a pagar: $0.00';
+                document.getElementById('desp').value = '';
+                document.getElementById('disp').value = '';
+                document.getElementById('precio').value = '';
+                document.getElementById('cantidadFacturar').value = '';
+                document.getElementById('cuentaContable').value = '';
+                showAlert('Venta registrada exitosamente.', 'alert-success');
+            } catch (error) {
+                console.error('Error al guardar la venta:', error);
+                showAlert('Hubo un error al registrar la venta.', 'alert-danger');
+            }
+        });
+
+
+        document.getElementById('generatePDFbutton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const logoImage = new Image();
+                logoImage.src = 'logo spaceship-modified.png';
+
+                logoImage.onload = async () => {
+                    const logoWidth = 30;
+                    const logoHeight = (logoWidth / logoImage.width) * logoImage.height;
+                    const marginRight = 15;
+                    const marginTop = 5;
+                    doc.addImage(logoImage, 'PNG', doc.internal.pageSize.width - logoWidth - marginRight, marginTop, logoWidth, logoHeight);
+
+                    doc.setFontSize(20);
+                    doc.text('Registro de Ventas', 15, 10);
+
+                    const empresaSnapshot = await get(ref(db, 'datos/'));
+                    const empresaData = empresaSnapshot.val();
+
+                    if (empresaData) {
+                        doc.setFontSize(12);
+                        doc.text(`${empresaData.name}`, 15, 20);
+                        doc.text(`Teléfono: ${empresaData.number}`, 15, 25);
+
+                        const location = empresaData.location;
+                        if (location.length > 15) {
+                            const firstLine = location.substring(0, 23);
+                            let secondLine = location.substring(23);
+                            if (secondLine.length > 35) {
+                                const secondLineFirstPart = secondLine.substring(0, 35);
+                                const secondLineSecondPart = secondLine.substring(35);
+                                secondLine = secondLineFirstPart + '\n' + secondLineSecondPart;
+                            }
+                            doc.text(`Dirección: ${firstLine}`, 15, 30);
+                            doc.text(`${secondLine}`, 15, 35);
+                        } else {
+                            doc.text(`Dirección: ${empresaData.location}`, 15, 30);
+                        }
+                    }
+
+                    // Obtener los datos de la colección 'ventas'
+                    const ventasRef = collection(getFirestore(), 'ventas');
+                    const ventasSnapshot = await getDocs(ventasRef);
+
+                    if (ventasSnapshot.empty) {
+                        doc.text('No hay ventas disponibles para mostrar.', 15, 40);
+                    } else {
+                        const ventasData = ventasSnapshot.docs.map(doc => {
+                            const data = doc.data();
+                            const items = data.items.map(item =>
+                                `Descripción: ${item.descripcion}, Cantidad: ${item.cantidad}, Precio Unitario: ${item.precioUnitario}, Total: ${item.total}`
+                            ).join('\n');
+
+                            return [
+                                items || '',
+                                data.disponible || '',
+                                data.precio || '',
+                                data.total || '',
+                                data.fecha || ''
+                            ];
+                        });
+
+                        doc.autoTable({
+                            head: [['Items', 'Disponible', 'Precio', 'Total', 'Fecha']],
+                            body: ventasData,
+                            startY: 45
+                        });
+                    }
+
+                    const pdfBlob = await doc.output('blob');
+                    saveAs(pdfBlob, 'ventas.pdf');
+                };
+            } catch (error) {
+                console.error('Error al generar el PDF:', error);
+                showAlert('Error al generar el PDF', 'alert-danger');
+            }
+        });
+
+
+
+
+
+        function showAlert(message, alertType) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert ${alertType} position-fixed top-50 start-50 translate-middle`;
+            alertBox.style.zIndex = '1050'; // Asegurar que el z-index sea alto para estar encima de otros elementos
+
+            let heading;
+            if (alertType === 'alert-success') {
+                heading = '¡Bien hecho!';
+            } else if (alertType === 'alert-danger') {
+                heading = '¡Advertencia!';
+            } else {
+                heading = '¡Atención!';
+            }
+
+            alertBox.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>${heading}</strong> ${message}
+    `;
+
+            document.body.appendChild(alertBox);
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3000);
+        }
+
+
+
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>

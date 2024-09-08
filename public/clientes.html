@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Clientes</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Luz Collado" content="codedthemes">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="credyfast logo.png" style="width: 90px; height: 90px; border-radius: 5px;" alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="credyfast.jpeg" style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Clientes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Registro de Clientes</h5>
+                            <div class="card-header">
+                                <a href="#" class="pc-link" id="nuevo" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Nuevo</span>
+                                </a>
+                            </div>
+                            <div class="card-header">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar" style="flex: 1 0 auto;">
+                                    <!-- <button class="btn btn-dark-blue my-2 my-sm-0" type="submit">Buscar</button> -->
+                                    <button id="generatePDFbutton" type="button"
+                                        class="btn btn-dark-red fa-solid fa-file-pdf"></button>
+
+                                </form>
+                            </div>
+
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre(s)</th>
+                                                <th scope="col">Apellido(s)</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Cédula</th>
+                                                <th scope="col">Dirección</th>
+                                                <th scope="col">Provincia</th>
+                                                <th scope="col">Fecha de registro</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div>
+                                    <ul class="pagination" id="paginationCuentasPorCobrar">
+                                        <!-- Los botones de paginación serán añadidos dinámicamente -->
+                                    </ul>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nuevoFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Registrar Cliente</h3>
+            <form id="MainForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="fnameInp" placeholder="Nombre">
+                            <label for="floatingInput">*Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lnameInp" placeholder="Apellido">
+                            <label for="floatingInput1">*Apellido(s)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="dni" placeholder="Cédula">
+                    <label for="floatingInput">*Cédula</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="number" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nEmergencia" placeholder="Teléfono">
+                    <label for="floatingInput">*Contacto de emergencia</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="location" placeholder="Dirección">
+                    <label for="floatingInput2">*Dirección</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="provincia" placeholder="Provincia">
+                    <label for="floatingInput2">*Provincia</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="edad" placeholder="Edad">
+                    <label for="floatingInput2">*Edad</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="cuentaContable" placeholder="Cuenta Contable">
+                        <option value="">Seleccione una cuenta contable</option>
+                    </select>
+                    <label for="cuentaContable">*Cuenta Contable</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntrada" placeholder="Fecha de entrada">
+                    <label for="fechaEntrada">*Fecha de entrada</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="updateButton">Registrar datos</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="EditarFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Editar Cliente</h3>
+            <form id="MainFormE">
+                <input type="hidden" id="docId">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="fnameInpE" placeholder="Nombre">
+                            <label for="floatingInput">*Nombre(s)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lnameInpE" placeholder="Apellido">
+                            <label for="floatingInput1">*Apellido(s)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="dniE" placeholder="Cédula">
+                    <label for="floatingInput">*Cédula</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="numberE" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nEmergenciaE" placeholder="Teléfono">
+                    <label for="floatingInput">*Contacto de emergencia</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="locationE" placeholder="Dirección">
+                    <label for="floatingInput2">*Dirección</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="provinciaE" placeholder="Provincia">
+                    <label for="floatingInput2">*Provincia</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="edadE" placeholder="Edad">
+                    <label for="floatingInput2">*Edad</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-control" id="cuentaContableE" placeholder="Cuenta Contable">
+                        <option value="">Seleccione una cuenta contable</option>
+                    </select>
+                    <label for="cuentaContableE">*Cuenta Contable</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntradaE" placeholder="Fecha de entrada">
+                    <label for="fechaEntradaE">*Fecha de entrada</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="actuaButton"> Actualizar</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeEButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <img id="logoPreview" src="" alt="Vista previa del logo"
+            style="display: none; margin-top: 10px; max-width: 100px;">
+    </div>
+    <div id="HistorialFacturas" class="formulario-container" style="display: none;">
+        <h3 class="mb-3">Historial de Recibos</h3>
+        <div id="listaFacturas" class="lista-facturas">
+
+        </div>
+        <div class="d-grid mt-2">
+            <button type="button" class="btn btn-danger" id="closeHistorialButton">Cerrar</button>
+        </div>
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+            if (!userCreds && window.location.pathname.includes('datos')) {
+                window.location.href = 'login';
+            }
+
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll, deleteObject } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrwVJPge2eU3TcrHlab1ntjQhiFt1HVmY",
+            authDomain: "credyfast-1fb5a.firebaseapp.com",
+            projectId: "credyfast-1fb5a",
+            storageBucket: "credyfast-1fb5a.appspot.com",
+            messagingSenderId: "234808688977",
+            appId: "1:234808688977:web:5a9210e52ed6d09a721370"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+        const storage = getStorage(app);
+        const dba = getFirestore();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('pacientes')) {
+                window.location.href = 'login';
+                return;
+            }
+
+            if (userCreds && window.location.pathname.includes('pacientes')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        if (role === 'Asistente') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                        if (role === 'Administrador de Almacén') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+
+
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+        const formSE = document.getElementById('MainFormSE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+
+
+        let FnameInp = document.getElementById('fnameInp');
+        let LnameInp = document.getElementById('lnameInp')
+        const EmailInp = document.getElementById('emailInp');;
+        const EmailInpE = document.getElementById('emailInpE');;
+        const dniInput = document.getElementById('dni');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+        const searchInputM = document.getElementById('searchInputM');
+        const searchResultsM = document.getElementById('searchResultsM');
+
+        const EditarFormulario = document.getElementById('EditarFormulario');
+        const actuButton = document.getElementById('actuButton');
+        let FnameInpE = document.getElementById('fnameInpE');
+        let LnameInpE = document.getElementById('lnameInpE');
+        const dniInputE = document.getElementById('dniE');
+        const numberInputE = document.getElementById('numberE');
+        const locationInputE = document.getElementById('locationE');
+        const searchInputME = document.getElementById('searchInputME');
+        const searchResultsME = document.getElementById('searchResultsME');
+
+        const ARS = document.getElementById('ars');
+        const Npoliza = document.getElementById('npoliza');
+        const ARSE = document.getElementById('arsE');
+        const NpolizaE = document.getElementById('npolizaE');
+
+        const nEmergencia = document.getElementById('nEmergencia');
+        const Provincia = document.getElementById('provincia');
+        const Edad = document.getElementById('edad');
+        const fechaNac = document.getElementById('fechaNac');
+
+        const nEmergenciaE = document.getElementById('nEmergenciaE');
+        const ProvinciaE = document.getElementById('provinciaE');
+        const EdadE = document.getElementById('edadE');
+        const fechaNacE = document.getElementById('fechaNacE');
+
+
+
+        LnameInp.addEventListener('input', () => {
+            let inputValue = LnameInp.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            LnameInp.value = inputValue;
+        });
+
+        FnameInp.addEventListener('input', () => {
+            let inputValue = FnameInp.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            FnameInp.value = inputValue;
+        });
+
+        FnameInpE.addEventListener('input', () => {
+            let inputValue = FnameInpE.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            FnameInpE.value = inputValue;
+        });
+
+
+        LnameInpE.addEventListener('input', () => {
+            let inputValue = LnameInpE.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            LnameInpE.value = inputValue;
+        });
+
+
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        function showUserData2(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Administrador de Almacén') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+                showUserData2(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+        const HistorialFacturas = document.getElementById('HistorialFacturas');
+        const closeHistorialButton = document.getElementById('closeHistorialButton');
+
+
+        function toggleFormularioH() {
+            const historialContainer = document.getElementById('HistorialFacturas');
+            const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+            if (historialContainer.style.display === 'none' || historialContainer.style.display === '') {
+                historialContainer.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                historialContainer.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+        function toggleFormulario() {
+            if (nuevoFormulario.style.display === 'none') {
+                nuevoFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                nuevoFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioE() {
+            if (EditarFormulario.style.display === 'none' || EditarFormulario.style.display === '') {
+                EditarFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                EditarFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        closeButton.addEventListener('click', function () {
+
+            nuevoFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInp').value = '';
+            document.getElementById('lnameInp').value = '';
+            document.getElementById('dni').value = '';
+            document.getElementById('number').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('fechaEntrada').value = '';
+            document.getElementById('nEmergencia').value = '';
+            document.getElementById('provincia').value = '';
+            document.getElementById('edad').value = '';
+            document.getElementById('cuentaContable').value = '';
+
+        });
+
+        closeEButton.addEventListener('click', function () {
+
+            EditarFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInpE').value = '';
+            document.getElementById('lnameInpE').value = '';
+            document.getElementById('dniE').value = '';
+            document.getElementById('numberE').value = '';
+            document.getElementById('locationE').value = '';
+            document.getElementById('fechaEntradaE').value = '';
+            document.getElementById('nEmergenciaE').value = '';
+            document.getElementById('provinciaE').value = '';
+            document.getElementById('edadE').value = '';
+            document.getElementById('cuentaContableE').value = '';
+
+
+
+        });
+
+        function formatCedula(input) {
+
+            const cleaned = input.value.replace(/\D/g, '');
+
+            const match = cleaned.match(/^(\d{3})(\d{7})(\d{1})$/);
+            if (match) {
+                input.value = match[1] + '-' + match[2] + '-' + match[3];
+            } else {
+                input.value = cleaned.substring(0, 10);
+            }
+        }
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            let inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+
+            const trimmedValue = numericValue.slice(0, 10);
+
+            const formattedValue = trimmedValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
+            input.value = formattedValue;
+        }
+
+        const phoneNumberInput = document.getElementById('number');
+        phoneNumberInput.addEventListener('input', validatePhoneNumber);
+        numberInputE.addEventListener('input', validatePhoneNumber);
+
+        nEmergencia.addEventListener('input', validatePhoneNumber);
+        nEmergenciaE.addEventListener('input', validatePhoneNumber);
+
+
+        const cedulaInput = document.getElementById('dni');
+
+        cedulaInput.addEventListener('input', function () {
+            formatCedula(this);
+        });
+
+        dniInputE.addEventListener('input', function () {
+            formatCedula(this);
+        });
+
+        Nuevo.addEventListener('click', toggleFormulario);
+
+        SignoutBtn.addEventListener('click', Signout);
+
+
+        async function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = tableBody.getElementsByTagName('tr');
+
+            // Obtener datos de la colección 'clientes'
+            try {
+                const clientesRef = collection(getFirestore(), 'clientes');
+                const clientesSnapshot = await getDocs(clientesRef);
+
+                if (clientesSnapshot.empty) {
+                    console.log('No hay clientes encontrados.');
+                    return;
+                }
+
+                // Filtrar los datos por todos los campos especificados
+                const filteredData = clientesSnapshot.docs.filter(doc => {
+                    const data = doc.data();
+                    return (
+                        (data.fname && data.fname.toLowerCase().includes(searchTerm)) ||
+                        (data.lname && data.lname.toLowerCase().includes(searchTerm)) ||
+                        (data.dni && data.dni.toLowerCase().includes(searchTerm)) ||
+                        (data.number && data.number.toLowerCase().includes(searchTerm)) ||
+                        (data.location && data.location.toLowerCase().includes(searchTerm)) ||
+                        (data.nEmergencia && data.nEmergencia.toLowerCase().includes(searchTerm)) ||
+                        (data.provincia && data.provincia.toLowerCase().includes(searchTerm)) ||
+                        (data.edad && data.edad.toLowerCase().includes(searchTerm)) ||
+                        (data.fechaEntrada && data.fechaEntrada.toLowerCase().includes(searchTerm))
+                    );
+                });
+
+                actualizarTabla(filteredData); // Actualiza la tabla con los datos filtrados
+
+            } catch (error) {
+                console.error('Error al filtrar datos:', error);
+            }
+        }
+
+        function actualizarTabla(filteredData) {
+            tableBody.innerHTML = ''; // Limpiar la tabla
+
+            if (filteredData.length === 0) {
+                const noDataMessage = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 8; // Número de columnas en tu tabla
+                cell.textContent = 'No se encontraron registros que coincidan con la búsqueda.';
+                cell.classList.add('text-center'); // Centrar el texto
+                noDataMessage.appendChild(cell);
+                tableBody.appendChild(noDataMessage);
+                return;
+            }
+
+            filteredData.forEach(doc => {
+                const data = doc.data();
+                const { fname, lname, number, dni, location, provincia, fechaEntrada, nEmergencia, edad, cuentaContable } = data;
+
+                const dateParts = fechaEntrada.split('/');
+                const formattedFechaEntrada = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${fname}</td>
+            <td>${lname}</td>
+            <td>${number}</td>
+            <td>${dni}</td>
+            <td>${location}</td>
+            <td>${provincia}</td>
+            <td>${fechaEntrada}</td>
+            <td>
+                <button class="btn btn-primary" onclick="verHistorial('${doc.id}')">Ver historial</button>
+            </td>
+        `;
+
+                row.addEventListener('dblclick', () => {
+                    // Asignar valores del objeto data a los campos del formulario
+                    fnameInpE.value = fname || '';
+                    LnameInpE.value = lname || '';
+                    numberE.value = number || '';
+                    dniE.value = dni || '';
+                    locationE.value = location || '';
+                    provinciaE.value = provincia || '';
+                    fechaEntradaE.value = formattedFechaEntrada || '';
+
+                    // Asegúrate de que estos campos existen en tu formulario
+                    nEmergenciaE.value = nEmergencia || '';
+                    EdadE.value = edad || '';
+                    cuentaContableE.value = cuentaContable || '';
+
+                    EditarFormulario.dataset.docId = doc.id;
+                    toggleFormularioE();
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            actualizarPaginacion(filteredData.length, 1); // Actualizar paginación con los datos filtrados
+        }
+
+
+
+        // Escuchar el evento de entrada en el campo de búsqueda para filtrar los clientes
+        searchInput.addEventListener('input', filterTable)
+
+
+        async function cargarCuentasContables() {
+            const cuentasSelect = document.getElementById('cuentaContable');
+            const cuentasSelectE = document.getElementById('cuentaContableE');
+            const querySnapshot = await getDocs(collection(dba, 'CatalogoCuentas'));
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id;
+                option.textContent = `${data.codigo} - ${data.nombre}`;
+                cuentasSelect.appendChild(option);
+
+                const optionE = document.createElement('option');
+                optionE.value = doc.id;
+                optionE.textContent = `${data.codigo} - ${data.nombre}`;
+                cuentasSelectE.appendChild(optionE);
+
+                data.subcuentas.forEach((subcuenta) => {
+                    const subOption = document.createElement('option');
+                    subOption.value = `${doc.id}_${subcuenta.codigo}`;
+                    subOption.textContent = `  ${subcuenta.codigo} - ${subcuenta.nombre}`;
+                    cuentasSelect.appendChild(subOption);
+
+                    const subOptionE = document.createElement('option');
+                    subOptionE.value = `${doc.id}_${subcuenta.codigo}`;
+                    subOptionE.textContent = `  ${subcuenta.codigo} - ${subcuenta.nombre}`;
+                    cuentasSelectE.appendChild(subOptionE);
+                });
+            });
+        }
+
+        async function asociarCuentaContable(clienteNombre, cuentaId, cuentaAnteriorId = null) {
+            if (cuentaAnteriorId && cuentaAnteriorId !== cuentaId) {
+                // Eliminar el cliente de la cuenta anterior
+                await eliminarClienteDeCuenta(clienteNombre, cuentaAnteriorId);
+            }
+
+            const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId.split('_')[0]);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (cuentaDoc.exists()) {
+                const cuentaData = cuentaDoc.data();
+                const subcuentas = cuentaData.subcuentas;
+                if (cuentaId.includes('_')) {
+                    const subcuentaCodigo = cuentaId.split('_')[1];
+                    const subcuenta = subcuentas.find(sub => sub.codigo === subcuentaCodigo);
+                    if (subcuenta) {
+                        if (!subcuenta.clientes) {
+                            subcuenta.clientes = [];
+                        }
+                        subcuenta.clientes = subcuenta.clientes.filter(c => c !== clienteNombre);
+                        subcuenta.clientes.push(clienteNombre);
+                    }
+                } else {
+                    if (!cuentaData.clientes) {
+                        cuentaData.clientes = [];
+                    }
+                    cuentaData.clientes = cuentaData.clientes.filter(c => c !== clienteNombre);
+                    cuentaData.clientes.push(clienteNombre);
+                }
+                await updateDoc(cuentaRef, cuentaData);
+            }
+        }
+
+        async function eliminarClienteDeCuenta(clienteNombre, cuentaId) {
+            const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId.split('_')[0]);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (cuentaDoc.exists()) {
+                const cuentaData = cuentaDoc.data();
+                const subcuentas = cuentaData.subcuentas;
+                if (cuentaId.includes('_')) {
+                    const subcuentaCodigo = cuentaId.split('_')[1];
+                    const subcuenta = subcuentas.find(sub => sub.codigo === subcuentaCodigo);
+                    if (subcuenta) {
+                        subcuenta.clientes = subcuenta.clientes.filter(c => c !== clienteNombre);
+                    }
+                } else {
+                    cuentaData.clientes = cuentaData.clientes.filter(c => c !== clienteNombre);
+                }
+                await updateDoc(cuentaRef, cuentaData);
+            }
+        }
+
+
+
+        window.addEventListener('DOMContentLoaded', cargarCuentasContables);
+
+        form.addEventListener('submit', async (event) => {
+            // Prevenir el comportamiento predeterminado del formulario
+            event.preventDefault();
+            function formatDateToSpanish(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getUTCDate()).padStart(2, '0');
+                const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                const year = date.getUTCFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            // Obtener los valores de los campos del formulario
+            const fname = document.getElementById('fnameInp').value;
+            const lname = document.getElementById('lnameInp').value;
+            const dni = document.getElementById('dni').value;
+            const number = document.getElementById('number').value;
+            const location = document.getElementById('location').value;
+            const nEmergencia = document.getElementById('nEmergencia').value;
+            const Provincia = document.getElementById('provincia').value;
+            const Edad = document.getElementById('edad').value;
+            const cuentaContable = document.getElementById('cuentaContable').value;
+            const fechaEntradaValue = (fechaEntrada.value) ? formatDateToSpanish(fechaEntrada.value) : null;
+
+
+            // Verificar que todos los campos obligatorios estén completos
+            if (!fname || !lname || !dni || !number | !location || !fechaEntrada || !nEmergencia || !Provincia || !Edad || !cuentaContable || !fechaEntradaValue) {
+                // Mostrar una alerta si algún campo obligatorio está vacío
+                showAlert('Por favor complete todos los campos obligatorios.', 'alert-warning');
+                return;
+            }
+
+            try {
+                // Guardar los datos del formulario en Firestore
+                await addDoc(collection(getFirestore(), 'clientes'), {
+                    fname: fname,
+                    lname: lname,
+                    dni: dni,
+                    number: number,
+                    location: location,
+                    nEmergencia: nEmergencia,
+                    provincia: Provincia,
+                    edad: Edad,
+                    fechaEntrada: fechaEntradaValue
+
+                });
+
+                await asociarCuentaContable(`${fname} ${lname}`, cuentaContable);
+
+                // Mostrar una alerta de éxito
+                showSuccessAlert('Datos del paciente registrados correctamente.', 'alert-success');
+
+                // Restablecer el formulario después de enviar los datos
+                form.reset();
+            } catch (error) {
+                // Mostrar una alerta si ocurre un error al guardar los datos
+                console.error('Error al guardar los datos:', error);
+                showAlert('Se produjo un error al guardar los datos. Inténtelo de nuevo más tarde.', 'alert-danger');
+            }
+        });
+
+        const tableBody = document.querySelector('tbody');
+        const pageSize = 10; // Número de clientes por página
+        let currentPage = 1; // Página actual
+
+        async function loadPacientes(page = 1) {
+            tableBody.innerHTML = '';
+
+            const pacientesRef = collection(getFirestore(), 'clientes');
+            const pacientesSnapshot = await getDocs(pacientesRef);
+
+            if (pacientesSnapshot.empty) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 8; // Actualiza el número de columnas si es necesario
+                cell.textContent = 'No hay clientes registrados';
+                cell.classList.add('text-center');
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+                return;
+            }
+
+            const totalDocs = pacientesSnapshot.docs.length;
+            const totalPages = Math.ceil(totalDocs / pageSize);
+            const startIndex = (page - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, totalDocs);
+
+            const docsToShow = pacientesSnapshot.docs.slice(startIndex, endIndex);
+
+            docsToShow.forEach((doc) => {
+                const pacienteData = doc.data();
+                const { fname, lname, number, dni, fechaEntrada, location, provincia, nEmergencia, edad, cuentaContable } = pacienteData;
+
+                const dateParts = fechaEntrada.split('/');
+                const formattedFechaEntrada = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${fname}</td>
+            <td>${lname}</td>
+            <td>${number}</td>
+            <td>${dni}</td>
+            <td>${location}</td>
+            <td>${provincia}</td>
+            <td>${fechaEntrada}</td>
+            <td>
+                <button class="btn btn-primary" onclick="verHistorial('${doc.id}')">Ver historial</button>
+            </td>
+        `;
+
+                row.addEventListener('dblclick', () => {
+                    // Asignar valores del objeto pacienteData a los campos del formulario
+                    fnameInpE.value = fname || '';
+                    LnameInpE.value = lname || '';
+                    numberE.value = number || '';
+                    dniE.value = dni || '';
+                    locationE.value = location || '';
+                    nEmergenciaE.value = nEmergencia || '';  // Asegúrate de que nEmergencia esté en pacienteData
+                    ProvinciaE.value = provincia || '';
+                    EdadE.value = edad || '';  // Asegúrate de que edad esté en pacienteData
+                    cuentaContableE.value = cuentaContable || '';  // Asegúrate de que cuentaContable esté en pacienteData
+                    fechaEntradaE.value = formattedFechaEntrada || '';
+
+                    EditarFormulario.dataset.docId = doc.id;
+                    toggleFormularioE();
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            actualizarPaginacion(totalPages, page);
+        }
+
+
+        function actualizarPaginacion(totalPages, currentPage) {
+            const paginationContainer = document.getElementById('paginationCuentasPorCobrar');
+            paginationContainer.innerHTML = '';
+
+            const prevButton = document.createElement('li');
+            prevButton.classList.add('page-item');
+            if (currentPage === 1) {
+                prevButton.classList.add('disabled');
+            }
+            const prevLink = document.createElement('a');
+            prevLink.classList.add('page-link');
+            prevLink.href = '#';
+            prevLink.textContent = '«';
+            prevLink.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    loadPacientes(currentPage - 1);
+                }
+            });
+            prevButton.appendChild(prevLink);
+            paginationContainer.appendChild(prevButton);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('li');
+                pageButton.classList.add('page-item');
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                const pageLink = document.createElement('a');
+                pageLink.classList.add('page-link');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.addEventListener('click', () => {
+                    loadPacientes(i);
+                });
+                pageButton.appendChild(pageLink);
+                paginationContainer.appendChild(pageButton);
+            }
+
+            const nextButton = document.createElement('li');
+            nextButton.classList.add('page-item');
+            if (currentPage === totalPages) {
+                nextButton.classList.add('disabled');
+            }
+            const nextLink = document.createElement('a');
+            nextLink.classList.add('page-link');
+            nextLink.href = '#';
+            nextLink.textContent = '»';
+            nextLink.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    loadPacientes(currentPage + 1);
+                }
+            });
+            nextButton.appendChild(nextLink);
+            paginationContainer.appendChild(nextButton);
+        }
+
+        // Cargar la primera página al iniciar
+        loadPacientes();
+
+
+
+
+        window.verHistorial = async function (docId) {
+            toggleFormularioH();
+
+            const listaFacturas = document.getElementById('listaFacturas');
+            listaFacturas.innerHTML = '';
+
+            const pacienteFolderRef = storageRef(storage, `recibos/${docId}`);
+            const listaFacturasSnapshot = await listAll(pacienteFolderRef);
+
+            listaFacturasSnapshot.items.forEach(async (itemRef) => {
+                const facturaURL = await getDownloadURL(itemRef);
+                const facturaLink = document.createElement('a');
+                facturaLink.href = facturaURL;
+                facturaLink.textContent = itemRef.name;
+                facturaLink.target = '_blank';
+                const listItem = document.createElement('div');
+                listItem.appendChild(facturaLink);
+                listaFacturas.appendChild(listItem);
+            });
+        }
+
+
+
+        closeHistorialButton.addEventListener('click', function () {
+            toggleFormularioH();
+        });
+
+
+        async function saveChanges() {
+            const docId = EditarFormulario.dataset.docId;
+            const cuentaContableE = document.getElementById('cuentaContableE').value;
+
+            const pacienteRef = doc(dba, 'clientes', docId);
+            const pacienteDoc = await getDoc(pacienteRef);
+            const cuentaContableAnterior = pacienteDoc.exists() ? pacienteDoc.data().cuentaContable : null;
+
+
+            if (!docId) return;
+
+            function formatDateToSpanish(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getUTCDate()).padStart(2, '0');
+                const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                const year = date.getUTCFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            const fechaEntradaValue = (fechaEntradaE.value) ? formatDateToSpanish(fechaEntradaE.value) : null;
+
+            const updatedData = {
+                fname: FnameInpE.value,
+                lname: LnameInpE.value,
+                dni: dniInputE.value,
+                number: numberInputE.value,
+                location: locationInputE.value,
+                nEmergencia: nEmergenciaE.value,
+                provincia: ProvinciaE.value,
+                edad: EdadE.value,
+                cuentaContable: cuentaContableE,
+                fechaEntrada: fechaEntradaValue
+            };
+
+            try {
+                await setDoc(doc(getFirestore(), 'clientes', docId), updatedData);
+                await asociarCuentaContable(`${FnameInpE.value} ${LnameInpE.value}`, cuentaContableE, cuentaContableAnterior);
+                showSuccessAlert('Empleado actualizado correctamente"', 'alert-success');
+                EditarFormulario.style.disinedplay = 'none';
+                loadPacientes();
+            } catch (error) {
+                console.error('Error actualizando documento: ', error);
+            }
+        }
+        formE.addEventListener('submit', function (event) {
+            event.preventDefault();
+            toggleFormularioE();
+            saveChanges();
+        });
+
+        function showAlert(message, alertType) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 class="alert-heading">¡Advertencia!</h4>
+        <p class="mb-0">${message}</p>
+    `;
+
+            const formContainer = document.getElementById('nuevoFormulario');
+            formContainer.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+
+        function showSuccessAlert(message, alertType) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert ${alertType} position-fixed top-50 start-50 translate-middle`;
+            alertBox.style.zIndex = '1050'; // Asegurar que el z-index sea alto para estar encima de otros elementos
+
+            let heading;
+            if (alertType === 'alert-success') {
+                heading = '¡Bien hecho!';
+            } else if (alertType === 'alert-danger') {
+                heading = '¡Advertencia!';
+            } else {
+                heading = '¡Atención!';
+            }
+
+            alertBox.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>${heading}</strong> ${message}
+    `;
+
+            document.body.appendChild(alertBox);
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3000);
+        }
+
+
+        document.getElementById('generatePDFbutton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                const logoImage = new Image();
+                logoImage.src = 'credyfast logo.png';
+
+                logoImage.onload = async () => {
+                    const logoWidth = 30;
+                    const logoHeight = (logoWidth / logoImage.width) * logoImage.height;
+                    const marginRight = 15;
+                    const marginTop = 5;
+                    doc.addImage(logoImage, 'PNG', doc.internal.pageSize.width - logoWidth - marginRight, marginTop, logoWidth, logoHeight);
+
+                    doc.setFontSize(20);
+                    doc.text('Registro de Clientes', 15, 10);
+
+                    const empresaSnapshot = await get(ref(db, 'datos/'));
+                    const empresaData = empresaSnapshot.val();
+
+                    if (empresaData) {
+                        doc.setFontSize(12);
+                        doc.text(`${empresaData.name}`, 15, 20);
+                        doc.text(`Teléfono: ${empresaData.number}`, 15, 25);
+
+                        const location = empresaData.location;
+                        if (location.length > 15) {
+                            const firstLine = location.substring(0, 23);
+                            let secondLine = location.substring(23);
+                            if (secondLine.length > 30) {
+                                const secondLineFirstPart = secondLine.substring(0, 30);
+                                const secondLineSecondPart = secondLine.substring(30);
+                                secondLine = secondLineFirstPart + '\n' + secondLineSecondPart;
+                            }
+                            doc.text(`Dirección: ${firstLine}`, 15, 30);
+                            doc.text(`${secondLine}`, 15, 35);
+                        } else {
+                            doc.text(`Dirección: ${empresaData.location}`, 15, 30);
+                        }
+                    }
+
+                    // Obtener los datos de la colección 'clientes'
+                    const clientesRef = collection(getFirestore(), 'clientes');
+                    const clientesSnapshot = await getDocs(clientesRef);
+
+                    if (clientesSnapshot.empty) {
+                        console.log('No hay clientes encontrados.');
+                        return;
+                    }
+
+                    const tableData = clientesSnapshot.docs.map((doc, index) => {
+                        const data = doc.data();
+                        const { fname, lname, number, dni, location, provincia, fechaEntrada } = data;
+                        return [
+                            (index + 1).toString(), // Numeración
+                            fname || '',
+                            lname || '',
+                            number || '',
+                            dni || '',
+                            location || '',
+                            provincia || '',
+                            fechaEntrada || ''
+                        ];
+                    });
+
+                    // Crear tabla en el PDF
+                    doc.autoTable({
+                        head: [['No.', 'Nombre', 'Apellido', 'Teléfono', 'Cédula', 'Dirección', 'Provincia', 'Fecha de registro']],
+                        body: tableData,
+                        startY: 50
+                    });
+
+                    const pdfBlob = await doc.output('blob');
+                    saveAs(pdfBlob, 'Clientes.pdf');
+                };
+            } catch (error) {
+                console.error('Error al generar el PDF:', error);
+                showAlert('Error al generar el PDF', 'alert-danger');
+            }
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Catálogo de Cuentas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+    <link rel="stylesheet" href="tabler-icons.min.css">
+    <link rel="stylesheet" href="feather.css">
+    <link rel="stylesheet" href="fontawesome.css">
+    <link rel="stylesheet" href="material.css">
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+        }
+
+        .btn-dark-alert {
+            background-color: rgb(243, 191, 22);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-dark-alert:hover {
+            background-color: rgb(197, 165, 20);
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+
+        .subcuenta {
+            padding-left: 20px;
+        }
+
+        .loader {
+            width: 120px;
+            height: 22px;
+            border-radius: 20px;
+            color: #008cff;
+            /* Color azul */
+            border: 2px solid;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loader::before {
+            content: "";
+            position: absolute;
+            margin: 2px;
+            inset: 0 100% 0 0;
+            border-radius: inherit;
+            background: currentColor;
+            animation: l6 2s infinite;
+        }
+
+        @keyframes l6 {
+            100% {
+                inset: 0;
+            }
+        }
+
+        /* Fondo desenfocado */
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            /* Fondo blanco semi-transparente */
+            backdrop-filter: blur(5px);
+            display: none;
+            /* Inicialmente oculto */
+            z-index: 9998;
+            /* Asegurar que esté detrás del loader */
+        }
+
+        #fondoDesenfocado2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        /* Contenedor del loader */
+        #loaderContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            /* Asegurar que esté encima de todo */
+            display: none;
+            /* Inicialmente oculto */
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+</head>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const userCreds = sessionStorage.getItem("user-creds");
+        if (!userCreds && window.location.pathname.includes('catalogo-de-cuentas')) {
+            window.location.href = 'login';
+        }
+
+    });
+</script>
+
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="logo spaceship-modified.png" style="width: 90px; height: 90px; border-radius: 5px;"
+                        alt="...">
+                </a>
+            </div>
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                      </li>
+                      <li class="pc-item">
+                        <a href="info" class="pc-link">
+                          <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                          <span class="pc-mtext">Datos</span>
+                        </a>
+                      </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="pc-header">
+        <div class="header-wrapper">
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="logo spaceship-modified.png"
+                                style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span><i class="ti ti-settings"></i></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="pc-container">
+        <div class="pc-content">
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Catálogo de Cuentas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Catálogo de Cuentas Contables</h5>
+                            <div class="card-header">
+                                <a href="#" class="pc-link" id="nuevo" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Nueva Cuenta</span>
+                                </a>
+                            </div>
+                            <!-- <div class="card-header">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search" placeholder="Buscar" style="flex: 1 0 auto;">
+                                    <button id="generatePDFbutton" type="button" class="btn btn-dark-red fa-solid fa-file-pdf"></button>
+                                </form>
+                            </div> -->
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" style="overflow-x: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Código</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Origen</th>
+                                            <th scope="col">Monto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="catalogoCuentas">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nuevoFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3" id="formularioTitulo">Crear Nueva Cuenta</h3>
+            <form id="MainForm">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="codigoCuenta" placeholder="Código">
+                    <label for="codigoCuenta">*Código</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombreCuenta" placeholder="Nombre">
+                    <label for="nombreCuenta">*Nombre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="origenCuenta" placeholder="Origen de cuenta">
+                    <label for="origenCuenta">*Origen de cuenta</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="montoCuenta" placeholder="Monto">
+                    <label for="montoCuenta">*Monto</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="saveButton">Guardar</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+        <div id="fondoDesenfocado2"></div>
+        <div id="fondoDesenfocado"></div>
+        <div id="loaderContainer">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, deleteDoc, updateDoc, where, documentId } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+        import { getDatabase, set, ref, get, child } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+            authDomain: "the-smoke-spaceship.firebaseapp.com",
+            projectId: "the-smoke-spaceship",
+            storageBucket: "the-smoke-spaceship.appspot.com",
+            messagingSenderId: "395109733647",
+            appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth();
+        const dba = getDatabase();
+
+        let isEditing = false;
+        let currentEditingId = null;
+        let currentEditingSubIndex = null;
+        let isAddingSubcuenta = false;
+
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const empleados = document.getElementById('empleados');
+        document.getElementById('montoCuenta').disabled = true;
+        document.getElementById('montoCuenta').disabled = true;
+
+        function showUserData(userId) {
+            const dbRef = ref(dba);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').classList.add('disabled');
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+
+                        const pacientesLink = document.getElementById('pacientesLink');
+                        pacientesLink.removeAttribute('href');
+                        pacientesLink.style.pointerEvents = 'none';
+                        pacientesLink.style.opacity = '0.5';
+
+                        const productosLink = document.getElementById('productosLink');
+                        productosLink.removeAttribute('href');
+                        productosLink.style.pointerEvents = 'none';
+                        productosLink.style.opacity = '0.5';
+
+                        const suplidorLink = document.getElementById('suplidorLink');
+                        suplidorLink.removeAttribute('href');
+                        suplidorLink.style.pointerEvents = 'none';
+                        suplidorLink.style.opacity = '0.5';
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        function showUserData2(userId) {
+            const dbRef = ref(dba);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Administrador de Almacén') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                        const pacientesLink = document.getElementById('pacientesLink');
+                        pacientesLink.removeAttribute('href');
+                        pacientesLink.style.pointerEvents = 'none';
+                        pacientesLink.style.opacity = '0.5';
+
+                        const facturarLink = document.getElementById('facturarLink');
+                        facturarLink.removeAttribute('href');
+                        facturarLink.style.pointerEvents = 'none';
+                        facturarLink.style.opacity = '0.5';
+
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+                showUserData2(user.uid);
+                // showUserData3(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+
+        SignoutBtn.addEventListener('click', Signout);
+
+        document.getElementById('nuevo').addEventListener('click', () => {
+            abrirFormulario('Crear Nueva Cuenta');
+        });
+
+        document.getElementById('closeButton').addEventListener('click', () => {
+            cerrarFormulario();
+        });
+
+        document.getElementById('MainForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const codigoCuenta = document.getElementById('codigoCuenta').value;
+            const nombreCuenta = document.getElementById('nombreCuenta').value;
+            const origenCuenta = document.getElementById('origenCuenta').value;
+            let montoCuenta = 0; // Establecer monto en 0 para la creación inicial
+            document.getElementById('montoCuenta').disabled = true; // Deshabilitar campo durante la creación
+
+            if (!codigoCuenta || !nombreCuenta || !origenCuenta) {
+                showAlert('Por favor, complete todos los campos.', 'alert-warning');
+                return;
+            }
+
+            try {
+                if (isEditing && !isAddingSubcuenta) {
+                    // Actualizar cuenta existente
+                    if (currentEditingSubIndex === null) {
+                        await updateDoc(doc(db, 'CatalogoCuentas', currentEditingId), {
+                            codigo: codigoCuenta,
+                            nombre: nombreCuenta,
+                            origen: origenCuenta,
+                            monto: parseFloat(montoCuenta)
+                        });
+                        showAlert('Cuenta actualizada exitosamente.', 'alert-success');
+                    } else {
+                        // Actualizar subcuenta existente
+                        const cuentaRef = doc(db, 'CatalogoCuentas', currentEditingId);
+                        const cuentaDoc = await getDoc(cuentaRef);
+
+                        if (cuentaDoc.exists()) {
+                            const cuentaData = cuentaDoc.data();
+                            cuentaData.subcuentas[currentEditingSubIndex] = {
+                                codigo: codigoCuenta,
+                                nombre: nombreCuenta,
+                                origen: origenCuenta,
+                                monto: parseFloat(montoCuenta)
+                            };
+
+                            await updateDoc(cuentaRef, {
+                                subcuentas: cuentaData.subcuentas
+                            });
+
+                            showAlert('Subcuenta actualizada exitosamente.', 'alert-success');
+                        }
+                    }
+                } else if (isAddingSubcuenta) {
+                    // Agregar nueva subcuenta
+                    const cuentaRef = doc(db, 'CatalogoCuentas', currentEditingId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        cuentaData.subcuentas.push({
+                            codigo: codigoCuenta,
+                            nombre: nombreCuenta,
+                            origen: origenCuenta,
+                            monto: 0 // Establecer monto en 0 para la nueva subcuenta
+                        });
+
+                        await updateDoc(cuentaRef, {
+                            subcuentas: cuentaData.subcuentas
+                        });
+
+                        showAlert('Subcuenta agregada exitosamente.', 'alert-success');
+                    }
+                } else {
+                    // Crear nueva cuenta
+                    await addDoc(collection(db, 'CatalogoCuentas'), {
+                        codigo: codigoCuenta,
+                        nombre: nombreCuenta,
+                        origen: origenCuenta,
+                        monto: 0, // Establecer monto en 0 para la nueva cuenta
+                        subcuentas: []
+                    });
+                    showAlert('Cuenta creada exitosamente.', 'alert-success');
+                }
+
+                cerrarFormulario();
+                cargarCatalogoCuentas();
+            } catch (error) {
+                console.error('Error al guardar la cuenta:', error);
+            }
+        });
+
+
+        async function cargarCatalogoCuentas() {
+            const catalogoCuentas = document.getElementById('catalogoCuentas');
+            const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+            const loaderContainer = document.getElementById('loaderContainer');
+
+            catalogoCuentas.innerHTML = '';
+
+            // Mostrar el loader y desenfocar el fondo
+            fondoDesenfocado.style.display = 'block';
+            loaderContainer.style.display = 'block';
+
+            try {
+                const querySnapshot = await getDocs(collection(db, 'CatalogoCuentas'));
+
+                for (const doc of querySnapshot.docs) {
+                    const data = doc.data();
+                    let montoTotal = data.monto; // Usar el monto existente como punto de partida
+
+                    montoTotal = await calcularMontoCuenta(doc.id, data.clientes);
+
+                    const row = document.createElement('tr');
+                    row.ondblclick = () => editarCuenta(doc.id);
+                    row.innerHTML = `
+                <td>${data.codigo}</td>
+                <td>${data.nombre}</td>
+                <td>${data.origen}</td>
+                <td>${montoTotal.toFixed(2)}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick="agregarSubcuenta('${doc.id}')"><i class="ti ti-circle-plus" style="font-size: 1.2rem;"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="eliminarCuenta('${doc.id}')"><i class="ti ti-trash" style="font-size: 1.2rem;"></i></button>
+                </td>
+            `;
+                    catalogoCuentas.appendChild(row);
+
+                    for (const [index, subcuenta] of data.subcuentas.entries()) {
+                        let montoSubcuenta = subcuenta.monto; // Usar el monto existente como punto de partida
+
+                        montoSubcuenta = await calcularMontoCuenta(doc.id, subcuenta.clientes, subcuenta.codigo);
+
+                        const subRow = document.createElement('tr');
+                        subRow.classList.add('subcuenta');
+                        subRow.ondblclick = () => editarSubcuenta(doc.id, index);
+                        subRow.innerHTML = `
+                    <td style="padding-left: 20px;">${subcuenta.codigo}</td>
+                    <td>${subcuenta.nombre}</td>
+                    <td>${subcuenta.origen}</td>
+                    <td>${montoSubcuenta.toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="eliminarSubcuenta('${doc.id}', ${index})"><i class="ti ti-trash" style="font-size: 1.2rem;"></i></button>
+                    </td>
+                `;
+                        catalogoCuentas.appendChild(subRow);
+                    }
+                }
+            } catch (error) {
+                console.error('Error al cargar el catálogo de cuentas:', error);
+            } finally {
+                // Ocultar el loader y restaurar el fondo
+                fondoDesenfocado.style.display = 'none';
+                loaderContainer.style.display = 'none';
+            }
+        }
+
+
+        async function calcularMontoCuenta(cuentaId, subcuentaCodigo = null) {
+            let montoTotal = 0;
+
+            const cuentaRef = doc(db, 'CatalogoCuentas', cuentaId.split('_')[0]);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (!cuentaDoc.exists()) {
+                console.error(`No se encontró la cuenta contable con el ID: ${cuentaId}`);
+                return montoTotal;
+            }
+
+            const cuentaData = cuentaDoc.data();
+            let ventasArray = [];
+
+            // Verificar si estamos trabajando con una subcuenta o una cuenta principal
+            if (subcuentaCodigo) {
+                // Buscar la subcuenta específica
+                const subcuenta = cuentaData.subcuentas.find(sub => sub.codigo === subcuentaCodigo);
+                if (subcuenta && subcuenta.ventas) {
+                    ventasArray = subcuenta.ventas;
+                }
+            } else {
+                // Trabajar con la cuenta principal
+                if (cuentaData.ventas) {
+                    ventasArray = cuentaData.ventas;
+                }
+            }
+
+            // Si hay ventas asociadas, procedemos a buscarlas en la colección de 'ventas'
+            if (ventasArray.length > 0) {
+                const ventasRef = collection(db, 'ventas');
+                const ventasQuery = query(ventasRef, where(documentId(), 'in', ventasArray));
+                const ventasSnapshot = await getDocs(ventasQuery);
+
+                // Sumar el total de cada venta encontrada
+                ventasSnapshot.forEach((ventaDoc) => {
+                    const ventaData = ventaDoc.data();
+                    const totalVenta = parseFloat(ventaData.total);
+
+                    if (!isNaN(totalVenta)) {
+                        montoTotal += totalVenta;
+                    } else {
+                        console.warn(`No se pudo procesar el total de la venta con ID: ${ventaDoc.id}`);
+                    }
+                });
+            } else {
+                console.warn(`No se encontraron ventas asociadas a la cuenta/subcuenta con ID: ${cuentaId}`);
+            }
+
+            // Actualizar el monto total en la cuenta contable o subcuenta
+            if (subcuentaCodigo) {
+                const subcuentaIndex = cuentaData.subcuentas.findIndex(sub => sub.codigo === subcuentaCodigo);
+                if (subcuentaIndex !== -1) {
+                    cuentaData.subcuentas[subcuentaIndex].monto = montoTotal;
+                }
+            } else {
+                cuentaData.monto = montoTotal;
+            }
+
+            await updateDoc(cuentaRef, cuentaData);
+            return montoTotal;
+        }
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await cargarCatalogoCuentas();
+        });
+
+        window.agregarSubcuenta = async function (cuentaId) {
+            abrirFormulario('Agregar Subcuenta');
+            currentEditingId = cuentaId;
+            currentEditingSubIndex = null;
+            isEditing = false;
+            isAddingSubcuenta = true;
+        }
+
+        window.editarCuenta = async function (cuentaId) {
+            const cuentaRef = doc(db, 'CatalogoCuentas', cuentaId);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (cuentaDoc.exists()) {
+                const cuentaData = cuentaDoc.data();
+                abrirFormulario('Editar Cuenta');
+                document.getElementById('codigoCuenta').value = cuentaData.codigo;
+                document.getElementById('nombreCuenta').value = cuentaData.nombre;
+                document.getElementById('origenCuenta').value = cuentaData.origen;
+                document.getElementById('montoCuenta').value = cuentaData.monto;
+                document.getElementById('montoCuenta').disabled = true;
+
+                currentEditingId = cuentaId;
+                currentEditingSubIndex = null;
+                isEditing = true;
+                isAddingSubcuenta = false;
+            }
+        }
+
+        window.editarSubcuenta = async function (cuentaId, subIndex) {
+            const cuentaRef = doc(db, 'CatalogoCuentas', cuentaId);
+            const cuentaDoc = await getDoc(cuentaRef);
+
+            if (cuentaDoc.exists()) {
+                const cuentaData = cuentaDoc.data();
+                const subcuentaData = cuentaData.subcuentas[subIndex];
+                abrirFormulario('Editar Subcuenta');
+                document.getElementById('codigoCuenta').value = subcuentaData.codigo;
+                document.getElementById('nombreCuenta').value = subcuentaData.nombre;
+                document.getElementById('origenCuenta').value = subcuentaData.origen;
+                document.getElementById('montoCuenta').value = subcuentaData.monto;
+                document.getElementById('montoCuenta').disabled = true;
+
+                currentEditingId = cuentaId;
+                currentEditingSubIndex = subIndex;
+                isEditing = true;
+                isAddingSubcuenta = false;
+            }
+        }
+
+        function showAlert(message, alertType, isConfirmation = false, onConfirm = null) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+
+            if (isConfirmation) {
+                alertDiv.innerHTML = `
+                    <h4 class="alert-heading">¡Advertencia!</h4>
+                    <p class="mb-0">${message}</p>
+                    <div class="mt-2 d-flex justify-content-end">
+                        <button type="button" class="btn btn-dark-alert me-2" id="confirmYes">Sí</button>
+                        <button type="button" class="btn btn-dark-alert" id="confirmNo">No</button>
+                    </div>
+                `;
+                document.body.appendChild(alertDiv);
+
+                const confirmYes = document.getElementById('confirmYes');
+                const confirmNo = document.getElementById('confirmNo');
+
+                confirmYes.addEventListener('click', () => {
+                    if (onConfirm) onConfirm();
+                    alertDiv.remove();
+                });
+
+                confirmNo.addEventListener('click', () => {
+                    alertDiv.remove();
+                });
+            } else {
+                alertDiv.innerHTML = `
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <h4 class="alert-heading">¡Advertencia!</h4>
+                    <p class="mb-0">${message}</p>
+                `;
+
+                document.body.appendChild(alertDiv);
+
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 5000);
+            }
+        }
+
+        window.eliminarCuenta = async function (cuentaId) {
+            showAlert('¿Estás seguro de que deseas eliminar esta cuenta?', 'alert-warning', true, async () => {
+                try {
+                    await deleteDoc(doc(db, 'CatalogoCuentas', cuentaId));
+                    showAlert('Cuenta eliminada correctamente', 'alert-success');
+                    cargarCatalogoCuentas();
+                } catch (error) {
+                    console.error('Error al eliminar la cuenta:', error);
+                }
+            });
+        }
+
+        window.eliminarSubcuenta = async function (cuentaId, subIndex) {
+            showAlert('¿Estás seguro de que deseas eliminar esta subcuenta?', 'alert-warning', true, async () => {
+                try {
+                    const cuentaRef = doc(db, 'CatalogoCuentas', cuentaId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        cuentaData.subcuentas.splice(subIndex, 1);
+
+                        await updateDoc(cuentaRef, {
+                            subcuentas: cuentaData.subcuentas
+                        });
+
+                        showAlert('Subcuenta eliminada correctamente', 'alert-success');
+                        cargarCatalogoCuentas();
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar la subcuenta:', error);
+                }
+            });
+        }
+
+
+        function abrirFormulario(titulo) {
+            document.getElementById('formularioTitulo').textContent = titulo;
+            document.getElementById('nuevoFormulario').style.display = 'block';
+            document.getElementById('fondoDesenfocado2').style.display = 'block';
+        }
+
+        function cerrarFormulario() {
+            document.getElementById('nuevoFormulario').style.display = 'none';
+            document.getElementById('fondoDesenfocado2').style.display = 'none';
+            document.getElementById('MainForm').reset();
+            isEditing = false;
+            currentEditingId = null;
+            currentEditingSubIndex = null;
+            isAddingSubcuenta = false;
+        }
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+</body>
+
+</html>

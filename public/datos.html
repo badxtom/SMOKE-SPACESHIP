@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Datos</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Luz Collado" content="codedthemes">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+    </style>
+</head>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const userCreds = sessionStorage.getItem("user-creds");
+        if (!userCreds && window.location.pathname.includes('home')) {
+            window.location.href = 'login';
+        }
+
+    });
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" clasans="b-brd text-primary">
+                    <img src="logo spaceship-modified.png" style="width: 90px; height: 90px; border-radius: 5px;"
+                        alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="logo spaceship-modified.png"
+                                style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item" aria-current="page">Empresa</li>
+                        <li class="breadcrumb-item" aria-current="page">Datos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Datos de la Empresa</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="MainForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="name" placeholder="Nombre">
+                                            <label for="floatingInput">Nombre</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="number" placeholder="Teléfono">
+                                    <label for="floatingInput2">Teléfono</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="location" placeholder="Dirección">
+                                    <label for="floatingInput2">Dirección</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logoInput" class="form-label">Logo</label>
+                                    <input type="file" class="form-control" id="logoInput" accept="image/*">
+                                    <img id="logoPreview" src="" alt="Vista previa del logo"
+                                        style="display: none; margin-top: 10px; max-width: 100px;">
+                                </div>
+
+                                <div class="d-grid mt-4">
+                                    <button type="submit" class="btn btn-dark-blue" id="updateButton">Registrar
+                                        datos</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+            if (!userCreds && window.location.pathname.includes('info')) {
+                window.location.href = 'login';
+            }
+
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+            authDomain: "the-smoke-spaceship.firebaseapp.com",
+            projectId: "the-smoke-spaceship",
+            storageBucket: "the-smoke-spaceship.appspot.com",
+            messagingSenderId: "395109733647",
+            appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+
+
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        function showUserData2(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Administrador de Almacén') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+                showUserData2(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+
+        const logoInput = document.getElementById('logoInput');
+
+        logoInput.addEventListener('change', handleLogoUpload);
+
+        async function handleLogoUpload(event) {
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            try {
+
+                const storage = getStorage(app);
+                const storageDirectoryRef = storageRef(storage, 'logos');
+
+
+                const logoRef = storageRef(storageDirectoryRef, file.name);
+                await uploadBytes(logoRef, file);
+
+
+                const downloadURL = await getDownloadURL(logoRef);
+
+
+                await set(ref(db, 'datos/logoURL'), downloadURL);
+
+
+                const logoPreview = document.getElementById('logoPreview');
+                logoPreview.src = downloadURL;
+                logoPreview.style.display = 'block';
+
+                showSuccessAlert('Logo de la empresa cargado exitosamente');
+            } catch (error) {
+                console.error('Error al cargar el logo de la empresa:', error);
+                showAlert('Error al cargar el logo de la empresa', 'alert-danger');
+            }
+        }
+
+
+        async function registerData() {
+            const name = document.getElementById('name').value.trim();
+            const number = document.getElementById('number').value.trim();
+            const location = document.getElementById('location').value.trim();
+
+            // Verificar si los campos están completos
+            if (name === '' || number === '' || location === '') {
+                showAlert('Por favor, complete todos los campos', 'alert-warning');
+                return;
+            }
+
+            try {
+                // Obtener la URL actual del logo si existe
+                const logoURLSnapshot = await get(ref(db, 'datos/logoURL'));
+                const logoURL = logoURLSnapshot.exists() ? logoURLSnapshot.val() : '';
+
+                // Crear un objeto con los nuevos datos incluyendo la URL del logo
+                const newData = {
+                    name: name,
+                    number: number,
+                    location: location,
+                    logoURL: logoURL // Mantener la URL del logo
+                };
+
+                // Guardar los nuevos datos en la base de datos
+                await set(ref(db, 'datos/'), newData);
+                showSuccessAlert('Datos registrados exitosamente', 'alert-success');
+            } catch (error) {
+                console.error('Error al registrar datos: ', error);
+                showAlert('Error al registrar datos', 'alert-danger');
+            }
+        }
+
+
+        document.getElementById('updateButton').addEventListener('click', (event) => {
+            event.preventDefault();
+            registerData();
+        });
+
+
+
+        const nameInput = document.getElementById('name');
+
+        nameInput.addEventListener('input', () => {
+            let inputValue = nameInput.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            nameInput.value = inputValue;
+        });
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            let inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+
+            const trimmedValue = numericValue.slice(0, 10);
+
+            const formattedValue = trimmedValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
+            input.value = formattedValue;
+        }
+
+
+        const phoneNumberInput = document.getElementById('number');
+        phoneNumberInput.addEventListener('input', validatePhoneNumber);
+
+
+        function loadCompanyData() {
+
+            const dbRef = ref(db);
+            get(child(dbRef, 'datos/')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const companyData = snapshot.val();
+
+                    document.getElementById('name').value = companyData.name || '';
+                    document.getElementById('number').value = companyData.number || '';
+                    document.getElementById('location').value = companyData.location || '';
+
+                    const logoURL = companyData.logoURL || '';
+                    if (logoURL) {
+                        const logoPreview = document.getElementById('logoPreview');
+                        logoPreview.src = logoURL;
+                        logoPreview.style.display = 'block';
+
+                    }
+
+                } else {
+                    console.log('No se encontraron datos de la empresa.');
+                }
+            }).catch((error) => {
+                console.error('Error al cargar los datos de la empresa:', error);
+            });
+
+            const formatToSpanishDate = (dateString) => {
+                const dateParts = dateString.split('/');
+                const day = dateParts[0];
+                const month = dateParts[1];
+                const year = dateParts[2];
+                return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+            };
+
+
+            const userCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+            if (userCreds) {
+                const userId = userCreds.uid;
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        if (userData.roleselect === 'Asistente') {
+
+                            document.getElementById('name').disabled = true;
+                            document.getElementById('number').disabled = true;
+                            document.getElementById('location').disabled = true;
+                            document.getElementById('updateButton').disabled = true;
+                            document.getElementById('logoInput').disabled = true;
+
+                        }
+                    } else {
+                        console.log('No se encontraron datos del usuario.');
+                    }
+                }).catch((error) => {
+                    console.error('Error al verificar el rol del usuario:', error);
+                });
+            }
+
+            if (userCreds) {
+                const userId = userCreds.uid;
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        if (userData.roleselect === 'Administrador de Almacén') {
+
+                            document.getElementById('name').disabled = true;
+                            document.getElementById('number').disabled = true;
+                            document.getElementById('location').disabled = true;
+                            document.getElementById('updateButton').disabled = true;
+                            document.getElementById('logoInput').disabled = true;
+                        }
+                    } else {
+                        console.log('No se encontraron datos del usuario.');
+                    }
+                }).catch((error) => {
+                    console.error('Error al verificar el rol del usuario:', error);
+                });
+            }
+        }
+
+        function loadCompanyDataN() {
+            const desde = document.getElementById('desdeN').value.trim();
+            const hasta = document.getElementById('hastaN').value.trim();
+            const fechaVencimiento = document.getElementById('fechaVencimientoN').value.trim();
+
+            const dbRef = ref(db);
+            get(child(dbRef, 'datos/')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const companyData = snapshot.val();
+
+                    document.getElementById('name').value = companyData.name || '';
+                    document.getElementById('number').value = companyData.number || '';
+                    document.getElementById('location').value = companyData.location || '';
+
+                    const logoURL = companyData.logoURL || '';
+                    if (logoURL) {
+                        const logoPreview = document.getElementById('logoPreview');
+                        logoPreview.src = logoURL;
+                        logoPreview.style.display = 'block';
+                    }
+                } else {
+                    console.log('No se encontraron datos de la empresa.');
+                }
+            }).catch((error) => {
+                console.error('Error al cargar los datos de la empresa:', error);
+            });
+
+            const formatToSpanishDate = (dateString) => {
+                const dateParts = dateString.split('/');
+                const day = dateParts[0];
+                const month = dateParts[1];
+                const year = dateParts[2];
+                return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+            };
+
+        }
+
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCompanyData();
+        });
+
+        MainForm.addEventListener('submit', registerData);
+        SignoutBtn.addEventListener('click', Signout);
+
+        function showAlert(message, alertType) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">¡Advertencia!</h4>
+    <p class="mb-0">${message}</p>
+  `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Bien hecho!</strong> ${message}
+  `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+<!-- [Body] end -->
+
+</html>

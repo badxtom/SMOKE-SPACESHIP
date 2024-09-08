@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Suplidores</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="Luz Collado" content="codedthemes">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+
+        .btn-dark-green {
+            background-color: rgb(12, 97, 9);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-green:hover {
+            background-color: rgb(4, 97, 24);
+
+        }
+
+        .loader {
+            --r1: 154%;
+            --r2: 68.5%;
+            width: 40px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background:
+                radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%),
+                radial-gradient(var(--r1) var(--r2) at bottom, #269af2 79.5%, #0000 80%),
+                radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #269af2 80%),
+                #ccc;
+            background-size: 50.5% 220%;
+            background-position: -100% 0%, 0% 0%, 100% 0%;
+            background-repeat: no-repeat;
+            animation: l9 2s infinite linear;
+        }
+
+        @keyframes l9 {
+            33% {
+                background-position: 0% 33%, 100% 33%, 200% 33%;
+            }
+
+            66% {
+                background-position: -100% 66%, 0% 66%, 100% 66%;
+            }
+
+            100% {
+                background-position: 0% 100%, 100% 100%, 200% 100%;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx-style/0.8.13/xlsx-style.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="Designer (7).jpeg" style="width: 90px; height: 90px; border-radius: 5px;" alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="employees" id="empleados" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-friends"></i></span>
+                            <span class="pc-mtext">Empleados</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="finanzas" class="pc-link disabled" id="finanzas">
+                            <span class="pc-micon"><i class="ti ti-report-money"></i></span>
+                            <span class="pc-mtext">Finanzas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="Designer (7).jpeg" style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Suplidores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Registro de Suplidores</h5>
+                            <div class="card-header">
+                                <a href="#" class="pc-link" id="nuevo" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Nuevo</span>
+                                </a>
+                                <a href="#" class="pc-link" id="cargarFac" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Registrar compra</span>
+                                </a>
+                                <a href="#" class="pc-link" id="cargarFacH" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-history"></i></span>
+                                    <span class="pc-mtext">Historico general</span>
+                                </a>
+                            </div>
+                            <div class="card-header">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar" style="flex: 1 0 auto;">
+                                    <!-- <button class="btn btn-dark-blue my-2 my-sm-0" type="submit">Buscar</button> -->
+                                    <button id="generatePDFbutton" type="button"
+                                        class="btn btn-dark-red fa-solid fa-file-pdf"></button>
+
+                                </form>
+                            </div>
+
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="overflow-x: auto;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">RNC</th>
+                                                <th scope="col">Banco</th>
+                                                <th scope="col">Cuenta de banco</th>
+                                                <th scope="col">Dirección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nuevoFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Registrar Suplidor</h3>
+            <form id="MainForm">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fnameInp" placeholder="Nombre">
+                    <label for="fnameInp">*Nombre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="number" placeholder="Teléfono">
+                    <label for="number">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="rnc" placeholder="RNC">
+                    <label for="rnc">*RNC</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="banco" placeholder="Banco">
+                    <label for="banco">*Banco</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="cuentaBanco" placeholder="Cuenta de banco">
+                    <label for="cuentaBanco">*Cuenta de banco</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="location" placeholder="Dirección">
+                    <label for="location">*Dirección</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="updateButton">Registrar datos</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="EditarFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Editar Suplidor</h3>
+            <form id="MainFormE">
+                <input type="hidden" id="docId">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fnameInpE" placeholder="Nombre">
+                    <label for="fnameInpE">*Nombre</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="numberE" placeholder="Teléfono">
+                    <label for="numberE">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="rncE" placeholder="RNC">
+                    <label for="rncE">*RNC</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="bancoE" placeholder="Banco">
+                    <label for="bancoE">*Banco</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="cuentaBancoE" placeholder="Cuenta de banco">
+                    <label for="cuentaBancoE">*Cuenta de banco</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="locationE" placeholder="Dirección">
+                    <label for="locationE">*Dirección</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="actuaButton">Actualizar</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeEButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="CargarFactura" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Registrar Compra</h3>
+            <form id="FacturaForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="roleSelect" aria-label="Floating label select example">
+                                <option selected>Elige un suplidor</option>
+                            </select>
+                            <label for="roleSelect">*Suplidor</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="rncC" placeholder="RNC">
+                            <label for="rnc">RNC</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="fecha" placeholder="Fecha">
+                            <label for="fecha">Fecha</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="moneda" placeholder="Moneda">
+                            <label for="moneda">Moneda</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="numeroComprobante"
+                                placeholder="Número de comprobante fiscal">
+                            <label for="numeroComprobante">Número de comprobante fiscal</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="tipoGasto" placeholder="Tipo de gasto o costo">
+                            <label for="tipoGasto">Tipo de gasto o costo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label>*ITBIS</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="itbisCheckbox">
+                        <label class="form-check-label" for="itbisCheckbox">ITBIS 18%</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="naCheckbox" checked>
+                        <label class="form-check-label" for="naCheckbox">N/A</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="cuentaSelect" aria-label="Floating label select example">
+                                <option selected>Elige una cuenta</option>
+                            </select>
+                            <label for="cuentaSelect">*Cuenta</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="condicionpago" placeholder="Condición de pago">
+                            <label for="condicionpago">Condición de pago</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="montoFactura" placeholder="Monto en factura">
+                            <label for="montoFactura">Monto en factura</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="montoApagar" placeholder="Monto a pagar">
+                            <label for="montoApagar">Monto a pagar</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="file" class="form-control" id="facturaFile">
+                    <label for="facturaFile">Subir archivo de factura</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="nombreFactura" placeholder="Nombre de la factura">
+                    <label for="nombreFactura">No. Factura</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="subirButton">Registrar datos</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButtonF">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div id="HistorialFacturas" class="formulario-container" style="display: none; width: 60%; margin: 0 auto;">
+            <h3 class="mb-3">Historial de Facturas</h3>
+            <div class="card-header">
+                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                    <input id="searchInput" class="form-control me-sm-2" type="search" placeholder="Buscar"
+                        style="flex: 1 0 auto;">
+                </form>
+            </div>
+            <div id="listaFacturas" class="lista-facturas"></div>
+            <div>
+                <ul class="pagination" id="paginationH">
+                    <li class="page-item" id="previousPageH"><a class="page-link" href="#">&laquo;</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item" id="nextPageH"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+            </div>
+            <div class="d-grid mt-2">
+                <button type="button" class="btn btn-danger" id="closeHistorialButton">Cerrar</button>
+            </div>
+        </div>
+
+        <div id="HistorialFacturasG" class="formulario-container" style="display: none; width: 60%; margin: 0 auto;">
+            <h3 class="mb-3">Historial General de Facturas</h3>
+            <div class="card-header">
+                <form id="MainFormSEG" class="d-flex" style="max-width: 400px;">
+                    <input id="searchInputG" class="form-control me-sm-2" type="search" placeholder="Buscar"
+                        style="flex: 1 0 auto;">
+                    <div class="col-auto">
+                        <button id="generateExcelButtonF" type="button"
+                            class="btn btn-dark-green btn-sm fa-solid fa-file-excel"
+                            style="padding: 10px 20px;"></button>
+                    </div>
+                </form>
+            </div>
+            <div id="listaFacturasG" class="lista-facturas"></div>
+            <div>
+                <ul class="pagination" id="paginationG">
+                    <li class="page-item" id="previousPageG"><a class="page-link" href="#">&laquo;</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item" id="nextPageG"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+            </div>
+            <div class="d-grid mt-2">
+                <button type="button" class="btn btn-danger" id="closeHistorialButtonG">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('suplidores')) {
+                window.location.href = 'login';
+            }
+
+            if (userCreds && window.location.pathname.includes('suplidores')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        if (role === 'Asistente') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCknSaxVHB10B_v-4yD9UtNj1dmZZKVRe4",
+            authDomain: "billing-system-fbfb3.firebaseapp.com",
+            projectId: "billing-system-fbfb3",
+            storageBucket: "billing-system-fbfb3.appspot.com",
+            messagingSenderId: "906484441227",
+            appId: "1:906484441227:web:7b486131ad930a7b03b48e"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const dba = getFirestore();
+        const auth = getAuth();
+        const storage = getStorage(app);
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const CargarFac = document.getElementById('cargarFac');
+        const CargarFacH = document.getElementById('cargarFacH');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+
+        let FnameInp = document.getElementById('fnameInp');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+
+        const Banco = document.getElementById('banco');
+        const cuentaBanco = document.getElementById('cuentaBanco');
+        const BancoE = document.getElementById('bancoE');
+        const cuentaBancoE = document.getElementById('cuentaBancoE');
+        const CargarFactura = document.getElementById('CargarFactura');
+        const closeButtonF = document.getElementById('closeButtonF');
+        const HistorialFacturas = document.getElementById('HistorialFacturas');
+        const HistorialFacturasG = document.getElementById('HistorialFacturasG');
+        const closeHistorialButton = document.getElementById('closeHistorialButton');
+        const closeHistorialButtonG = document.getElementById('closeHistorialButtonG');
+
+        const rncC = document.getElementById('rncC').value;
+
+        function toggleFormulario() {
+            if (nuevoFormulario.style.display === 'none') {
+                nuevoFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                nuevoFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioE() {
+            if (EditarFormulario.style.display === 'none' || EditarFormulario.style.display === '') {
+                EditarFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                EditarFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioF() {
+            if (CargarFactura.style.display === 'none') {
+                CargarFactura.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                CargarFactura.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+        function toggleFormularioH() {
+            const historialContainer = document.getElementById('HistorialFacturas');
+            const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+            if (historialContainer.style.display === 'none' || historialContainer.style.display === '') {
+                historialContainer.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                historialContainer.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioG() {
+            const historialContainerG = document.getElementById('HistorialFacturasG');
+            const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+            if (historialContainerG.style.display === 'none' || historialContainerG.style.display === '') {
+                historialContainerG.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                historialContainerG.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+
+
+        closeButton.addEventListener('click', function () {
+            nuevoFormulario.style.display = 'none';
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInp').value = '';
+            document.getElementById('number').value = '';
+            document.getElementById('rnc').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('banco').value = '';
+            document.getElementById('cuentaBanco').value = '';
+        });
+
+        closeEButton.addEventListener('click', function () {
+            EditarFormulario.style.display = 'none';
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('fnameInpE').value = '';
+            document.getElementById('numberE').value = '';
+            document.getElementById('rncE').value = '';
+            document.getElementById('locationE').value = '';
+            document.getElementById('bancoE').value = '';
+            document.getElementById('cuentaBancoE').value = '';
+        });
+
+        closeButtonF.addEventListener('click', function () {
+            toggleFormularioF();
+            document.getElementById('roleSelect').selectedIndex = 0;
+            document.getElementById('rncC').value = '';
+            document.getElementById('fecha').value = '';
+            document.getElementById('moneda').value = '';
+            document.getElementById('numeroComprobante').value = '';
+            document.getElementById('tipoGasto').value = '';
+            document.getElementById('itbisCheckbox').checked = false;
+            document.getElementById('naCheckbox').checked = true;
+            document.getElementById('cuenta').value = '';
+            document.getElementById('montoFactura').value = '';
+            document.getElementById('facturaFile').value = '';
+            document.getElementById('nombreFactura').value = '';
+        });
+
+        closeHistorialButton.addEventListener('click', function () {
+            toggleFormularioH();
+        });
+
+        closeHistorialButtonG.addEventListener('click', function () {
+            toggleFormularioG();
+        });
+
+
+        document.getElementById('subirButton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            const suplidorSelect = document.getElementById('roleSelect');
+            const suplidor = suplidorSelect.value;
+            const rnc = document.getElementById('rncC').value;
+            const fecha = document.getElementById('fecha').value;
+            const moneda = document.getElementById('moneda').value.trim();
+            const numeroComprobante = document.getElementById('numeroComprobante').value.trim();
+            const tipoGasto = document.getElementById('tipoGasto').value.trim();
+            const itbisCheckbox = document.getElementById('itbisCheckbox').checked;
+            const naCheckbox = document.getElementById('naCheckbox').checked;
+            const montoFactura = parseFloat(document.getElementById('montoFactura').value);
+            const montoApagar = parseFloat(document.getElementById('montoApagar').value);
+            const condicionpago = parseInt(document.getElementById('condicionpago').value, 10);
+            const facturaFile = document.getElementById('facturaFile').files[0];
+            const nombreFactura = document.getElementById('nombreFactura').value.trim();
+
+            const allFieldsFilled = suplidor && rnc && fecha && moneda && numeroComprobante && tipoGasto && !isNaN(montoFactura) && facturaFile && nombreFactura;
+            const itbisChecked = itbisCheckbox || naCheckbox;
+
+            if (!allFieldsFilled || !itbisChecked) {
+                showAlert('Por favor, complete todos los campos.', 'alert-danger');
+                return;
+            }
+
+            const subirButton = document.getElementById('subirButton');
+            const loader = document.createElement('div');
+            loader.classList.add('loader');
+            loader.style.display = 'block';
+            loader.style.margin = '0 auto';
+
+            subirButton.style.display = 'none';
+            subirButton.parentNode.appendChild(loader);
+
+            try {
+                const cuentaSelect = document.getElementById('cuentaSelect').value;
+                const [cuentaId, subcuentaCodigo] = cuentaSelect.split('-');
+                let nombreCuenta = '';
+
+                // Obtener nombre de la cuenta o subcuenta y verificar fondos
+                let cuentaMonto = 0;
+                if (subcuentaCodigo) {
+                    const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        const subcuenta = cuentaData.subcuentas.find(sub => sub.codigo === subcuentaCodigo);
+                        nombreCuenta = subcuenta.nombre;
+                        cuentaMonto = parseFloat(subcuenta.monto);
+                    }
+                } else {
+                    const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        nombreCuenta = cuentaData.nombre;
+                        cuentaMonto = parseFloat(cuentaData.monto);
+                    }
+                }
+
+                // Verificar fondos solo si el monto a pagar es mayor que 0
+                if (montoApagar > cuentaMonto) {
+                    showAlert('No hay suficientes fondos en la cuenta seleccionada.', 'alert-danger');
+                    loader.remove();
+                    subirButton.style.display = 'block';
+                    return;
+                }
+
+                async function obtenerNombreSuplidor(suplidorId) {
+                    try {
+                        const suplidorDoc = await getDoc(doc(dba, 'suplidores', suplidorId));
+                        if (suplidorDoc.exists()) {
+                            return suplidorDoc.data().nombre; // Devuelve el nombre del suplidor
+                        } else {
+                            return 'Desconocido'; // Si no se encuentra el suplidor
+                        }
+                    } catch (error) {
+                        console.error('Error al obtener el nombre del suplidor:', error);
+                        return 'Desconocido';
+                    }
+                }
+
+                const suplidorNombre = await obtenerNombreSuplidor(suplidor);
+
+                // Calcular el estatus y dividir el monto restante
+                let estatus;
+                let pagos = [];
+
+                if (montoFactura !== montoApagar) {
+                    const montoRestante = montoFactura - montoApagar;
+                    const pagoPorCuota = parseFloat((montoRestante / condicionpago).toFixed(2));
+                    estatus = 'Abierta';
+
+                    for (let j = 0; j < condicionpago; j++) {
+                        pagos.push({
+                            numeroPago: j + 1,
+                            monto: pagoPorCuota,
+                            estatus: 'Pendiente'
+                        });
+                    }
+
+                    // Verificar la sumatoria de los pagos
+                    const sumaPagos = pagos.reduce((total, pago) => total + pago.monto, 0);
+                    const diferencia = parseFloat((montoRestante - sumaPagos).toFixed(2));
+
+                    if (diferencia !== 0) {
+                        pagos[0].monto = parseFloat((pagos[0].monto + diferencia).toFixed(2));
+                    }
+                } else {
+                    estatus = 'Cerrada';
+                }
+
+                const formatToSpanishDate = (dateString) => {
+                    const dateParts = dateString.split('-');
+                    return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+                };
+
+                const formattedDate = formatToSpanishDate(fecha);
+
+                // Guardar los datos en Firestore
+                const registroDeCompra = {
+                    suplidor,
+                    suplidorNombre,
+                    rnc,
+                    fecha: formattedDate,
+                    moneda,
+                    numeroComprobante,
+                    tipoGasto,
+                    itbis: itbisCheckbox ? '18%' : naCheckbox ? 'N/A' : '',
+                    montoFactura: `${montoFactura.toFixed(2)} ${moneda}`,
+                    montoApagar: `${montoApagar.toFixed(2)} ${moneda}`,
+                    condicionpago,
+                    nombreFactura,
+                    estatus,
+                    pagos,
+                    cuenta: nombreCuenta
+                };
+
+                const docRef = await addDoc(collection(dba, 'RegistroDeCompras'), registroDeCompra);
+
+                // Actualizar cuenta o subcuenta
+                if (subcuentaCodigo) {
+                    const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        const subcuentaIndex = cuentaData.subcuentas.findIndex(sub => sub.codigo === subcuentaCodigo);
+                        if (subcuentaIndex !== -1) {
+                            if (!cuentaData.subcuentas[subcuentaIndex].compras) {
+                                cuentaData.subcuentas[subcuentaIndex].compras = [];
+                            }
+                            cuentaData.subcuentas[subcuentaIndex].compras.push(docRef.id);
+
+                            await updateDoc(cuentaRef, cuentaData);
+                        }
+                    }
+                } else {
+                    const cuentaRef = doc(dba, 'CatalogoCuentas', cuentaId);
+                    const cuentaDoc = await getDoc(cuentaRef);
+
+                    if (cuentaDoc.exists()) {
+                        const cuentaData = cuentaDoc.data();
+                        if (!cuentaData.compras) {
+                            cuentaData.compras = [];
+                        }
+                        cuentaData.compras.push(docRef.id);
+
+                        await updateDoc(cuentaRef, cuentaData);
+                    }
+                }
+
+                // Subir el archivo solo después de verificar y guardar los datos
+                const suplidorFolderRef = storageRef(storage, `facturasSuplidores/${suplidor}/`);
+                let facturaStorageRef = storageRef(suplidorFolderRef, `${nombreFactura}.pdf`);
+
+                // Verificar si ya existe un archivo con el mismo nombre
+                let i = 1;
+                while (await getDownloadURL(facturaStorageRef).then(() => true).catch(() => false)) {
+                    facturaStorageRef = storageRef(suplidorFolderRef, `${nombreFactura} (${i}).pdf`);
+                    i++;
+                }
+
+                await uploadBytes(facturaStorageRef, facturaFile);
+                registroDeCompra.facturaURL = await getDownloadURL(facturaStorageRef);
+
+                await updateDoc(doc(dba, 'RegistroDeCompras', docRef.id), { facturaURL: registroDeCompra.facturaURL });
+
+                showAlert('Factura subida y datos registrados con éxito.', 'alert-success');
+                resetForm();
+
+            } catch (error) {
+                console.error('Error al subir la factura y registrar los datos:', error);
+                showAlert('Hubo un error al subir la factura y registrar los datos. Inténtelo de nuevo.', 'alert-danger');
+            } finally {
+                loader.remove();
+                subirButton.style.display = 'block';
+                subirButton.disabled = false;
+            }
+        });
+
+
+
+
+        function resetForm() {
+            document.getElementById('roleSelect').selectedIndex = 0;
+            document.getElementById('rncC').value = '';
+            document.getElementById('fecha').value = '';
+            document.getElementById('moneda').value = '';
+            document.getElementById('numeroComprobante').value = '';
+            document.getElementById('tipoGasto').value = '';
+            document.getElementById('itbisCheckbox').checked = false;
+            document.getElementById('naCheckbox').checked = true;
+            document.getElementById('cuentaSelect').selectedIndex = 0;
+            document.getElementById('montoFactura').value = '';
+            document.getElementById('condicionpago').value = '';
+            document.getElementById('facturaFile').value = '';
+            document.getElementById('nombreFactura').value = '';
+            document.getElementById('montoApagar').value = '';
+            loadSuppliers();
+            loadCuentas();
+        }
+
+
+        async function loadCuentas() {
+            const cuentaSelect = document.getElementById('cuentaSelect');
+            cuentaSelect.innerHTML = '<option selected>Elige una cuenta</option>';
+
+            const catalogoCuentasSnapshot = await getDocs(collection(getFirestore(), 'CatalogoCuentas'));
+
+            catalogoCuentasSnapshot.forEach((doc) => {
+                const cuentaData = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id; // Aquí guardamos el ID de la cuenta
+                option.textContent = cuentaData.nombre;
+                cuentaSelect.appendChild(option);
+
+                if (cuentaData.subcuentas) {
+                    cuentaData.subcuentas.forEach(subcuenta => {
+                        const subOption = document.createElement('option');
+                        subOption.value = `${doc.id}-${subcuenta.codigo}`; // Guardamos el ID de la cuenta y el código de la subcuenta
+                        subOption.textContent = `-- ${subcuenta.nombre}`;
+                        cuentaSelect.appendChild(subOption);
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSuppliers().catch(error => console.error('Error al cargar suplidores:', error));
+            loadCuentas().catch(error => console.error('Error al cargar cuentas:', error));
+        });
+
+
+
+        async function loadSuppliers() {
+            const roleSelect = document.getElementById('roleSelect');
+            roleSelect.innerHTML = '<option selected>Elige un suplidor</option>';
+
+
+            const suppliersSnapshot = await getDocs(collection(getFirestore(), 'suplidores'));
+
+
+            suppliersSnapshot.forEach((doc) => {
+                const supplierData = doc.data();
+                const option = document.createElement('option');
+                option.value = doc.id;
+                option.textContent = supplierData.nombre;
+                roleSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('roleSelect').addEventListener('change', async () => {
+            const selectedSupplierId = document.getElementById('roleSelect').value;
+            if (selectedSupplierId !== 'Elige un suplidor') {
+                const docRef = doc(getFirestore(), 'suplidores', selectedSupplierId);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const rncC = document.getElementById('rncC');
+                    if (rncC) { // Verificar si el elemento existe
+                        rncC.value = docSnap.data().rnc;
+                        rncC.disabled = true; // Aquí se deshabilita el campo
+                    } else {
+                        console.log('Elemento rncC no encontrado en el DOM.');
+                    }
+                } else {
+                    console.log('No existe el documento.');
+                }
+            } else {
+                const rncC = document.getElementById('rncC');
+                if (rncC) { // Verificar si el elemento existe
+                    rncC.value = '';
+                    rncC.disabled = false; // Asegúrate de habilitarlo si es necesario
+                } else {
+                    console.log('Elemento rncC no encontrado en el DOM.');
+                }
+            }
+        });
+
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        function showUserData2(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Administrador de Almacén') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+                showUserData2(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        Nuevo.addEventListener('click', toggleFormulario);
+        CargarFac.addEventListener('click', toggleFormularioF);
+        // CargarFacH.addEventListener('click', toggleFormularioG);
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+        const searchInput = document.getElementById('searchInput');
+        const searchInputG = document.getElementById('searchInputG');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+
+        SignoutBtn.addEventListener('click', Signout);
+
+        function registerData() {
+
+            const fname = document.getElementById('fnameInp').value;
+            const number = document.getElementById('number').value;
+            const rnc = document.getElementById('rnc').value;
+            const location = document.getElementById('location').value;
+            const Banco = document.getElementById('banco').value;
+            const cuentaBanco = document.getElementById('cuentaBanco').value;
+
+            if (fname === '' || number === '' || rnc === '' || location === '' || Banco === '' || cuentaBanco === '') {
+                showAlert('Por favor complete todos los campos obligatorios marcados con *.', 'alert-warning');
+                return;
+            }
+
+            const suplidorData = {
+                nombre: fname,
+                telefono: number,
+                rnc: rnc,
+                banco: Banco,
+                cuentaBanco: cuentaBanco,
+                direccion: location
+            };
+
+
+            addDoc(collection(getFirestore(), 'suplidores'), suplidorData)
+                .then((docRef) => {
+                    showAlert('Suplidor registrado!', 'alert-success');
+
+
+                    document.getElementById('MainForm').reset();
+                })
+                .catch((error) => {
+                    console.error('Error al agregar el documento: ', error);
+                    showAlert('Error al registrar el suplidor. Intente nuevamente.', 'alert-danger');
+                });
+        }
+
+
+        document.getElementById('MainForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            registerData();
+        });
+
+        fnameInp.addEventListener('input', () => {
+            let inputValue = fnameInp.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            fnameInp.value = inputValue;
+        });
+
+        fnameInpE.addEventListener('input', () => {
+            let inputValue = fnameInpE.value;
+
+            inputValue = inputValue.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+
+            fnameInpE.value = inputValue;
+        });
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            let inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+
+            const trimmedValue = numericValue.slice(0, 10);
+
+            const formattedValue = trimmedValue.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+
+            input.value = formattedValue;
+        }
+        const number = document.getElementById('number')
+        number.addEventListener('input', validatePhoneNumber);
+
+        const numberE = document.getElementById('numberE')
+        numberE.addEventListener('input', validatePhoneNumber);
+
+        function validateRNC(event) {
+            const input = event.target;
+            let inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+
+            const trimmedValue = numericValue.slice(0, 9);
+
+            inputValue = trimmedValue.replace(/(\d{1})(\d{2})(\d{5})(\d{1})/, '$1-$2-$3-$4');
+
+            input.value = inputValue;
+        }
+
+        const rncInput = document.getElementById('rnc');
+
+        rncInput.addEventListener('input', validateRNC);
+
+        const rncInputE = document.getElementById('rncE');
+
+        rncInputE.addEventListener('input', validateRNC);
+
+        function validateCuentaNumber(event) {
+            const input = event.target;
+            const inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+            const trimmedValue = numericValue.slice(0, 12);
+            input.value = trimmedValue;
+        }
+
+        cuentaBanco.addEventListener('input', validateCuentaNumber);
+        cuentaBancoE.addEventListener('input', validateCuentaNumber);
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().includes(searchTerm)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        // function filterTableG() {
+        //     const searchTerm = searchInputG.value.toLowerCase();
+        //     const rows = listaFacturasG.getElementsByTagName('tr');
+
+        //     for (let i = 0; i < rows.length; i++) {
+        //         const cells = rows[i].getElementsByTagName('td');
+        //         let match = false;
+
+        //         for (let j = 0; j < cells.length; j++) {
+        //             if (cells[j].innerText.toLowerCase().includes(searchTerm)) {
+        //                 match = true;
+        //                 break;
+        //             }
+        //         }
+
+        //         if (match) {
+        //             rows[i].style.display = '';
+        //         } else {
+        //             rows[i].style.display = 'none';
+        //         }
+        //     }
+        // }
+
+        searchInput.addEventListener('input', filterTable);
+        // searchInputG.addEventListener('input', filterTableG);
+
+        const tableBody = document.querySelector('tbody');
+
+        async function loadSuplidores() {
+            tableBody.innerHTML = '';
+
+            const suplidoresSnapshot = await getDocs(collection(getFirestore(), 'suplidores'));
+
+            if (suplidoresSnapshot.empty) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 7; // Asegúrate de que coincida con el número de columnas en tu tabla
+                cell.textContent = 'No hay suplidores registrados';
+                cell.classList.add('text-center'); // Centrar el texto
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+            } else {
+                suplidoresSnapshot.forEach((doc) => {
+                    const suplidorData = doc.data();
+                    const { nombre, telefono, rnc, direccion, banco, cuentaBanco } = suplidorData;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${nombre}</td>
+                <td>${telefono}</td>
+                <td>${rnc}</td>
+                <td>${banco}</td>
+                <td>${cuentaBanco}</td>
+                <td>${direccion}</td>
+                <td>
+                    <button class="btn btn-primary" onclick="verHistorial('${doc.id}')">Ver historial</button>
+                </td>
+            `;
+
+                    row.addEventListener('dblclick', () => {
+                        fnameInpE.value = nombre;
+                        numberE.value = telefono;
+                        rncE.value = rnc;
+                        BancoE.value = banco;
+                        cuentaBancoE.value = cuentaBanco;
+                        locationE.value = direccion;
+
+                        EditarFormulario.dataset.docId = doc.id;
+                        toggleFormularioE();
+                    });
+
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+
+        loadSuplidores();
+
+
+        window.verHistorial = async function (docId) {
+            toggleFormularioH();
+
+            const listaFacturas = document.getElementById('listaFacturas');
+            listaFacturas.innerHTML = '';
+
+            try {
+                const registroDeComprasRef = collection(dba, 'RegistroDeCompras');
+                const querySnapshot = await getDocs(query(registroDeComprasRef, where('suplidor', '==', docId)));
+
+                if (querySnapshot.empty) {
+                    const noDataMessage = document.createElement('p');
+                    noDataMessage.textContent = 'No se encontraron registros de compras para este suplidor.';
+                    listaFacturas.appendChild(noDataMessage);
+                    return;
+                }
+
+                const table = document.createElement('table');
+                table.classList.add('table', 'table-striped');
+
+                // Crear encabezados de tabla
+                const tableHeader = document.createElement('thead');
+                tableHeader.innerHTML = `
+        <tr>
+            <th>Fecha</th>
+            <th>Moneda</th>
+            <th>Número de Comprobante</th>
+            <th>Tipo de Gasto</th>
+            <th>ITBIS</th>
+            <th>Cuenta</th>
+            <th>Monto en Factura</th>
+            <th>No. Factura</th>
+            <th>Factura</th>
+        </tr>
+    `;
+                table.appendChild(tableHeader);
+
+                const tableBody = document.createElement('tbody');
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const { fecha, moneda, numeroComprobante, tipoGasto, itbis, cuenta, montoFactura, nombreFactura, facturaURL } = data;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+            <td>${fecha}</td>
+            <td>${moneda}</td>
+            <td>${numeroComprobante}</td>
+            <td>${tipoGasto}</td>
+            <td>${itbis}</td>
+            <td>${cuenta}</td>
+            <td>${montoFactura}</td>
+            <td>${nombreFactura}</td>
+            <td><a href="${facturaURL}" target="_blank">Ver factura</a></td>
+        `;
+
+                    tableBody.appendChild(row);
+                });
+
+                table.appendChild(tableBody);
+                listaFacturas.appendChild(table);
+
+            } catch (error) {
+                console.error('Error al cargar el historial de facturas:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Hubo un error al cargar el historial de facturas. Por favor, inténtelo de nuevo más tarde.';
+                listaFacturas.appendChild(errorMessage);
+            }
+        };
+
+
+        const listaFacturasG = document.getElementById('listaFacturasG');
+
+        async function listarFacturasDeSuplidores(pageSize = 10, page = 1) {
+            const listaFacturas = document.getElementById('listaFacturasG');
+            listaFacturas.innerHTML = '';
+
+            try {
+                const registroDeComprasRef = collection(dba, 'RegistroDeCompras');
+                const snapshot = await getDocs(registroDeComprasRef);
+
+                if (snapshot.empty) {
+                    const noDataMessage = document.createElement('p');
+                    noDataMessage.textContent = 'No se encontraron registros de compras.';
+                    listaFacturas.appendChild(noDataMessage);
+                    return;
+                }
+
+                const totalDocs = snapshot.docs.length;
+                const totalPages = Math.ceil(totalDocs / pageSize);
+                const startIndex = (page - 1) * pageSize;
+                const endIndex = startIndex + pageSize;
+
+                const docsToShow = snapshot.docs.slice(startIndex, endIndex);
+
+                const table = document.createElement('table');
+                table.classList.add('table', 'table-striped');
+
+                // Crear encabezados de tabla
+                const tableHeader = document.createElement('thead');
+                tableHeader.innerHTML = `
+            <tr>
+                <th>Suplidor</th>
+                <th>Fecha</th>
+                <th>Moneda</th>
+                <th>Número de Comprobante</th>
+                <th>Tipo de Gasto</th>
+                <th>ITBIS</th>
+                <th>Cuenta</th>
+                <th>Monto en Factura</th>
+                <th>No. Factura</th>
+                <th>Factura</th>
+                <th>Recibo de Pago</th>
+            </tr>`;
+                table.appendChild(tableHeader);
+
+                const tableBody = document.createElement('tbody');
+
+                // Función para obtener el nombre del suplidor
+                async function obtenerNombreSuplidor(suplidorId) {
+                    try {
+                        const suplidorDoc = await getDoc(doc(dba, 'suplidores', suplidorId));
+                        if (suplidorDoc.exists()) {
+                            return suplidorDoc.data().nombre; // Devuelve el nombre del suplidor
+                        } else {
+                            return 'Desconocido'; // Si no se encuentra el suplidor
+                        }
+                    } catch (error) {
+                        console.error('Error al obtener el nombre del suplidor:', error);
+                        return 'Desconocido';
+                    }
+                }
+
+                // Iterar sobre cada factura y crear filas de tabla
+                await Promise.all(docsToShow.map(async (doc) => {
+                    const data = doc.data();
+                    const { fecha, moneda, numeroComprobante, tipoGasto, itbis, cuenta, montoFactura, nombreFactura, facturaURL, suplidor, suplidorNombre, pagos } = data;
+
+                    let reciboDePago = 'N/A';
+                    if (pagos && pagos.length > 0) {
+                        reciboDePago = pagos.map(pago => pago.reciboURL ? `<a href="${pago.reciboURL}" target="_blank">Ver recibo</a>` : 'Pendiente').join(', ');
+                    }
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${suplidorNombre}</td>
+                <td>${fecha}</td>
+                <td>${moneda}</td>
+                <td>${numeroComprobante}</td>
+                <td>${tipoGasto}</td>
+                <td>${itbis}</td>
+                <td>${cuenta}</td>
+                <td>${montoFactura}</td>
+                <td>${nombreFactura}</td>
+                <td><a href="${facturaURL}" target="_blank">Ver factura</a></td>
+                <td>${reciboDePago}</td>`;
+
+                    tableBody.appendChild(row);
+                }));
+
+                table.appendChild(tableBody);
+                listaFacturas.appendChild(table);
+
+                // Actualizar la paginación
+                actualizarPaginacion(totalPages, page, 'paginationG');
+
+            } catch (error) {
+                console.error('Error al cargar el historial de facturas:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Hubo un error al cargar el historial de facturas. Por favor, inténtelo de nuevo más tarde.';
+                listaFacturas.appendChild(errorMessage);
+            }
+        }
+
+
+        function actualizarPaginacion(totalPages, currentPage, paginationId) {
+            const paginationContainer = document.getElementById(paginationId);
+            paginationContainer.innerHTML = '';
+
+            // Botón anterior
+            const prevButton = document.createElement('li');
+            prevButton.classList.add('page-item', 'prev-button');
+            if (currentPage === 1) {
+                prevButton.classList.add('disabled');
+            }
+            const prevLink = document.createElement('a');
+            prevLink.classList.add('page-link');
+            prevLink.href = '#';
+            prevLink.textContent = '«';
+            prevLink.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    listarFacturasDeSuplidores(8, currentPage - 1);
+                }
+            });
+            prevButton.appendChild(prevLink);
+            paginationContainer.appendChild(prevButton);
+
+            // Números de página
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('li');
+                pageButton.classList.add('page-item');
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                const pageLink = document.createElement('a');
+                pageLink.classList.add('page-link');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.addEventListener('click', () => {
+                    listarFacturasDeSuplidores(8, i);
+                });
+                pageButton.appendChild(pageLink);
+                paginationContainer.appendChild(pageButton);
+            }
+
+            // Botón siguiente
+            const nextButton = document.createElement('li');
+            nextButton.classList.add('page-item', 'next-button');
+            if (currentPage === totalPages) {
+                nextButton.classList.add('disabled');
+            }
+            const nextLink = document.createElement('a');
+            nextLink.classList.add('page-link');
+            nextLink.href = '#';
+            nextLink.textContent = '»';
+            nextLink.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    listarFacturasDeSuplidores(8, currentPage + 1);
+                }
+            });
+            nextButton.appendChild(nextLink);
+            paginationContainer.appendChild(nextButton);
+        }
+
+        async function filterTableG() {
+            const searchTerm = searchInputG.value.toLowerCase();
+
+            try {
+                const registroDeComprasRef = collection(dba, 'RegistroDeCompras');
+                const snapshot = await getDocs(registroDeComprasRef);
+
+                if (snapshot.empty) {
+                    console.log('No hay documentos encontrados.');
+                    return;
+                }
+
+                const filteredData = snapshot.docs.filter(doc => {
+                    const data = doc.data();
+                    for (const key in data) {
+                        if (typeof data[key] === 'string' && data[key].toLowerCase().includes(searchTerm)) {
+                            return true; // Si encuentra una coincidencia en cualquier campo, devolver true
+                        }
+                    }
+                    return false; // Si no se encuentra ninguna coincidencia en ningún campo, devolver false
+                });
+
+                actualizarTabla(filteredData); // Actualiza la tabla con los datos filtrados
+
+            } catch (error) {
+                console.error('Error al filtrar datos:', error);
+            }
+        }
+
+        function actualizarTabla(filteredData) {
+            const listaFacturas = document.getElementById('listaFacturasG');
+            listaFacturas.innerHTML = '';
+
+            if (filteredData.length === 0) {
+                const noDataMessage = document.createElement('p');
+                noDataMessage.textContent = 'No se encontraron registros que coincidan con la búsqueda.';
+                listaFacturas.appendChild(noDataMessage);
+                return;
+            }
+
+            async function obtenerNombreSuplidor(suplidorId) {
+                try {
+                    const suplidorDoc = await getDoc(doc(dba, 'suplidores', suplidorId));
+                    if (suplidorDoc.exists()) {
+                        return suplidorDoc.data().nombre; // Devuelve el nombre del suplidor
+                    } else {
+                        return 'Desconocido'; // Si no se encuentra el suplidor
+                    }
+                } catch (error) {
+                    console.error('Error al obtener el nombre del suplidor:', error);
+                    return 'Desconocido';
+                }
+            }
+
+            const table = document.createElement('table');
+            table.classList.add('table', 'table-striped');
+
+            // Crear encabezados de tabla
+            const tableHeader = document.createElement('thead');
+            tableHeader.innerHTML = `
+        <tr>
+            <th>Suplidor</th>
+            <th>Fecha</th>
+            <th>Moneda</th>
+            <th>Número de Comprobante</th>
+            <th>Tipo de Gasto</th>
+            <th>ITBIS</th>
+            <th>Cuenta</th>
+            <th>Monto en Factura</th>
+            <th>No. Factura</th>
+            <th>Factura</th>
+            <th>Recibo de Pago</th>
+        </tr>`;
+            table.appendChild(tableHeader);
+
+            const tableBody = document.createElement('tbody');
+
+            filteredData.forEach(async doc => {
+                const data = doc.data();
+                const { fecha, moneda, numeroComprobante, tipoGasto, itbis, cuenta, montoFactura, nombreFactura, facturaURL, suplidor, pagos } = data;
+
+                const suplidorNombre = await obtenerNombreSuplidor(suplidor);
+
+                let reciboDePago = 'N/A';
+                if (pagos && pagos.length > 0) {
+                    reciboDePago = pagos.map(pago => pago.reciboURL ? `<a href="${pago.reciboURL}" target="_blank">Ver recibo</a>` : 'Pendiente').join(', ');
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>${suplidorNombre}</td>
+            <td>${fecha}</td>
+            <td>${moneda}</td>
+            <td>${numeroComprobante}</td>
+            <td>${tipoGasto}</td>
+            <td>${itbis}</td>
+            <td>${cuenta}</td>
+            <td>${montoFactura}</td>
+            <td>${nombreFactura}</td>
+            <td><a href="${facturaURL}" target="_blank">Ver factura</a></td>
+            <td>${reciboDePago}</td>`;
+
+                tableBody.appendChild(row);
+            });
+
+            table.appendChild(tableBody);
+            listaFacturas.appendChild(table);
+        }
+
+
+
+        document.getElementById('searchInputG').addEventListener('input', filterTableG);
+
+        // Llamar a la función para cargar el historial al hacer clic en el enlace
+        document.getElementById('cargarFacH').addEventListener('click', async () => {
+            toggleFormularioG(); // Oculta el formulario antes de cargar las facturas
+
+            await listarFacturasDeSuplidores(8, 1); // Llama a la función para cargar las facturas con los parámetros deseados
+        });
+
+
+
+        document.getElementById('generatePDFbutton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+
+                const logoImage = new Image();
+                logoImage.src = 'unoin.png';
+
+                logoImage.onload = async () => {
+
+                    const logoWidth = 20;
+                    const logoHeight = (logoWidth / logoImage.width) * logoImage.height;
+                    const marginRight = 15;
+                    const marginTop = 5;
+                    doc.addImage(logoImage, 'PNG', doc.internal.pageSize.width - logoWidth - marginRight, marginTop, logoWidth, logoHeight);
+
+                    doc.setFontSize(20);
+                    doc.text('Registro de Suplidores', 15, 10);
+
+                    const empresaSnapshot = await get(ref(db, 'datos/'));
+                    const empresaData = empresaSnapshot.val();
+
+                    if (empresaData) {
+                        doc.setFontSize(12);
+                        doc.text(`${empresaData.name}`, 15, 20);
+                        doc.text(`RNC: ${empresaData.rnc}`, 15, 25);
+                        doc.text(`Teléfono: ${empresaData.number}`, 15, 30);
+
+
+                        const location = empresaData.location;
+                        if (location.length > 15) {
+                            const firstLine = location.substring(0, 23);
+                            let secondLine = location.substring(23);
+                            if (secondLine.length > 35) {
+                                const secondLineFirstPart = secondLine.substring(0, 35);
+                                const secondLineSecondPart = secondLine.substring(35);
+                                secondLine = secondLineFirstPart + '\n' + secondLineSecondPart;
+                            }
+                            doc.text(`Dirección: ${firstLine}`, 15, 35);
+                            doc.text(`${secondLine}`, 15, 40);
+                        } else {
+                            doc.text(`Dirección: ${empresaData.location}`, 15, 35);
+                        }
+                    }
+                    doc.autoTable({
+                        head: [['Nombre', 'Teléfono', 'RNC', 'Banco', 'Cuenta de banco', 'Dirección']],
+                        body: Array.from(tableBody.querySelectorAll('tr')).map(row =>
+                            Array.from(row.querySelectorAll('td')).map(cell => cell.innerText)
+                        ),
+                        startY: 50
+                    });
+
+                    const pdfBlob = await doc.output('blob');
+                    saveAs(pdfBlob, 'suplidores.pdf');
+
+                    // doc.save('empleados.pdf');
+                };
+            } catch (error) {
+                console.error('Error al generar el PDF:', error);
+                showAlert('Error al generar el PDF', 'alert-danger');
+            }
+        });
+
+        async function saveChanges() {
+            const docId = EditarFormulario.dataset.docId;
+            if (!docId) return;
+
+            const updatedData = {
+                nombre: fnameInpE.value,
+                telefono: numberE.value,
+                rnc: rncE.value,
+                banco: BancoE.value,
+                cuentaBanco: cuentaBancoE.value,
+                direccion: locationE.value,
+                // Aquí puedes seguir agregando los campos y valores actualizados del suplidor según corresponda
+            };
+
+            try {
+                await setDoc(doc(getFirestore(), 'suplidores', docId), updatedData);
+                showSuccessAlert('Suplidor actualizado correctamente');
+                EditarFormulario.style.display = 'none';
+                loadSuplidores();
+            } catch (error) {
+                console.error('Error actualizando documento: ', error);
+            }
+        }
+
+        formE.addEventListener('submit', function (event) {
+            event.preventDefault();
+            toggleFormularioE();
+            saveChanges();
+        });
+
+        document.getElementById('generateExcelButtonF').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                // Consulta para obtener todas las facturas de la colección RegistroDeCompras
+                const q = collection(dba, "RegistroDeCompras");
+
+                const querySnapshot = await getDocs(q);
+
+                // Crear una nueva instancia de workbook (libro de Excel)
+                const workbook = new ExcelJS.Workbook();
+
+                // Agregar una nueva hoja al libro
+                const worksheet = workbook.addWorksheet('Registro de Compras');
+
+                // Encabezados de la tabla de compras
+                const headers = [
+                    'Fecha',
+                    'Moneda',
+                    'Número de Comprobante',
+                    'Tipo de Gasto',
+                    'ITBIS',
+                    'Cuenta',
+                    'Monto en Factura',
+                    'Monto pagado al momento del registro',
+                    'No. Factura',
+                    'Pagos'
+                ];
+
+                // Agregar encabezados a la hoja de Excel
+                worksheet.addRow(headers);
+
+                // Iterar sobre todas las facturas encontradas
+                for (const doc of querySnapshot.docs) {
+                    const data = doc.data();
+                    const {
+                        fecha,
+                        moneda,
+                        numeroComprobante,
+                        tipoGasto,
+                        itbis,
+                        cuenta,
+                        montoFactura,
+                        montoApagar,
+                        nombreFactura,
+                        pagos // Obtener el array de pagos
+                    } = data;
+                    let pagosInfo = 'N/A'; // Valor por defecto para pagos
+
+                    if (Array.isArray(pagos) && pagos.length > 0) {
+                        pagosInfo = ''; // Reiniciar pagosInfo si hay pagos
+                        pagos.forEach((pago) => {
+                            const pagoTotal = pago.monto || 0;
+                            const fechaPago = pago.fechapago || 'Pendiente';
+                            pagosInfo += `Pago ${pago.numeroPago} (Fecha: ${fechaPago}): $${pagoTotal}, `;
+                        });
+                        pagosInfo = pagosInfo.slice(0, -2); // Eliminar la última coma y espacio
+                    }
+
+                    // Agregar fila a la hoja de Excel
+                    worksheet.addRow([
+                        fecha,
+                        moneda,
+                        numeroComprobante ? numeroComprobante : 'N/A',
+                        tipoGasto,
+                        itbis,
+                        cuenta,
+                        montoFactura,
+                        montoApagar,
+                        nombreFactura,
+                        pagosInfo
+                    ]);
+                }
+
+                // Establecer estilos para el encabezado
+                const headerRow = worksheet.getRow(1);
+                headerRow.eachCell((cell) => {
+                    cell.font = { bold: true };
+                    cell.alignment = { vertical: 'middle', horizontal: 'center' };
+                    cell.border = { top: { style: 'thin' }, bottom: { style: 'thin' } };
+                    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '0074D9' } };
+                });
+
+                // Ajustar el ancho de las columnas automáticamente
+                worksheet.columns.forEach((column) => {
+                    let maxLength = 0;
+                    column.eachCell({ includeEmpty: true }, (cell) => {
+                        const cellValue = cell.value ? cell.value.toString() : '';
+                        maxLength = Math.max(maxLength, cellValue.length);
+                    });
+                    column.width = maxLength + 2;
+                });
+
+                // Guardar el archivo Excel
+                const buffer = await workbook.xlsx.writeBuffer();
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+                // Descargar el archivo Excel
+                saveAs(blob, 'RegistroDeCompras.xlsx');
+
+            } catch (error) {
+                console.error('Error al generar el archivo de Excel:', error);
+            }
+        });
+
+
+
+
+
+        function showAlert(message, alertType) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert ${alertType} position-fixed top-50 start-50 translate-middle`;
+            alertBox.style.zIndex = '1050'; // Asegurar que el z-index sea alto para estar encima de otros elementos
+
+            let heading;
+            if (alertType === 'alert-success') {
+                heading = '¡Bien hecho!';
+            } else if (alertType === 'alert-danger') {
+                heading = '¡Advertencia!';
+            } else {
+                heading = '¡Atención!';
+            }
+
+            alertBox.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>${heading}</strong> ${message}
+    `;
+
+            document.body.appendChild(alertBox);
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3000);
+        }
+
+
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>¡Bien hecho!</strong> ${message}
+    `;
+
+            const formContainer = document.getElementById('nuevoFormulario');
+            formContainer.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+</body>
+
+
+</html>

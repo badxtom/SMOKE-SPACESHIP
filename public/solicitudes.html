@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Solicitudes</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Luz Collado" content="codedthemes">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        #progress-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            width: 50%;
+            /* Ajusta este valor según tus necesidades */
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="Designer (7).jpeg" style="width: 90px; height: 90px; border-radius: 5px;" alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="employees" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-friends"></i></span>
+                            <span class="pc-mtext">Empleados</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="finanzas" class="pc-link disabled" id="finanzas">
+                            <span class="pc-micon"><i class="ti ti-report-money"></i></span>
+                            <span class="pc-mtext">Finanzas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="Designer (7).jpeg" style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item"><a href="almacen">Almacén</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Solicitudes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Solicitar Salida de Almacén</h5>
+                            <div class="card-header" style="margin-top: 10px;">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px; margin-bottom: 10px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar producto" style="flex: 1 0 auto;">
+                                </form>
+                                <div id="searchResults" class="dropdown-menu" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="desp" placeholder="Descripción">
+                                        <label for="desp">*Descripción</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="disp" placeholder="Disponible">
+                                        <label for="disp">*Disponible</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cantidadFacturar"
+                                            placeholder="Cantidad a facturar">
+                                        <label for="cantidadFacturar">*Cantidad a solicitar</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="addToListButton" type="button" class="btn btn-success">Agregar a la
+                                lista</button>
+                            <hr>
+                            <div class="table-responsive">
+                                <table id="facturaTable" class="table" style="overflow-x: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="facturaTableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button id="solicitarAlmacen" type="button" class="btn btn-primary mt-3">Solicitar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('solicitudes')) {
+                window.location.href = 'login';
+                return; // Agrega return para detener la ejecución
+            }
+
+            if (userCreds && window.location.pathname.includes('solicitudes')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        // if (role === 'Administrador de Almacén') {
+                        //     window.location.href = 'home';
+                        // } else {
+                        //     // roleElement.textContent = role;
+                        // }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCknSaxVHB10B_v-4yD9UtNj1dmZZKVRe4",
+            authDomain: "billing-system-fbfb3.firebaseapp.com",
+            projectId: "billing-system-fbfb3",
+            storageBucket: "billing-system-fbfb3.appspot.com",
+            messagingSenderId: "906484441227",
+            appId: "1:906484441227:web:7b486131ad930a7b03b48e"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+        const storage = getStorage(app);
+        const dba = getFirestore(app);
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+
+        let FnameInp = document.getElementById('fnameInp');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+
+        const searchPatientInput = document.getElementById('searchPatientInput');
+        const searchPatientResults = document.getElementById('searchPatientResults');
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+        const searchInput = document.getElementById('searchInput');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+        const solicitarAlmacenBtn = document.getElementById('solicitarAlmacen');
+
+
+        const generatePDFButton = document.getElementById('generatePDFButton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+        SignoutBtn.addEventListener('click', Signout);
+
+        function validatePhoneNumber(event) {
+            const input = event.target;
+            const inputValue = input.value;
+
+            const numericValue = inputValue.replace(/\D/g, '');
+            const trimmedValue = numericValue.slice(0, 10);
+            input.value = trimmedValue;
+        }
+
+        cantidadFacturar.addEventListener('input', validatePhoneNumber);
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const db = getFirestore(app);
+
+            const searchInput = document.getElementById('searchInput');
+            const descripcionInput = document.getElementById('desp');
+            const disponibleInput = document.getElementById('disp');
+            const precioInput = document.getElementById('precio');
+            const ITBISInput = document.getElementById('itbis');
+            const cantidadFacturarInput = document.getElementById('cantidadFacturar');
+            const addToListButton = document.getElementById('addToListButton');
+            const facturaTableBody = document.getElementById('facturaTableBody');
+            const searchButton = document.getElementById('searchButton');
+            const searchResults = document.getElementById('searchResults');
+            const totalLabel = document.getElementById('totalLabel');
+
+            descripcionInput.disabled = true;
+            disponibleInput.disabled = true;
+
+            let productos = [];
+
+
+
+            function updateDropdown(query, resultsElement, items, isProduct, callback) {
+                resultsElement.innerHTML = '';
+                resultsElement.style.display = 'none';
+
+                items.forEach(item => {
+                    const searchField = isProduct ? item.descripcion : `${item.fname} ${item.lname}`; // Usar 'descripcion' para productos y 'fname lname' para pacientes
+                    if (searchField.toLowerCase().includes(query.toLowerCase())) {
+                        const dropdownItem = document.createElement('button');
+                        dropdownItem.classList.add('dropdown-item');
+                        dropdownItem.type = 'button';
+                        dropdownItem.textContent = searchField;
+                        dropdownItem.addEventListener('click', function () {
+                            callback(item);
+                            resultsElement.style.display = 'none';
+                        });
+                        resultsElement.appendChild(dropdownItem);
+                        resultsElement.style.display = 'block';
+                    }
+                });
+            }
+
+            async function getAllProductos() {
+                const querySnapshot = await getDocs(collection(db, 'productos'));
+                productos = querySnapshot.docs.map(doc => doc.data());
+            }
+
+
+
+            function addToFactura() {
+                const descripcion = descripcionInput.value;
+                const cantidad = parseInt(cantidadFacturarInput.value);
+
+
+                if (!isNaN(cantidad) && cantidad > 0) {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                <td>${descripcion}</td>
+                <td>${cantidad}</td>
+                <td><button class="btn btn-danger btn-sm delete-button">Eliminar</button></td>
+            `;
+
+                    facturaTableBody.appendChild(row);
+
+                    row.querySelector('.delete-button').addEventListener('click', function () {
+                        row.remove();
+                    });
+                } else {
+                    showAlert('Ingrese una cantidad válida.', 'alert-warning');
+                }
+            }
+
+
+
+            searchInput.addEventListener('input', function () {
+                const query = searchInput.value.trim();
+                updateDropdown(query, searchResults, productos, true, function (producto) {
+                    searchInput.value = producto.descripcion;
+                    descripcionInput.value = producto.descripcion;
+                    disponibleInput.value = producto.disponible;
+                    cantidadFacturarInput.value = '';
+                });
+            });
+
+
+
+            document.addEventListener('click', function (event) {
+                if (!searchResults.contains(event.target) && !searchInput.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+
+            addToListButton.addEventListener('click', addToFactura);
+
+            cantidadFacturarInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    addToFactura();
+                }
+            });
+
+
+            getAllProductos();
+
+
+        });
+
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Bien hecho!</strong> ${message}
+  `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+        async function obtenerNumeroFactura() {
+
+            const facturaRef = ref(db, 'numerosFactura/ultimoNumero');
+            const facturaSnapshot = await get(facturaRef);
+            const ultimoNumero = facturaSnapshot.val();
+
+            const nuevoNumero = ultimoNumero + 1;
+
+
+            await set(facturaRef, nuevoNumero);
+
+            return nuevoNumero;
+        }
+
+
+
+        function obtenerFechaActual() {
+            const fecha = new Date();
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const año = fecha.getFullYear();
+            return `${dia}/${mes}/${año}`;
+        }
+
+        function obtenerFechaActualF() {
+            const fecha = new Date();
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const año = fecha.getFullYear();
+            return `${dia}-${mes}-${año}`;
+        }
+
+        function showAlert(message, alertType) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">¡Advertencia!</h4>
+    <p class="mb-0">${message}</p>
+  `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+        function limpiarCampos() {
+            desp.value = '';
+            disp.value = '';
+            cantidadFacturar.value = '';
+            facturaTableBody.innerHTML = '';
+        }
+
+
+        async function guardarSolicitudFirestore() {
+            const auth = getAuth(app);
+            const fechaActual = obtenerFechaActual();
+
+            const rows = facturaTableBody.querySelectorAll('tr');
+
+            if (rows.length === 0) {
+                alert('La tabla está vacía. Por favor, agregue productos antes de enviar la solicitud.');
+                return;
+            }
+
+            try {
+                const user = auth.currentUser;
+                if (user) {
+                    const userId = user.uid;
+                    const userName = user.displayName;
+
+                    // Iterar sobre cada fila de la tabla de productos
+                    for (let row of rows) {
+                        const cells = row.querySelectorAll('td');
+                        const descripcion = cells[0].textContent.trim();
+                        const cantidad = cells[1].textContent.trim();
+
+                        await addDoc(collection(getFirestore(), 'solicitudes'), {
+                            userId: userId,
+                            userName: userName,
+                            fecha: fechaActual,
+                            descripcion: descripcion,
+                            cantidad: cantidad
+                        });
+                    }
+
+                    limpiarCampos();
+                    showSuccessAlert('Solicitud enviada, pendiente de aprobación.', 'alert-success');
+                } else {
+                    console.log('Usuario no autenticado.');
+                }
+            } catch (error) {
+                console.error('Error al guardar la solicitud:', error);
+                alert('Hubo un error al procesar la solicitud. Por favor, inténtelo nuevamente.');
+            }
+        }
+
+
+        solicitarAlmacenBtn.addEventListener('click', () => {
+            guardarSolicitudFirestore();
+        });
+
+
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>

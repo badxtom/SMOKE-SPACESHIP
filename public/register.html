@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>BILLING</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta name="Luz Collado" content="codedthemes">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+    id="main-font-link">
+
+  <link rel="stylesheet" href="tabler-icons.min.css">
+
+  <link rel="stylesheet" href="feather.css">
+
+  <link rel="stylesheet" href="fontawesome.css">
+
+  <link rel="stylesheet" href="material.css">
+
+  <link rel="stylesheet" href="style.css" id="main-style-link">
+  <link rel="stylesheet" href="style-preset.css">
+
+  <style>
+    .text-dark-blue {
+      color: darkblue;
+    }
+
+    .btn-dark-blue {
+      background-color: darkblue;
+      color: white;
+      border: none;
+      transition: background-color 0.3s ease;
+
+    }
+
+    .btn-dark-blue:hover {
+      background-color: navy;
+
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const userCreds = sessionStorage.getItem("user-creds");
+      if (!userCreds && window.location.pathname.includes('register')) {
+        window.location.href = 'login';
+      }
+
+    });
+
+  </script>
+</head>
+
+<body>
+
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="card mt-5">
+          <div class="card-body">
+            <a href="#" class="d-flex justify-content-center mt-3">
+              <img src="logo spaceship-modified.png" style="width: 230px; height: 230px; border-radius: 5px;" alt="...">
+            </a>
+            <div class="row">
+              <div class="d-flex justify-content-center">
+                <div class="auth-header">
+                  <h2 class=" mt-5 text-dark-blue"><b>Registrarse</b></h2>
+                  <p class="f-16 mt-2">Establece tus credenciales a continuación</p>
+                </div>
+              </div>
+            </div>
+            <form id="MainForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="fnameInp" placeholder="Nombre">
+                    <label for="floatingInput">Nombre</label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="lnameInp" placeholder="Apellido">
+                    <label for="floatingInput1">Apellido</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInp" placeholder="Correo Electrónico">
+                <label for="floatingInput2">Correo Electrónico</label>
+              </div>
+              <div class="form-floating mb-3">
+                <select class="form-select" id="roleSelect" aria-label="Floating label select example">
+                  <option selected>Elige una función</option>
+                  <option value="Asistente">Asistente</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Administrador Web">Administrador Web</option>
+                  <option value="Administrador de Almacén">Administrador de Almacén</option>
+                </select>
+                <label for="roleSelect">Función</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="passwordInp" placeholder="Contraseña">
+                <label for="floatingInput3">Contraseña</label>
+              </div>
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-secondary btn-dark-blue">Crear Usuario</button>
+              </div>
+            </form>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+    import { getDatabase, set, ref, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyACeBjm2kFwGO9OeNJNMJ8pQizNtVzV7Dg",
+      authDomain: "the-smoke-spaceship.firebaseapp.com",
+      projectId: "the-smoke-spaceship",
+      storageBucket: "the-smoke-spaceship.appspot.com",
+      messagingSenderId: "395109733647",
+      appId: "1:395109733647:web:ca11be9cd1fe4114e65a7a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase();
+    const auth = getAuth(app);
+
+    let EmailInp = document.getElementById('emailInp');
+    let PassInp = document.getElementById('passwordInp');
+    let FnameInp = document.getElementById('fnameInp');
+    let LnameInp = document.getElementById('lnameInp');
+    let MainForm = document.getElementById('MainForm');
+    let RoleSelect = document.getElementById('roleSelect');
+
+    let CheckCred = () => {
+      if (!sessionStorage.getItem("user-creds"))
+        window.location.href = 'login';
+      else {
+
+      }
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      const userCreds = sessionStorage.getItem("user-creds");
+
+      if (!userCreds && window.location.pathname.includes('register')) {
+        window.location.href = 'login';
+      }
+
+      if (userCreds && window.location.pathname.includes('register')) {
+        const UserCreds = JSON.parse(userCreds);
+        const userId = UserCreds.uid;
+
+        const dbRef = ref(db);
+        get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            const role = userData.roleselect;
+            const roleElement = document.getElementById('role');
+
+            if (role === 'Asistente') {
+              window.location.href = 'home';
+            } else {
+              // roleElement.textContent = role;
+            }
+            if (role === 'Administrador de Almacén') {
+              window.location.href = 'home';
+            } else {
+              // roleElement.textContent = role;
+            }
+          } else {
+            console.log("No data available");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+      }
+    });
+
+
+    let RegisterUser = evt => {
+      evt.preventDefault();
+
+      if (FnameInp.value.trim() === '' || LnameInp.value.trim() === '' || RoleSelect.value.trim() === 'Elige una función') {
+        showAlert('Por favor, complete todos los campos', 'alert-warning');
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
+        .then((credentials) => {
+          set(ref(db, 'UsersAuthList/' + credentials.user.uid), {
+            email: EmailInp.value,
+            firstname: FnameInp.value,
+            lastname: LnameInp.value,
+            roleselect: RoleSelect.value
+          });
+          sessionStorage.setItem("user-info", JSON.stringify({
+            firstname: FnameInp.value,
+            lastname: LnameInp.value
+          }));
+
+          return sendEmailVerification(credentials.user);
+        })
+        .then(() => {
+          showSuccessAlert('Correo enviado, Por favor verifique su correo electrónico"', 'alert-success');
+          window.location.href = 'login';
+        })
+        .catch((error) => {
+          alert(error.message);
+          console.log(error.code);
+          console.log(error.message);
+        });
+    }
+
+    function showAlert(message, alertType) {
+      const alertDiv = document.createElement('div');
+      alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+      alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <h4 class="alert-heading">¡Advertencia!</h4>
+    <p class="mb-0">${message}</p>
+  `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
+    }
+
+    function showSuccessAlert(message) {
+      const alertDiv = document.createElement('div');
+      alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+      alertDiv.innerHTML = `
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>¡Bien hecho!</strong> ${message}
+  `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
+    }
+
+
+    MainForm.addEventListener('submit', RegisterUser);
+  </script>
+
+  <script src="popper.min.js"></script>
+  <script src="simplebar.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="custom-font.js"></script>
+  <script src="pcoded.js"></script>
+  <script src="feather.min.js"></script>
+
+
+
+
+
+  <script>layout_change('light');</script>
+
+
+
+
+  <script>font_change("Roboto");</script>
+
+
+  <script>change_box_container('false');</script>
+
+
+  <script>layout_caption_change('true');</script>
+
+
+
+
+  <script>layout_rtl_change('false');</script>
+
+
+  <script>preset_change("preset-1");</script>
+
+
+</body>
+<!-- [Body] end -->
+
+</html>

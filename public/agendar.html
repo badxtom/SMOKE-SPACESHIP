@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Agendar</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="Luz Collado" content="codedthemes">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+        id="main-font-link">
+
+    <link rel="stylesheet" href="tabler-icons.min.css">
+
+    <link rel="stylesheet" href="feather.css">
+
+    <link rel="stylesheet" href="fontawesome.css">
+
+    <link rel="stylesheet" href="material.css">
+
+    <link rel="stylesheet" href="style.css" id="main-style-link">
+    <link rel="stylesheet" href="style-preset.css">
+
+    <style>
+        .text-dark-blue {
+            color: darkblue;
+        }
+
+        .btn-dark-blue {
+            background-color: darkblue;
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red {
+            background-color: rgb(180, 13, 13);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-red:hover {
+            background-color: rgb(148, 15, 15);
+
+        }
+
+        .btn-dark-blue:hover {
+            background-color: navy;
+
+        }
+
+        .btn-dark-alert {
+            background-color: rgb(243, 191, 22);
+            color: white;
+            border: none;
+            transition: background-color 0.3s ease;
+
+        }
+
+        .btn-dark-alert:hover {
+            background-color: rgb(197, 165, 20);
+
+        }
+
+        .formulario-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 600px;
+
+            max-height: 80%;
+
+            overflow-y: auto;
+
+        }
+
+        #fondoDesenfocado {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+
+        }
+
+        @media only screen and (max-width: 768px) {
+            table {
+                font-size: 0.8em;
+            }
+
+            .form-control {
+                font-size: 0.8em;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            table {
+                font-size: 0.6em;
+            }
+
+            .form-control {
+                font-size: 0.6em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .formulario-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .col-md-6 {
+                width: 100%;
+            }
+
+            .form-floating {
+                width: 100%;
+            }
+
+            .form-check {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-control {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .form-label {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-header form {
+                flex-direction: column;
+            }
+
+            .card-header input[type="search"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .card-header button[type="button"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+            .card-header input[type="search"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .card-header button[type="button"] {
+                font-size: 16px;
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
+</head>
+<script>
+
+</script>
+
+<body data-pc-preset="preset-1" data-pc-sidebar-theme="light" data-pc-sidebar-caption="true" data-pc-direction="ltr"
+    data-pc-theme="light">
+
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+
+    <nav class="pc-sidebar">
+        <div class="navbar-wrapper">
+            <div class="m-header">
+                <a href="home" class="b-brand text-primary">
+                    <img src="Designer (7).jpeg" style="width: 90px; height: 90px; border-radius: 5px;" alt="...">
+                </a>
+            </div>
+
+            <div class="navbar-content">
+                <ul class="pc-navbar">
+                    <li class="pc-item pc-caption">
+                        <label>Dashboard</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="home" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
+                            <span class="pc-mtext">Sistema</span>
+                        </a>
+                    </li>
+                    <li class="pc-item pc-caption">
+                        <label>Empresa</label>
+                        <i class="ti ti-dashboard"></i>
+                    </li>
+                    <li class="pc-item">
+                        <a href="info" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-clipboard-list"></i></span>
+                            <span class="pc-mtext">Datos</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="employees" class="pc-link">
+                            <span class="pc-micon"><i class="ti ti-friends"></i></span>
+                            <span class="pc-mtext">Empleados</span>
+                        </a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="finanzas" class="pc-link disabled" id="finanzas">
+                            <span class="pc-micon"><i class="ti ti-report-money"></i></span>
+                            <span class="pc-mtext">Finanzas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pc-header">
+        <div class="header-wrapper">
+
+            <div class="ms-auto">
+                <ul class="list-unstyled">
+                    <li class="pc-h-item header-mobile-collapse">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="sidebar-hide">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <li class="pc-h-item pc-sidebar-popup">
+                        <a href="#" class="pc-head-link head-link-secondary ms-0" id="mobile-collapse">
+                            <i class="ti ti-menu-2"></i>
+                        </a>
+                    </li>
+                    <!-- <li class="dropdown pc-h-item">
+                        <a class="pc-head-link head-link-secondary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <i class="ti ti-bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <a href="#!" class="link-primary float-end text-decoration-underline">Mark as all
+                                    read</a>
+                                <h5>All Notification <span class="badge bg-warning rounded-pill ms-1">01</span></h5>
+                            </div>
+                            <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative"
+                                style="max-height: calc(100vh - 215px)">
+                                <div class="list-group list-group-flush w-100">
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <div class="user-avtar bg-light-success"><i
+                                                        class="ti ti-building-store"></i></div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">3 min ago</span>
+                                                <h5>Store Verification Done</h5>
+                                                <p class="text-body fs-6">We have successfully received your request.
+                                                </p>
+                                                <div class="badge rounded-pill bg-light-danger">Unread</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0">
+                                                <img src="../assets/images/user/avatar-3.jpg" alt="user-image"
+                                                    class="user-avtar">
+                                            </div>
+                                            <div class="flex-grow-1 ms-1">
+                                                <span class="float-end text-muted">10 min ago</span>
+                                                <h5>Joseph William</h5>
+                                                <p class="text-body fs-6">It is a long established fact that a reader
+                                                    will be distracted </p>
+                                                <div class="badge rounded-pill bg-light-success">Confirmation of Account
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="text-center py-2">
+                                <a href="#!" class="link-primary">Mark as all read</a>
+                            </div>
+                        </div>
+                    </li> -->
+                    <li class="dropdown pc-h-item header-user-profile">
+                        <a class="pc-head-link head-link-primary dropdown-toggle arrow-none me-0"
+                            data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                            aria-expanded="false">
+                            <img src="Designer (7).jpeg" style="width: 50px; height: 50px; border-radius: 50%;" />
+                            <span>
+                                <i class="ti ti-settings"></i>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
+                            <div class="dropdown-header">
+                                <h4>Hola, <span class="small text-muted" id="username"> Name</span></h4>
+                                <p class="text-muted" id="role">Rol</p>
+                                <hr>
+                                <div class="profile-notification-scroll position-relative"
+                                    style="max-height: calc(100vh - 280px)">
+                                    <hr>
+                                    <button id="settingsButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-settings"></i>
+                                        <span>Configuración</span>
+                                    </button>
+                                    <button id="registerButton" type="submit" class="dropdown-item">
+                                        <i class="ti ti-user-plus"></i>
+                                        <span>Registro</span>
+                                    </button>
+                                    <button class="dropdown-item" id="signoutbutton">
+                                        <i class="ti ti-logout"></i>
+                                        <span>Cerrar Sesión</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="pc-container">
+        <div class="pc-content">
+
+            <div class="row">
+                <div class="col">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="home">Sistema</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Citas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Agendar citas</h5>
+                            <div class="card-header">
+                                <a href="#" class="pc-link" id="nuevo" style="margin-right: 10px;">
+                                    <span class="pc-micon"><i class="ti ti-crosshair"></i></span>
+                                    <span class="pc-mtext">Nuevo</span>
+                                </a>
+                            </div>
+                            <div class="card-header">
+                                <form id="MainFormSE" class="d-flex" style="max-width: 400px;">
+                                    <input id="searchInput" class="form-control me-sm-2" type="search"
+                                        placeholder="Buscar" style="flex: 1 0 auto;">
+                                    <!-- <button class="btn btn-dark-blue my-2 my-sm-0" type="submit">Buscar</button> -->
+                                    <button id="generatePDFbutton" type="button"
+                                        class="btn btn-dark-red fa-solid fa-file-pdf"></button>
+
+                                </form>
+                            </div>
+
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="overflow-x: auto;">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Paciente</th>
+                                                <th scope="col">Teléfono</th>
+                                                <th scope="col">Correo Electrónico</th>
+                                                <th scope="col">Doctor</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Hora</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="nuevoFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Programar cita</h3>
+            <form id="MainForm">
+                <div class="row">
+                    <div class="form-floating mb-3">
+                        <input id="searchPatientInput" class="form-control" type="search" placeholder="Buscar paciente">
+                        <label for="floatingInput">*Buscar paciente</label>
+
+                        <div id="searchPatientResults" class="dropdown-menu" style="display: none;"></div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="number" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailInp" placeholder="Correo Electrónico">
+                    <label for="floatingInput2">*Correo Electrónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="searchDoctorInput" placeholder="Buscar médico">
+                    <label for="searchDoctorInput">*Buscar médico</label>
+
+                    <div id="searchDoctorResults" class="dropdown-menu" style="display: none;"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntrada" placeholder="Fecha">
+                    <label for="fechaEntrada">*Fecha</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="time" class="form-control" id="hora" placeholder="Hora">
+                    <label for="hora">*Hora</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="updateButton">Registrar datos</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="EditarFormulario" class="formulario-container" style="display: none;">
+            <h3 class="mb-3">Editar Cita</h3>
+            <form id="MainFormE">
+                <input type="hidden" id="docId">
+                <div class="row">
+                    <div class="form-floating mb-3">
+                        <input id="searchPatientInputE" class="form-control" type="search"
+                            placeholder="Buscar paciente">
+                        <label for="floatingInput">*Buscar paciente</label>
+
+                        <div id="searchPatientResultsE" class="dropdown-menu" style="display: none;"></div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="numberE" placeholder="Teléfono">
+                    <label for="floatingInput">*Teléfono</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="emailInpE" placeholder="Correo Electrónico">
+                    <label for="floatingInput2">*Correo Electrónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="searchDoctorInputE" placeholder="Buscar médico">
+                    <label for="searchDoctorInputE">*Buscar médico</label>
+
+                    <div id="searchDoctorResultsE" class="dropdown-menu" style="display: none;"></div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="date" class="form-control" id="fechaEntradaE" placeholder="Fecha">
+                    <label for="fechaEntradaE">*Fecha</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="time" class="form-control" id="horaE" placeholder="Hora">
+                    <label for="horaE">*Hora</label>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-success" id="actuaButton"> Actualizar</button>
+                </div>
+                <div class="d-grid mt-2">
+                    <button type="button" class="btn btn-danger" id="closeEButton">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
+        <img id="logoPreview" src="" alt="Vista previa del logo"
+            style="display: none; margin-top: 10px; max-width: 100px;">
+    </div>
+    <div id="HistorialFacturas" class="formulario-container" style="display: none;">
+        <h3 class="mb-3">Historial de Facturas</h3>
+        <div id="listaFacturas" class="lista-facturas">
+
+        </div>
+        <div class="d-grid mt-2">
+            <button type="button" class="btn btn-danger" id="closeHistorialButton">Cerrar</button>
+        </div>
+    </div>
+    <div id="fondoDesenfocado"></div>
+    <footer class="pc-footer">
+        <div class="footer-wrapper container-fluid">
+            <div class="row">
+                <div class="col-sm-6 my-1">
+                    <p class="m-0">By: Luz Collado<a target="_blank"></a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script type="module">
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+            if (!userCreds && window.location.pathname.includes('datos')) {
+                window.location.href = 'login';
+            }
+
+        });
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase, set, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, orderBy, addDoc, query, limit, getDocs, getDoc, doc, setDoc, serverTimestamp, deleteDoc, Timestamp, where, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, uploadBytesResumable, listAll, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCknSaxVHB10B_v-4yD9UtNj1dmZZKVRe4",
+            authDomain: "billing-system-fbfb3.firebaseapp.com",
+            projectId: "billing-system-fbfb3",
+            storageBucket: "billing-system-fbfb3.appspot.com",
+            messagingSenderId: "906484441227",
+            appId: "1:906484441227:web:7b486131ad930a7b03b48e"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth();
+        const storage = getStorage(app);
+        const dba = getFirestore(app);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const userCreds = sessionStorage.getItem("user-creds");
+
+            if (!userCreds && window.location.pathname.includes('pacientes')) {
+                window.location.href = 'login';
+                return;
+            }
+
+            if (userCreds && window.location.pathname.includes('pacientes')) {
+                const UserCreds = JSON.parse(userCreds);
+                const userId = UserCreds.uid;
+
+                const dbRef = ref(db);
+                get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const userData = snapshot.val();
+                        const role = userData.roleselect;
+                        const roleElement = document.getElementById('role');
+
+                        if (role === 'Asistente') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                        if (role === 'Administrador de Almacén') {
+                            window.location.href = 'home';
+                        } else {
+                            // roleElement.textContent = role;
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+            }
+        });
+
+
+
+
+        const generatePdfButton = document.getElementById('generatePDFbutton');
+
+        const form = document.getElementById('MainForm');
+        const formE = document.getElementById('MainFormE');
+        const formSE = document.getElementById('MainFormSE');
+
+        const usernameElement = document.getElementById('username');
+        const roleElement = document.getElementById('role');
+        const registerButton = document.getElementById('registerButton');
+        const settingsButton = document.getElementById('settingsButton');
+        const nuevoFormulario = document.getElementById('nuevoFormulario');
+        const Nuevo = document.getElementById('nuevo');
+        const Editar = document.getElementById('editar');
+        const fondoDesenfocado = document.getElementById('fondoDesenfocado');
+        const closeButton = document.getElementById('closeButton');
+
+
+        let FnameInp = document.getElementById('fnameInp');
+        let LnameInp = document.getElementById('lnameInp')
+        const EmailInp = document.getElementById('emailInp');
+        const EmailInpE = document.getElementById('emailInpE');
+        const dniInput = document.getElementById('dni');
+        const numberInput = document.getElementById('number');
+        const locationInput = document.getElementById('location');
+        const searchInputM = document.getElementById('searchInputM');
+        const searchResultsM = document.getElementById('searchResultsM');
+
+        const EditarFormulario = document.getElementById('EditarFormulario');
+        const actuButton = document.getElementById('actuButton');
+        let FnameInpE = document.getElementById('fnameInpE');
+        let LnameInpE = document.getElementById('lnameInpE');
+        const dniInputE = document.getElementById('dniE');
+        const numberInputE = document.getElementById('numberE');
+        const locationInputE = document.getElementById('locationE');
+        const searchInputME = document.getElementById('searchInputME');
+        const searchResultsME = document.getElementById('searchResultsME');
+        const searchPatientInput = document.getElementById('searchPatientInput');
+        const searchPatientResults = document.getElementById('searchPatientResults');
+        const searchDoctorInput = document.getElementById('searchDoctorInput');
+        const searchDoctorResults = document.getElementById('searchDoctorResults');
+        const searchResults = document.getElementById('searchResults');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const db = getFirestore(app);
+
+            const searchPatientInput = document.getElementById('searchPatientInput');
+            const searchDoctorInput = document.getElementById('searchDoctorInput');
+            const searchPatientResults = document.getElementById('searchPatientResults');
+            const searchDoctorResults = document.getElementById('searchDoctorResults');
+            const numberInput = document.getElementById('number');
+            const EmailInp = document.getElementById('emailInp');
+
+            const searchPatientInputE = document.getElementById('searchPatientInputE');
+            const searchDoctorInputE = document.getElementById('searchDoctorInputE');
+            const searchPatientResultsE = document.getElementById('searchPatientResultsE');
+            const searchDoctorResultsE = document.getElementById('searchDoctorResultsE');
+            const numberInputE = document.getElementById('numberE');
+            const EmailInpE = document.getElementById('emailInpE');
+
+            let empleados = [];
+            let pacientes = [];
+
+            function updateDropdown(query, resultsElement, items, isProduct, callback) {
+                resultsElement.innerHTML = '';
+                resultsElement.style.display = 'none';
+
+                items.forEach(item => {
+                    if (isProduct) {
+                        // Para productos, buscar por descripción
+                        const searchField = item.descripcion;
+                        if (searchField.toLowerCase().includes(query.toLowerCase())) {
+                            const dropdownItem = document.createElement('button');
+                            dropdownItem.classList.add('dropdown-item');
+                            dropdownItem.type = 'button';
+                            dropdownItem.textContent = searchField;
+                            dropdownItem.addEventListener('click', function () {
+                                callback(item);
+                                resultsElement.style.display = 'none';
+                            });
+                            resultsElement.appendChild(dropdownItem);
+                            resultsElement.style.display = 'block';
+                        }
+                    } else {
+                        // Para pacientes y médicos, buscar por nombre completo (fname + lname)
+                        const searchField = `${item.fname} ${item.lname}`;
+                        if (searchField.toLowerCase().includes(query.toLowerCase())) {
+                            const dropdownItem = document.createElement('button');
+                            dropdownItem.classList.add('dropdown-item');
+                            dropdownItem.type = 'button';
+                            dropdownItem.textContent = searchField;
+                            dropdownItem.addEventListener('click', function () {
+                                callback(item);
+                                resultsElement.style.display = 'none';
+                            });
+                            resultsElement.appendChild(dropdownItem);
+                            resultsElement.style.display = 'block';
+                        }
+                    }
+                });
+            }
+
+            async function getAllPacientes() {
+                const querySnapshot = await getDocs(collection(db, 'pacientes'));
+                pacientes = querySnapshot.docs.map(doc => doc.data());
+            }
+
+            async function getAllEmpleados() {
+                const querySnapshot = await getDocs(collection(db, 'empleados'));
+                empleados = querySnapshot.docs.filter(doc => doc.data().role === 'Doctor').map(doc => doc.data());
+            }
+
+            searchPatientInput.addEventListener('input', function () {
+                const query = searchPatientInput.value.trim();
+                updateDropdown(query, searchPatientResults, pacientes, false, function (paciente) {
+                    searchPatientInput.value = `${paciente.fname} ${paciente.lname}`;
+                    numberInput.value = paciente.number || '';
+                    EmailInp.value = paciente.email || '';
+                });
+            });
+
+            searchDoctorInput.addEventListener('input', function () {
+                const query = searchDoctorInput.value.trim();
+                updateDropdown(query, searchDoctorResults, empleados, false, function (doctor) {
+                    searchDoctorInput.value = `${doctor.fname} ${doctor.lname}`;
+                    // Puedes también rellenar otros campos con la información del doctor
+                });
+            });
+
+            searchDoctorInputE.addEventListener('input', function () {
+                const query = searchDoctorInputE.value.trim();
+                updateDropdown(query, searchDoctorResultsE, empleados, false, function (doctor) {
+                    searchDoctorInputE.value = `${doctor.fname} ${doctor.lname}`;
+                    // Puedes también rellenar otros campos con la información del doctor
+                });
+            });
+
+            searchPatientInputE.addEventListener('input', function () {
+                const query = searchPatientInputE.value.trim();
+                updateDropdown(query, searchPatientResultsE, pacientes, false, function (paciente) {
+                    searchPatientInputE.value = `${paciente.fname} ${paciente.lname}`;
+                    numberInputE.value = paciente.number || '';
+                    EmailInpE.value = paciente.email || '';
+                });
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!searchPatientResults.contains(event.target) && !searchPatientInput.contains(event.target)) {
+                    searchPatientResults.style.display = 'none';
+                }
+                if (!searchDoctorResults.contains(event.target) && !searchDoctorInput.contains(event.target)) {
+                    searchDoctorResults.style.display = 'none';
+                }
+
+                if (!searchPatientResultsE.contains(event.target) && !searchPatientInput.contains(event.target)) {
+                    searchPatientResultsE.style.display = 'none';
+                }
+                if (!searchDoctorResultsE.contains(event.target) && !searchDoctorInput.contains(event.target)) {
+                    searchDoctorResultsE.style.display = 'none';
+                }
+            });
+
+
+            getAllPacientes();
+            getAllEmpleados();
+        });
+
+
+        let currentUserRole = '';
+
+        function showUserData(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Asistente') {
+                        registerButton.disabled = true;
+                    }
+                    currentUserRole = userData.roleselect;
+                    loadCitas();
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        function showUserData2(userId) {
+            const dbRef = ref(db);
+            get(child(dbRef, `UsersAuthList/${userId}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    usernameElement.textContent = `${userData.firstname} ${userData.lastname}`;
+                    roleElement.textContent = userData.roleselect;
+
+                    if (userData.roleselect === 'Administrador de Almacén') {
+                        registerButton.disabled = true;
+                        document.getElementById('empleados').addEventListener('click', function (event) {
+                            event.preventDefault();
+                        });
+                    }
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showUserData(user.uid);
+                showUserData2(user.uid);
+            } else {
+                console.log("User is not signed in");
+            }
+        });
+
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+        let UserName = JSON.parse(sessionStorage.getItem("username"));
+        let Role = JSON.parse(sessionStorage.getItem("role"));
+        let MainForm = document.getElementById('MainForm');
+        let MainFormE = document.getElementById('MainFormE');
+        let MainFormSE = document.getElementById('MainFormSE');
+
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+
+            window.location.href = 'login';
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds"))
+                window.location.href = 'login';
+            else {
+                UserName.innerText = ` ${UserName.firstname}`
+                Role.innerText = ` ${UserName.roleselect}`
+            }
+        }
+
+        document.getElementById('registerButton').addEventListener('click', () => {
+            window.location.href = 'register';
+        });
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            window.location.href = 'settings';
+        });
+        const HistorialFacturas = document.getElementById('HistorialFacturas');
+        const closeHistorialButton = document.getElementById('closeHistorialButton');
+
+        function toggleFormulario() {
+            if (nuevoFormulario.style.display === 'none') {
+                nuevoFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                nuevoFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        function toggleFormularioE() {
+            if (EditarFormulario.style.display === 'none' || EditarFormulario.style.display === '') {
+                EditarFormulario.style.display = 'block';
+                fondoDesenfocado.style.display = 'block';
+            } else {
+                EditarFormulario.style.display = 'none';
+                fondoDesenfocado.style.display = 'none';
+            }
+        }
+
+        closeButton.addEventListener('click', function () {
+
+            nuevoFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('searchPatientInput').value = '';
+            document.getElementById('searchPatientResults').value = '';
+            document.getElementById('emailInp').value = '';
+            document.getElementById('number').value = '';
+            document.getElementById('searchDoctorInput').value = '';
+            document.getElementById('fechaEntrada').value = '';
+            document.getElementById('searchDoctorResults').value = '';
+            document.getElementById('hora').value = '';
+
+        });
+
+        closeEButton.addEventListener('click', function () {
+
+            EditarFormulario.style.display = 'none';
+
+            fondoDesenfocado.style.display = 'none';
+
+            document.getElementById('searchPatientInputE').value = '';
+            document.getElementById('searchPatientResultsE').value = '';
+            document.getElementById('emailInpE').value = '';
+            document.getElementById('numberE').value = '';
+            document.getElementById('searchDoctorInputE').value = '';
+            document.getElementById('fechaEntradaE').value = '';
+            document.getElementById('searchDoctorResultsE').value = '';
+            document.getElementById('horaE').value = '';
+
+
+        });
+
+
+
+        Nuevo.addEventListener('click', toggleFormulario);
+
+        SignoutBtn.addEventListener('click', Signout);
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let match = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().includes(searchTerm)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    rows[i].style.display = '';
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formatToSpanishDate = (dateString) => {
+                const dateParts = dateString.split('-');
+                return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            };
+
+            const pacienteSeleccionado = searchPatientInput.value;
+            const telefono = numberInput.value;
+            const correoElectronico = EmailInp.value;
+            const doctorSeleccionado = searchDoctorInput.value;
+            const fecha = fechaEntrada.value;
+            const horaCita = hora.value;
+
+            if (!pacienteSeleccionado || !telefono || !correoElectronico || !doctorSeleccionado || !fecha || !horaCita) {
+                alert('Por favor, complete todos los campos obligatorios.');
+                return;
+            }
+            const formattedEntryDate = formatToSpanishDate(fecha);
+            try {
+                await addDoc(collection(dba, 'CitasAgendas'), {
+                    paciente: pacienteSeleccionado,
+                    telefono: telefono,
+                    email: correoElectronico,
+                    doctor: doctorSeleccionado,
+                    fecha: formattedEntryDate,
+                    hora: horaCita
+                });
+
+                showSuccessAlert('Cita registrada correctamente.');
+                form.reset();
+                loadCitas();
+            } catch (error) {
+                console.error('Error al guardar la cita:', error);
+                alert('Se produjo un error al guardar la cita. Inténtelo de nuevo más tarde.');
+            }
+        });
+
+        searchInput.addEventListener('input', filterTable)
+
+        const tableBody = document.querySelector('tbody');
+
+        async function loadCitas() {
+            tableBody.innerHTML = '';
+
+            const citasSnapshot = await getDocs(collection(getFirestore(), 'CitasAgendas'));
+
+            if (citasSnapshot.empty) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 7; // Asegúrate de que coincida con el número de columnas en tu tabla
+                cell.textContent = 'No hay citas registradas';
+                cell.classList.add('text-center'); // Centrar el texto
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+            } else {
+                citasSnapshot.forEach((doc) => {
+                    const citaData = doc.data();
+                    const { paciente, telefono, email, doctor, fechaEntrada, hora } = citaData;
+
+                    const dateParts = fechaEntrada.split('/');
+                    const formattedFechaEntrada = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                <td>${paciente}</td>
+                <td>${telefono}</td>
+                <td>${email}</td>
+                <td>${doctor}</td>
+                <td>${fechaEntrada}</td>
+                <td>${hora}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm delete-btn" data-id="${doc.id}" ${currentUserRole === 'Asistente' ? 'disabled' : ''}>
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            `;
+
+                    row.addEventListener('dblclick', () => {
+                        searchPatientInputE.value = paciente;
+                        numberE.value = telefono;
+                        EmailInpE.value = email;
+                        searchDoctorInputE.value = doctor;
+                        fechaEntradaE.value = formattedFechaEntrada;
+                        horaE.value = hora;
+
+                        EditarFormulario.dataset.docId = doc.id;
+                        toggleFormularioE();
+                    });
+
+                    tableBody.appendChild(row);
+                });
+
+                const deleteButtons = document.querySelectorAll('.delete-btn');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        event.stopPropagation();
+                        const docId = button.dataset.id;
+
+                        showAlert('¿Estás seguro de que deseas eliminar esta cita?', 'alert-warning', true, async () => {
+                            try {
+                                await deleteDoc(doc(getFirestore(), 'CitasAgendas', docId));
+                                showAlert('Cita eliminada correctamente', 'alert-success');
+                                loadCitas();
+                            } catch (error) {
+                                console.error('Error al eliminar la cita:', error);
+                            }
+                        });
+                    });
+                });
+            }
+        }
+
+
+
+        function showAlert(message, alertType, isConfirmation = false, onConfirm = null) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', alertType, 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+
+            if (isConfirmation) {
+                alertDiv.innerHTML = `
+            <h4 class="alert-heading">¡Advertencia!</h4>
+            <p class="mb-0">${message}</p>
+            <div class="mt-2 d-flex justify-content-end">
+                <button type="button" class="btn btn-dark-alert me-2" id="confirmYes">Sí</button>
+                <button type="button" class="btn btn-dark-alert" id="confirmNo">No</button>
+            </div>
+        `;
+                document.body.appendChild(alertDiv);
+
+                const confirmYes = document.getElementById('confirmYes');
+                const confirmNo = document.getElementById('confirmNo');
+
+                confirmYes.addEventListener('click', () => {
+                    if (onConfirm) onConfirm();
+                    alertDiv.remove();
+                });
+
+                confirmNo.addEventListener('click', () => {
+                    alertDiv.remove();
+                });
+            } else {
+                alertDiv.innerHTML = `
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <h4 class="alert-heading">¡Advertencia!</h4>
+            <p class="mb-0">${message}</p>
+        `;
+
+                const formContainer = document.getElementById('nuevoFormulario');
+                formContainer.appendChild(alertDiv);
+
+                setTimeout(() => {
+                    alertDiv.remove();
+                }, 5000);
+            }
+        }
+
+        async function saveChanges() {
+            const docId = EditarFormulario.dataset.docId;
+
+
+            if (!docId) return;
+
+            function formatDateToSpanish(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getUTCDate()).padStart(2, '0');
+                const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+                const year = date.getUTCFullYear();
+                return `${day}/${month}/${year}`;
+            }
+
+            const fechaEntradaValue = (fechaEntradaE.value) ? formatDateToSpanish(fechaEntradaE.value) : null;
+
+            const updatedData = {
+                paciente: searchPatientInputE.value,
+                telefono: numberE.value,
+                email: EmailInpE.value,
+                doctor: searchDoctorInputE.value,
+                fechaEntrada: fechaEntradaValue,
+                hora: horaE.value
+            };
+
+            try {
+                await setDoc(doc(getFirestore(), 'CitasAgendas', docId), updatedData);
+                showSuccessAlert('Cita actualizada correctamente"', 'alert-success');
+                EditarFormulario.style.disinedplay = 'none';
+                loadCitas();
+            } catch (error) {
+                console.error('Error actualizando documento: ', error);
+            }
+        }
+        formE.addEventListener('submit', function (event) {
+            event.preventDefault();
+            toggleFormularioE();
+            saveChanges();
+        });
+
+
+
+
+        function showSuccessAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.classList.add('alert', 'alert-dismissible', 'alert-success', 'position-fixed', 'top-50', 'start-50', 'translate-middle');
+            alertDiv.innerHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>¡Bien hecho!</strong> ${message}
+    `;
+
+            const formContainer = document.getElementById('nuevoFormulario');
+            formContainer.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+
+        searchInput.addEventListener('input', filterTable);
+
+
+
+        document.getElementById('generatePDFbutton').addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+
+                const logoImage = new Image();
+                logoImage.src = 'unoin.png';
+
+                logoImage.onload = async () => {
+
+                    const logoWidth = 20;
+                    const logoHeight = (logoWidth / logoImage.width) * logoImage.height;
+                    const marginRight = 15;
+                    const marginTop = 5;
+                    doc.addImage(logoImage, 'PNG', doc.internal.pageSize.width - logoWidth - marginRight, marginTop, logoWidth, logoHeight);
+
+                    doc.setFontSize(20);
+                    doc.text('Citas agendadas', 15, 10);
+
+                    const empresaSnapshot = await get(ref(db, 'datos/'));
+                    const empresaData = empresaSnapshot.val();
+
+                    if (empresaData) {
+                        doc.setFontSize(12);
+                        doc.text(`${empresaData.name}`, 15, 20);
+                        doc.text(`RNC: ${empresaData.rnc}`, 15, 25);
+                        doc.text(`Teléfono: ${empresaData.number}`, 15, 30);
+
+
+                        const location = empresaData.location;
+                        if (location.length > 15) {
+                            const firstLine = location.substring(0, 23);
+                            let secondLine = location.substring(23);
+                            if (secondLine.length > 35) {
+                                const secondLineFirstPart = secondLine.substring(0, 35);
+                                const secondLineSecondPart = secondLine.substring(35);
+                                secondLine = secondLineFirstPart + '\n' + secondLineSecondPart;
+                            }
+                            doc.text(`Dirección: ${firstLine}`, 15, 35);
+                            doc.text(`${secondLine}`, 15, 40);
+                        } else {
+                            doc.text(`Dirección: ${empresaData.location}`, 15, 35);
+                        }
+                    }
+                    doc.autoTable({
+                        head: [['Paciente', 'Teléfono', 'Correo Electrónico', 'Doctor', 'Fecha', 'Hora']],
+                        body: Array.from(tableBody.querySelectorAll('tr')).map(row =>
+                            Array.from(row.querySelectorAll('td')).map(cell => cell.innerText)
+                        ),
+                        startY: 50
+                    });
+
+                    const pdfBlob = await doc.output('blob');
+                    saveAs(pdfBlob, 'CitasAgendadas.pdf');
+
+                    // doc.save('empleados.pdf');
+                };
+            } catch (error) {
+                console.error('Error al generar el PDF:', error);
+                showAlert('Error al generar el PDF', 'alert-danger');
+            }
+        });
+
+
+
+
+
+
+
+    </script>
+
+    <script src="popper.min.js"></script>
+    <script src="simplebar.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="custom-font.js"></script>
+    <script src="pcoded.js"></script>
+    <script src="feather.min.js"></script>
+
+
+
+
+
+    <script>layout_change('light');</script>
+
+
+
+
+    <script>font_change("Roboto");</script>
+
+
+    <script>change_box_container('false');</script>
+
+
+    <script>layout_caption_change('true');</script>
+
+
+
+
+    <script>layout_rtl_change('false');</script>
+
+
+    <script>preset_change("preset-1");</script>
+
+
+</body>
+
+
+</html>
